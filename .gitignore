@@ -1,33 +1,11 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
-
-*~
-*.sw[mnpcod]
-.tmp
-*.tmp
-*.tmp.*
-UserInterfaceState.xcuserstate
-$RECYCLE.BIN/
-
-*.log
-log.txt
-
-
-/.sourcemaps
-/.versions
-/coverage
-
-# Ionic
-/.ionic
-/www
-/platforms
-/plugins
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/www
 
 # Node
 /node_modules
@@ -41,7 +19,6 @@ yarn-error.log
 .c9/
 *.launch
 .settings/
-*.sublime-project
 *.sublime-workspace
 
 # Visual Studio Code
@@ -52,13 +29,9 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-
 # Miscellaneous
-/.angular
 /.angular/cache
 .sass-cache/
-/.nx
-/.nx/cache
 /connect.lock
 /coverage
 /libpeerconnection.log
@@ -68,3 +41,22 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Angular PWA generated service worker files
+ngsw.json
+ngsw-worker.js
+safety-worker.js
+worker-basic.min.js
+
+# Build output (extra zekerheid)
+dist/
+
+# macOS system files
+.AppleDouble
+.LSOverride
+Icon?
+
+# Windows system files
+ehthumbs.db
+Desktop.ini
+
