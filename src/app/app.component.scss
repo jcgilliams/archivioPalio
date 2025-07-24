@@ -1,0 +1,38 @@
+/* Verberg desktop-menu op mobiel */
+.desktop-menu {
+  display: none;
+}
+
+ion-toolbar {
+  --box-shadow: none;
+  --background: var(--ion-color-primary); 
+  --border-width: 0;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+ion-header {
+  box-shadow: none !important;
+}
+
+@media (min-width: 768px) {
+  .desktop-menu {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    gap: 12px;
+  }
+}
+
+/* Toon hamburger enkel op mobiel */
+.mobile-only {
+  display: inline-flex;
+}
+
+@media (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
+}

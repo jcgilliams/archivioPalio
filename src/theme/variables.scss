@@ -1,2 +1,300 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+:root {
+  
+  /* Kleur 1 */
+  --ion-color-primary: #D2B385;
+  --ion-color-primary-hover: rgba(250, 220, 100, 0.3);
+
+  /* Kleur 2 */
+  --ion-color-secondary: #625655;
+
+    /* Kleur 3 */
+  --ion-color-tertiary: #8E7160;
+
+  /* Menu, zowel mobile als desktop */
+  ion-menu {
+    ion-item {
+      --color: var(--ion-color-secondary);
+      font-size: larger;
+    }
+  }
+  ion-item.active-link {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  ion-item {
+    --inner-border-width: 0px;
+    --border-width: 0px;
+    --ion-item-border-color: transparent;
+    --background: transparent; /* optioneel: om de achtergrond wit te houden */
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  ion-button {
+    font-size: 16px;
+  }
+  ion-button.active-link {
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--ion-color-secondary);
+  }
+
+  ion-thumbnail img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  ion-list-header {
+    --padding-start: 0px;
+    --inner-padding-end: 0px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  ion-list-header ion-label {
+    margin: 0;
+  }
+
+ ion-accordion-group {
+    margin: 0;
+  }
+
+  ion-accordion {
+    /* Verberg standaard toggle icon */
+    .ion-accordion-toggle-icon {
+      display: none;
+    }
+  }
+
+  /* === ACCORDION HEADER (slot="header") === */
+  ion-accordion ion-item[slot="header"] {
+    font-weight: bold;
+    background: var(--ion-color-tertiary);
+    color: var(--ion-color-primary);
+    position: relative;
+    cursor: default;
+    --padding-start: 16px;
+    --inner-padding-end: 40px;
+
+    /* Hover & Focus blokkeren */
+    --background-hover: var(--ion-color-tertiary);
+    --background-focused: var(--ion-color-tertiary);
+    --color: var(--ion-color-primary);
+    --ripple-color: transparent;
+  }
+
+  ion-accordion ion-item[slot="header"]:hover,
+  ion-accordion ion-item[slot="header"]::part(native):hover {
+    background: var(--ion-color-tertiary) !important;
+    color: var(--ion-color-primary) !important;
+  }
+
+  /* === CHEVRON ICON RECHTS === */
+  ion-accordion ion-item[slot="header"] ion-label {
+    margin-right: 24px;
+  }
+
+  ion-accordion ion-item[slot="header"] ion-icon.chevron-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ion-color-primary);
+    font-size: 1.2rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* === CONTENT (PAARDEN) === */
+  ion-accordion div[slot="content"] {
+    padding: 0;
+    margin: 0;
+    background: var(--ion-background-color, #fff);
+    color: var(--ion-color-secondary);
+    border-top: 1px solid var(--ion-color-primary);
+    box-sizing: border-box;
+  }
+
+  ion-accordion div[slot="content"] ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    height: 65px;
+    padding: 0.25rem;
+  }
+
+  ion-accordion div[slot="content"] ion-item:hover {
+    background-color: var(--ion-color-primary-hover) !important;
+  }
+
+  ion-accordion div[slot="content"] ion-thumbnail[slot="start"] {
+    margin-right: 12px;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+  }
+
+  ion-accordion div[slot="content"] ion-thumbnail img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  ion-accordion div[slot="content"] ion-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1.0;
+  }
+
+  ion-searchbar.custom {
+    --color: var(--ion-color-tertiary);
+    --placeholder-color: var(--ion-color-tertiary);
+    --icon-color: var(--ion-color-tertiary);
+    --clear-button-color: var(--ion-color-tertiary);
+    --box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+
+  ion-searchbar.ios.custom {
+    --cancel-button-color: var(--ion-color-primary);
+  }
+
+  .searchbar-wrapper {
+    border: 1px solid var(--ion-color-primary);
+    border-radius: 8px;
+    padding: 2px;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+  }
+
+  .searchbar-wrapper ion-searchbar.custom {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    --background: var(--ion-background-color, #fff);
+
+    /* Verwijder interne marges/padding */
+    margin: 0;
+    padding: 0;
+
+    /* Voeg eventueel ook deze toe om consistent te forceren */
+    --padding-start: 0;
+    --padding-end: 0;
+    --margin-start: 0;
+    --margin-end: 0;
+  }
+
+  .cavallo-name {
+    font-weight: normal;
+    font-size: 15px;
+    color: var(--ion-color-secondary);
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+
+  .cavallo-info {
+    font-size: 11px;
+    margin: 5px 0 0 0;
+    padding: 0;
+    color: var(--ion-color-tertiary) !important;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .chevron-icon {
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: var(--ion-color-secondary);
+  }
+
+  .list-header-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .list-header-title ion-icon {
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: var(--ion-color-secondary);
+  }
+
+  .menu-content {
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+
+  /* Container en segment zorgt voor uitlijning en ruimte */
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    > .segment {
+      flex: 1 1 0;
+      border: 1px solid var(--ion-color-primary);
+      border-radius: 8px;
+      padding: 1rem;
+      min-width: 200px;
+      max-width: 350px;
+      box-sizing: border-box;
+      background: var(--ion-background-color);
+      height: auto;
+    }
+    .segment .section-header {
+      border-bottom: 1px solid var(--ion-color-primary);
+      margin-bottom: 15px;
+    }
+    .segment h2,
+    .segment h3,
+    .segment p {
+      color: var(--ion-color-secondary);
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  /* Mobile: stapel onder elkaar */
+  @media (max-width: 767px) {
+    .container {
+      flex-direction: column;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .container > .segment {
+      max-width: 100%;
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+    ion-menu ion-content ion-item::part(native) {
+      border-bottom: 1px solid rgba(210, 179, 133, 0.5); /* fijne onderlijn */
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+  }
+}

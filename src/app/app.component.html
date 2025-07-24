@@ -1,3 +1,45 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- Mobile side menu -->
+  <ion-menu contentId="main-content" menuId="main-menu" side="start" type="overlay">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title color="secondary">Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="menu-content">
+      <ion-list>
+        <ion-item routerLink="/home" routerLinkActive="active-link">Home</ion-item>
+        <ion-item routerLink="/cavalli" routerLinkActive="active-link">Cavalli</ion-item>
+        <ion-item routerLink="/fantini" routerLinkActive="active-link">Fantini</ion-item>
+        <ion-item routerLink="/elenco" routerLinkActive="active-link">Elenco</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Top toolbar -->
+  <ion-header>
+    <ion-toolbar color="primary">
+
+      <!-- Hamburger knop (alleen mobiel) -->
+      <ion-buttons slot="start" class="mobile-only">
+        <ion-menu-button menu="main-menu" color="secondary"></ion-menu-button>
+      </ion-buttons>
+
+      <!-- Titel -->
+      <ion-title slot="start" color="secondary">Archivio Palio</ion-title>
+
+      <!-- Desktop menu (alleen zichtbaar op desktop) -->
+      <div class="desktop-menu">
+        <ion-button routerLink="/home" routerLinkActive="active-link" fill="clear" color="secondary">Home</ion-button>
+        <ion-button routerLink="/cavalli" routerLinkActive="active-link" fill="clear" color="secondary">Cavalli</ion-button>
+        <ion-button routerLink="/fantini" routerLinkActive="active-link" fill="clear" color="secondary">Fantini</ion-button>
+        <ion-button routerLink="/elenco" routerLinkActive="active-link" fill="clear" color="secondary">Elenco</ion-button>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Main content -->
+  <ion-content id="main-content">
+    <ion-router-outlet></ion-router-outlet>
+  </ion-content>
 </ion-app>
