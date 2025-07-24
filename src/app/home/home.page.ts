@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { CavalloService } from '../services/cavallo.service';
 import { VintoGroup } from 'src/datatypes/cavalli';
 import { Router } from '@angular/router';
+import { IonContent } from '@ionic/angular';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class HomePage implements OnInit {
+  @ViewChild(IonContent, { static: false }) content?: IonContent;
   searchTerm: string = '';
   cavalliVintiOrdered: VintoGroup[] = [];
   filteredCavalliVintiOrdered: VintoGroup[] = [];
@@ -72,5 +74,9 @@ export class HomePage implements OnInit {
 
     // Open alle accordeons van de gefilterde groepen
     this.openAccordionValues = this.filteredCavalliVintiOrdered.map(g => g.vinto.toString());
+  }
+    
+  scrollToTop() {
+    this.content?.scrollToTop(500);
   }
 }
