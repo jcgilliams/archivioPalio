@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'cavallo/:id',
+    loadChildren: () => import('./cavallo/cavallo.module').then( m => m.CavalloPageModule)
+  },
 ];
 
 @NgModule({

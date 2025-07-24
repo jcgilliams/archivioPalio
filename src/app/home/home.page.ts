@@ -19,6 +19,7 @@ export class HomePage implements OnInit {
   showPalio = true;
   showCavalli = true;
   showFantini = true;
+  showExtra = true;
 
   openAccordionValues: string[] = [];
 

@@ -1,0 +1,10 @@
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="cavallo; else loadingOrError">
+
+  </ng-container>
+
+  <ng-template #loadingOrError>
+    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+  </ng-template>
+</ion-content>
+
