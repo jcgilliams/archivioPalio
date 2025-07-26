@@ -1,7 +1,7 @@
 <ion-content *ngIf="!loading; else loadingTpl">
   <div class="container">
 
-    <section class="segment palio">
+    <section class="segment col-1 span-2 row-2 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showPalio = !showPalio" style="cursor: pointer;">
           Elenco vittorie
@@ -11,9 +11,36 @@
           <p>Elenco content komt hier</p>
         </div>
       </div>
+    </section>
+
+    <section class="segment col-5 span-2 row-1 fantini">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showFantini = !showFantini" style="cursor: pointer;">
+          Fantini vincenti dal 1900
+          <ion-icon [name]="showFantini ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showFantini">
+          <p>Fantini content komt hier</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="segment col-1 span-6 row-3 wide-segment">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showExtraBis = !showExtraBis" style="cursor: pointer;">
+          Extra info test breed 2
+          <ion-icon [name]="showExtraBis ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showExtraBis">
+          <p>Testen of meerder segments onder elkaar kunnen.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="segment col-1 span-4 row-1 wide-segment">
       <div class="subsegment">
         <h2 class="section-header" (click)="showExtra = !showExtra" style="cursor: pointer;">
-          Extra info test
+          Extra info test breed
           <ion-icon [name]="showExtra ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showExtra">
@@ -22,7 +49,7 @@
       </div>
     </section>
 
-    <section class="segment cavalli">
+    <section class="segment col-3 span-2 row-2 cavalli">
       <div class="subsegment">
         <h2 class="section-header" (click)="showCavalli = !showCavalli" style="cursor: pointer;">
           Cavalli vincenti dal 1900
@@ -72,19 +99,6 @@
               </div>
             </ion-accordion>
           </ion-accordion-group>
-        </div>
-      </div>
-    </section>
-
-
-    <section class="segment fantini">
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showFantini = !showFantini" style="cursor: pointer;">
-          Fantini vincenti dal 1900
-          <ion-icon [name]="showFantini ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showFantini">
-          <p>Fantini content komt hier</p>
         </div>
       </div>
     </section>

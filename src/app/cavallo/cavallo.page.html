@@ -1,10 +1,237 @@
-<ion-content [fullscreen]="true">
-  <ng-container *ngIf="cavallo; else loadingOrError">
+<ion-content *ngIf="cavallo; else loadingTpl">
+  <div class="container">
+    <section class="segment col-1 span-6 row-1 cavallo-header">
+      <img [src]="cavallo.foto" class="cavallo-foto" />
+      <h2 class="cavallo-naam-groot">
+        {{ isMobile ? cavallo.nome.split('/')[0] : cavallo.nome }}
+      </h2>
+    </section>
 
-  </ng-container>
+    <section class="segment col-1 span-3 row-2">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showInfo = !showInfo" style="cursor: pointer;">
+          Scheda cavallo
+          <ion-icon [name]="showInfo ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showInfo">
+          <ion-grid>
+            <ion-row class="equal-height-row">
+              <ion-col *ngIf="cavallo.nome">
+                <ion-item style="align-items: flex-start;"  lines="none" class="ion-itemTransparant">       
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Nome / Name</p>
+                    <span>{{cavallo.nome}}</span>
+                  </ion-text> 
+                </ion-item>
+              </ion-col>
+              <ion-col *ngIf="cavallo.sesso">
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text color="kleur2" class="cavallo-label">
+                    <p class="custom">Sesso/Sex</p>
+                    <span>{{cavallo.sesso}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col *ngIf="cavallo.proprietario">
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text color="kleur2" class="cavallo-label">
+                    <p class="custom">Proprietario / Owner</p>
+                    <span>{{cavallo.proprietario}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col *ngIf="cavallo.annoNascita">
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text color="kleur2" class="cavallo-label">
+                    <p class="custom">Anno di nascita / Year of birth</p>
+                    <span>{{cavallo.annoNascita}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+              <ion-col *ngIf="cavallo.manto">
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text color="kleur2" class="cavallo-label">
+                    <p class="custom">Manto / Coat</p>
+                    <span>{{cavallo.manto}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </section>
 
-  <ng-template #loadingOrError>
-    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
-  </ng-template>
+    <section class="segment col-4 span-3 row-2">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showExperience = !showExperience" style="cursor: pointer;">
+          Esperienza in piazza
+          <ion-icon [name]="showExperience ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showExperience">
+          <ion-grid>
+            <ion-row class="equal-height-row">
+              <ion-col>
+                <ion-item lines="none" class="ion-itemTransparant">       
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Palii Corsi / Palios Ridden</p>
+                    <div style="display: flex; gap: 4px;">
+                      <span>{{cavallo.paliiCorsi}}</span>
+                      <span *ngIf="cavallo.nonCorso">(+ {{cavallo.nonCorso}} non corse)</span>
+                    </div>
+                  </ion-text> 
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Palii Vinti / Palios Won</p>
+                    <span>{{cavallo.paliiVinti}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="percentualeVinti > 0">
+              <ion-col>
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Percentuale di vittorie / Win percentage</p>
+                    <span>{{percentualeVinti}} %</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+              <ion-col></ion-col>
+            </ion-row>
+            <ion-row *ngIf="cavallo.paliiCorsi > 0">
+              <ion-col>
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Esordio / Debut</p>
+                    <span>{{cavallo.esordio}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Ultimo / Last</p>
+                    <span>{{cavallo.ultimo}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col *ngIf="cavallo.presenzeProveDiNotte > 0">
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Prove di Notte</p>
+                    <span>{{cavallo.presenzeProveDiNotte}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+              <ion-col *ngIf="cavallo.presenzeTratta > 0">
+                <ion-item lines="none" class="ion-itemTransparant">
+                  <ion-text class="cavallo-label">
+                    <p class="custom">Presenze alla Tratta</p>
+                    <span>{{cavallo.presenzeTratta}}</span>
+                  </ion-text>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+    </section>
+    <ng-container *ngIf="cavallo.palioCorso && cavallo.palioCorso.length > 0">
+      <section class="segment col-1 span-6 row-3">
+        <div class="subsegment">
+          <h2 class="section-header" (click)="showPalio = !showPalio" style="cursor: pointer;">
+            Palii corsi dal {{ cavallo.esordio }}
+            <ion-icon [name]="showPalio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+          </h2>
+          <div *ngIf="showPalio">
+            <ion-grid class="palio-grid">
+            <!-- Desktop: tonen bij breed scherm -->
+            <ion-row class="equal-height-row row-header hide-on-mobile">
+              <ion-col>
+                <ion-text class="cavallo-label"><span>Palio</span></ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-text class="cavallo-label"><span>Fantino</span></ion-text>
+              </ion-col>
+            </ion-row>
+
+            <!-- Mobiel: tonen bij smal scherm -->
+            <ion-row class="equal-height-row row-header show-on-mobile">
+              <ion-col>
+                <ion-text class="cavallo-label"><span>Palio - Contrada - Fantino</span></ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let palio of cavallo.palioCorso; let i = index" 
+                class="equal-height-row palio-mobile-stack"
+                [ngClass]="{ 
+                  'row-vinto': palio.vinto === true
+                  }">
+              <ion-col>
+                <ion-text class="cavallo-label">
+                  <span>{{ palio.palio.nome }}</span>
+                </ion-text>                  
+              </ion-col>
+              <ion-col>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="palio.contrada.nome"
+                      [src]="palio.contrada.logo"
+                      class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ palio.contrada.nome }}</span>
+                  </ion-text>  
+                </div>
+              </ion-col>
+              <ion-col>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="palio.fantino.foto"
+                      [src]="palio.fantino.palioFoto || palio.fantino.foto"
+                      class="img-palio"  />
+                  <ng-container *ngIf="palio.fantino?.nome; else noFantino">
+                    <ion-text class="cavallo-label">
+                      <span>{{ palio.fantino.nome }}
+                      <ng-container *ngIf="palio.fantino.soprannome">
+                        detto {{ palio.fantino.soprannome }}
+                      </ng-container></span>
+                      <p class="custom2" *ngIf="palio.fantino.nome">
+                        {{ palio.puntoCaduta?.punto }}
+                      </p>
+                    </ion-text> 
+                  </ng-container>
+                  <ng-template #noFantino>
+                    <ion-text class="cavallo-label">
+                      <span>Non corse</span>
+                    </ion-text>
+                  </ng-template>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+      </section>   
+    </ng-container> 
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scrollToTop()" color="tertiary">
+      <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+
+<ng-template #loadingTpl>
+  <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+</ng-template>
 

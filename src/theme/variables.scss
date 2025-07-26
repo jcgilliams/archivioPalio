@@ -13,8 +13,17 @@
   /* Kleur achtergrond */
   --ion-background-color: #F8F3EB;
 
+  /* Goud winnaar */
+  --ion-color-gold: #FFD700;
+
   body, ion-app, ion-content {
     background: var(--ion-background-color);
+  }
+
+  ion-footer.custom-footer {
+    --background: var(--ion-color-primary);
+    color: var(--ion-color-secondary);
+    font-size: 13px;
   }
 
   /* Menu, zowel mobile als desktop */
@@ -41,7 +50,7 @@
   }
 
   ion-button {
-    font-size: 16px;
+    font-size: 18px;
   }
   ion-button.active-link {
     font-weight: bold;
@@ -255,69 +264,277 @@
     --padding-end: 16px;
   }
 
-  /* Container en segment zorgt voor uitlijning en ruimte */
-  .container {
+  // PAGE CAVALLO/FANTINO
+  .cavallo-header {
     display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 1rem; 
+    border-bottom: 1px solid var(--ion-color-primary);
+    padding-bottom: 0.5rem; 
+  }
+
+  .centered-header {
+    text-align: center;
+    color: var(--ion-color-tertiary);
+    margin-bottom: 0px; 
+    padding-bottom: 0px;
+  }
+
+  .segment.centered-header {
+    padding: 0;
+    margin: 0;
+  }
+
+  .equal-height-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .ion-itemTransparant {
+    --background: transparent;
+    --padding-start: 0;
+    --padding-end: 0; 
+    align-items: flex-start !important;
+  }
+
+  .cavallo-label {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    min-height: 0;
+  }
+
+  .cavallo-label p.custom {
+    margin: 0 0 4px 0;
+    font-size: 11px;
+    line-height: 1.1;
+    color: var(--ion-color-primary); 
+  }
+
+  .cavallo-label p.custom2 {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.1;
+    color: var(--ion-color-secondary); 
+  }
+
+  .cavallo-label span {
+    margin: 0;
+    font-size: 16px;
+    color: var(--ion-color-secondary); 
+  }
+
+  ion-col > div {
+    display: flex;
+    align-items: center; /* verticale centrering */
+    gap: 8px;
+  }
+
+  .cavallo-foto {
+    display: block;
+    max-width: 80px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    margin: 0;
+    object-fit: cover;
+  }
+
+  .cavallo-naam-groot {
+    font-size: 2rem;
+    color: var(--ion-color-secondary);
+    margin: 0;
+  }
+
+  .img-palio {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .palio-grid ion-row {
+    background-color: var(--ion-background-color);
+    min-height: 50px; 
+    align-items: center;
+    border-bottom: 1px solid var(--ion-color-tertiary);
+  }
+
+  .palio-grid ion-row.row-alt {
+    background-color: var(--ion-background-color) /* afwisselend */
+  }
+
+  .palio-grid ion-row.row-vinto {
+    background-color: var(--ion-color-gold) !important;
+  }
+
+  /* Achtergrond van de header row */
+  .palio-grid ion-row.row-header {
+    background-color: var(--ion-color-secondary);
+    border-bottom: 1px solid var(--ion-color-tertiary); /* optioneel, lijn onderaan */
+  }
+
+  /* Span binnenin header: kleur tekst aanpassen */
+  .palio-grid ion-row.row-header span {
+    color: var(--ion-color-primary);
+  }
+
+  .hide-on-mobile {
+    display: flex;
+  }
+
+  .show-on-mobile {
+    display: none;
+  }
+
+
+  /* === GRID CONTAINER === */
+  .container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 1rem;
     padding: 1rem;
-    align-items: flex-start;
-    flex-wrap: wrap;
-
     max-width: 1200px;
     width: 90%;
     margin: 0 auto;
-
-    > .segment {
-      flex: 1 1 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      min-width: 200px;
-      max-width: 400px;
-      box-sizing: border-box;
-    }
-    .segment .section-header {
-      border-bottom: 1px solid var(--ion-color-primary);
-      margin-bottom: 15px;
-    }
-    .segment .subsegment {
-      padding-top: 0.5rem;
-      margin-top: 1rem;
-      border: 1px solid var(--ion-color-primary);
-      border-radius: 8px;
-      padding: 1rem;
-      background: white;
-      box-sizing: border-box;
-    }
-    .segment h2,
-    .segment h3,
-    .segment p {
-      color: var(--ion-color-secondary);
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
   }
 
-  /* Mobile: stapel onder elkaar */
-  @media (max-width: 767px) {
-    .container {
-      flex-direction: column;
-      padding-left: 1rem;
-      padding-right: 1rem;
-    }
+  /* Standaard segment */
+  .segment {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+    min-width: 0;
+  }
 
-    .container > .segment {
-      max-width: 100%;
-      width: 100%;
-      margin-left: 0;
-      margin-right: 0;
-    }
-    ion-menu ion-content ion-item::part(native) {
-      border-bottom: 1px solid rgba(210, 179, 133, 0.5); /* fijne onderlijn */
-      border-top: none;
-      border-left: none;
-      border-right: none;
-    }
+  /* POSITIE CONTROLE */
+  .col-1 { grid-column-start: 1; }
+  .col-2 { grid-column-start: 2; }
+  .col-3 { grid-column-start: 3; }
+  .col-4 { grid-column-start: 4; }
+  .col-5 { grid-column-start: 5; }
+  .col-6 { grid-column-start: 6; }
+
+  .span-1 { grid-column-end: span 1; }
+  .span-2 { grid-column-end: span 2; }
+  .span-3 { grid-column-end: span 3; }
+  .span-4 { grid-column-end: span 4; }
+  .span-5 { grid-column-end: span 5; }
+  .span-6 { grid-column-end: span 6; }
+
+  .row-1 { grid-row-start: 1; }
+  .row-2 { grid-row-start: 2; }
+  .row-3 { grid-row-start: 3; }
+
+
+  /* Styling */
+  .segment .section-header {
+    border-bottom: 1px solid var(--ion-color-primary);
+    margin-bottom: 15px;
+  }
+
+  .segment .subsegment {
+    padding-top: 0.5rem;
+    margin-top: 1rem;
+    border: 2px solid var(--ion-color-primary);
+    border-radius: 8px;
+    padding: 1rem;
+    background: white;
+    box-sizing: border-box;
+  }
+
+  .segment h2,
+  .segment h3,
+  .segment p {
+    color: var(--ion-color-secondary);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+}
+
+/* --- MEDIA QUERY VOOR MOBIEL --- */
+@media (max-width: 767px) {
+  .container {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+    padding-left: 0 !important;;
+    padding-right: 0 !important;;
+  }
+
+  .segment {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    /* override vaste grid-positie zodat ze onder elkaar komen */
+    grid-column-start: auto !important;
+    grid-column-end: auto !important;
+    grid-row-start: auto !important;
+  }
+
+  .subsegment {
+    padding-left: 2 !important;
+    padding-right: 2 !important;
+  }
+
+  /* Override voor col- en span- classes die nog positionering forceren */
+  .col-1,
+  .col-2,
+  .col-3,
+  .span-1,
+  .span-2,
+  .span-3 {
+    grid-column-start: auto !important;
+    grid-column-end: auto !important;
+  }
+
+  /* Als je rijposities gebruikt, reset die ook */
+  .row-1,
+  .row-2,
+  .row-3 {
+    grid-row-start: auto !important;
+  }
+
+  /* Indien ion-menu items specifiek stijlen nodig hebben op mobiel */
+  ion-menu ion-content ion-item::part(native) {
+    border-bottom: 1px solid rgba(210, 179, 133, 0.5);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .cavallo-foto {
+    max-width: 40px !important;
+  }
+
+  .cavallo-naam-groot {
+    font-size: 1.5rem !important; 
+  }
+  .palio-mobile-stack {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .palio-mobile-stack ion-col {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .palio-grid ion-row {
+    padding: 4px 4px;
+    min-height: unset;
+    border-bottom: 1px solid var(--ion-color-tertiary);
+  }
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .show-on-mobile {
+    display: flex !important;
   }
 }

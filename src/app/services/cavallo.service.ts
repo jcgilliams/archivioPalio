@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { cavalli, VintoGroup } from 'src/datatypes/cavalli';
+import { cavalli, VintoGroup, CavalloDetail } from 'src/datatypes/cavalli';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, map } from 'rxjs';
@@ -13,10 +13,10 @@ export class CavalloService {
 
   constructor(private http: HttpClient) { }
 
-  async getCavalloById(id: string): Promise<cavalli> {
+  async getCavalloById(id: string): Promise<CavalloDetail> {
     const cavallo = await firstValueFrom(
-      this.http.get<cavalli>(`${environment.apiURL}cavalli?id=${id}`).pipe(
-        map(this._normalizeCavallo)
+      this.http.get<CavalloDetail>(`${environment.apiURL}cavalli/cavalloAll/${id}`).pipe(
+        map(this._normalizeCavalloDetail.bind(this))
       )
     );
     return cavallo;
@@ -54,4 +54,15 @@ export class CavalloService {
       paliiCorsi: Number(c.paliiCorsi),
     };
   }
+
+  private _normalizeCavalloDetail(c: any): CavalloDetail {
+  return {
+    ...this._normalizeCavallo(c),
+    palioCorso: (c.palioCorso ?? []).map((p: any) => ({
+      ...p,
+      vinto: Number(p.vinto) === 1,
+      caduto: Number(p.caduto) === 1
+    }))
+  };
+}
 }

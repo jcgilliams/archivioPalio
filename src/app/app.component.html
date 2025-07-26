@@ -26,7 +26,16 @@
       </ion-buttons>
 
       <!-- Titel -->
-      <ion-title slot="start" color="secondary">Archivio Palio</ion-title>
+      <ion-title slot="start" color="secondary">
+        <span style="display: inline-flex; align-items: flex-end; flex-wrap: wrap; white-space: normal;">
+          <img
+            src="https://api.palioapp.com/images/cavalli/palio.png"
+            alt="Palio"
+            style="height: 24px; margin-right: 8px; vertical-align: bottom;"
+          />
+          Archivio Palio
+        </span>
+      </ion-title>
 
       <!-- Desktop menu (alleen zichtbaar op desktop) -->
       <div class="desktop-menu">
@@ -42,4 +51,5 @@
   <ion-content id="main-content">
     <ion-router-outlet></ion-router-outlet>
   </ion-content>
+  <app-footer></app-footer>
 </ion-app>

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CavalloService } from '../services/cavallo.service';
-import { cavalli } from 'src/datatypes/cavalli';
+import { CavalloDetail } from 'src/datatypes/cavalli';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-cavallo',
@@ -10,9 +11,18 @@ import { cavalli } from 'src/datatypes/cavalli';
   standalone: false,
 })
 export class CavalloPage implements OnInit {
-  cavallo: cavalli | null = null;
+  @ViewChild(IonContent, { static: false }) content?: IonContent;
+  cavallo: CavalloDetail | null = null;
   id: string | null = null;
   percentualeVinti = 0;
+  loading = true;
+
+  showInfo = true;
+  showExperience = true;
+  showPalio = true;
+
+  openAccordionValues: string[] = [];
+  isMobile = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -20,12 +30,15 @@ export class CavalloPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.checkScreenWidth();
+
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
       if (this.id) {
         this.loadCavallo(this.id);
       }
     });
+    this.loading = false;
   }
 
   private async loadCavallo(id: string) {
@@ -46,6 +59,35 @@ export class CavalloPage implements OnInit {
       console.error('Error on loading cavallo:', error);
       this.cavallo = null;
     }
+  }
+  scrollToTop() {
+    this.content?.scrollToTop(500);
+  }
+
+  toggleAccordion(value: string) {
+    const index = this.openAccordionValues.indexOf(value);
+    if(index > -1) {
+      this.openAccordionValues.splice(index, 1);
+    } else {
+      this.openAccordionValues.push(value);
+    }
+  }
+
+    @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenWidth();
+  }
+
+  private checkScreenWidth() {
+    this.isMobile = window.innerWidth <= 767;
+  }
+
+  get displayedCavalloName(): string {
+    if (!this.cavallo?.nome) return '';
+    if (this.isMobile) {
+      return this.cavallo.nome.split('/')[0];
+    }
+    return this.cavallo.nome;
   }
 }
 

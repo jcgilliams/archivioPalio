@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
   showCavalli = true;
   showFantini = true;
   showExtra = true;
+  showExtraBis = true;
 
   openAccordionValues: string[] = [];
 
