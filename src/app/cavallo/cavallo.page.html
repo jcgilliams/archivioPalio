@@ -10,7 +10,7 @@
     <section class="segment col-1 span-3 row-2">
       <div class="subsegment">
         <h2 class="section-header" (click)="showInfo = !showInfo" style="cursor: pointer;">
-          Scheda cavallo
+          {{ getTranslation('scheda') }}
           <ion-icon [name]="showInfo ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showInfo">
@@ -19,7 +19,7 @@
               <ion-col *ngIf="cavallo.nome">
                 <ion-item style="align-items: flex-start;"  lines="none" class="ion-itemTransparant">       
                   <ion-text class="cavallo-label">
-                    <p class="custom">Nome / Name</p>
+                    <p class="custom">{{ getTranslation('nome') }}</p>
                     <span>{{cavallo.nome}}</span>
                   </ion-text> 
                 </ion-item>
@@ -27,7 +27,7 @@
               <ion-col *ngIf="cavallo.sesso">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text color="kleur2" class="cavallo-label">
-                    <p class="custom">Sesso/Sex</p>
+                    <p class="custom">{{ getTranslation('sesso') }}</p>
                     <span>{{cavallo.sesso}}</span>
                   </ion-text>
                 </ion-item>
@@ -37,7 +37,7 @@
               <ion-col *ngIf="cavallo.proprietario">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text color="kleur2" class="cavallo-label">
-                    <p class="custom">Proprietario / Owner</p>
+                    <p class="custom">{{ getTranslation('proprietario') }}</p>
                     <span>{{cavallo.proprietario}}</span>
                   </ion-text>
                 </ion-item>
@@ -47,7 +47,7 @@
               <ion-col *ngIf="cavallo.annoNascita">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text color="kleur2" class="cavallo-label">
-                    <p class="custom">Anno di nascita / Year of birth</p>
+                    <p class="custom">{{ getTranslation('anno') }}</p>
                     <span>{{cavallo.annoNascita}}</span>
                   </ion-text>
                 </ion-item>
@@ -55,7 +55,7 @@
               <ion-col *ngIf="cavallo.manto">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text color="kleur2" class="cavallo-label">
-                    <p class="custom">Manto / Coat</p>
+                    <p class="custom">{{ getTranslation('manto') }}</p>
                     <span>{{cavallo.manto}}</span>
                   </ion-text>
                 </ion-item>
@@ -69,7 +69,7 @@
     <section class="segment col-4 span-3 row-2">
       <div class="subsegment">
         <h2 class="section-header" (click)="showExperience = !showExperience" style="cursor: pointer;">
-          Esperienza in piazza
+          {{ getTranslation('esperienza') }}
           <ion-icon [name]="showExperience ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showExperience">
@@ -78,7 +78,7 @@
               <ion-col>
                 <ion-item lines="none" class="ion-itemTransparant">       
                   <ion-text class="cavallo-label">
-                    <p class="custom">Palii Corsi / Palios Ridden</p>
+                    <p class="custom">{{ getTranslation('corsi') }}</p>
                     <div style="display: flex; gap: 4px;">
                       <span>{{cavallo.paliiCorsi}}</span>
                       <span *ngIf="cavallo.nonCorso">(+ {{cavallo.nonCorso}} non corse)</span>
@@ -89,7 +89,7 @@
               <ion-col>
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
-                    <p class="custom">Palii Vinti / Palios Won</p>
+                    <p class="custom">{{ getTranslation('vinti') }}</p>
                     <span>{{cavallo.paliiVinti}}</span>
                   </ion-text>
                 </ion-item>
@@ -99,7 +99,7 @@
               <ion-col>
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
-                    <p class="custom">Percentuale di vittorie / Win percentage</p>
+                    <p class="custom">{{ getTranslation('percentuale') }}</p>
                     <span>{{percentualeVinti}} %</span>
                   </ion-text>
                 </ion-item>
@@ -110,7 +110,7 @@
               <ion-col>
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
-                    <p class="custom">Esordio / Debut</p>
+                    <p class="custom">{{ getTranslation('esordio') }}</p>
                     <span>{{cavallo.esordio}}</span>
                   </ion-text>
                 </ion-item>
@@ -118,7 +118,7 @@
               <ion-col>
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
-                    <p class="custom">Ultimo / Last</p>
+                    <p class="custom">{{ getTranslation('ultimo') }}</p>
                     <span>{{cavallo.ultimo}}</span>
                   </ion-text>
                 </ion-item>
@@ -128,7 +128,7 @@
               <ion-col *ngIf="cavallo.presenzeProveDiNotte > 0">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
-                    <p class="custom">Prove di Notte</p>
+                    <p class="custom">{{ getTranslation('provedinotte') }}</p>
                     <span>{{cavallo.presenzeProveDiNotte}}</span>
                   </ion-text>
                 </ion-item>
@@ -136,7 +136,7 @@
               <ion-col *ngIf="cavallo.presenzeTratta > 0">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
-                    <p class="custom">Presenze alla Tratta</p>
+                    <p class="custom">{{ getTranslation('tratta') }}</p>
                     <span>{{cavallo.presenzeTratta}}</span>
                   </ion-text>
                 </ion-item>
@@ -150,7 +150,7 @@
       <section class="segment col-1 span-6 row-3">
         <div class="subsegment">
           <h2 class="section-header" (click)="showPalio = !showPalio" style="cursor: pointer;">
-            Palii corsi dal {{ cavallo.esordio }}
+            {{ getTranslation('elenco') }} {{ cavallo.esordio }}
             <ion-icon [name]="showPalio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
           </h2>
           <div *ngIf="showPalio">

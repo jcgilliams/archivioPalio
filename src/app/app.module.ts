@@ -10,10 +10,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './shared/footer/footer.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ServiceWorkerModule.register('ngsw-worker.js', {
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', {
   enabled: !isDevMode(),
   // Register the ServiceWorker as soon as the application is stable
   // or after 30 seconds (whichever comes first).

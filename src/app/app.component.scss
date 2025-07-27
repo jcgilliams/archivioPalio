@@ -1,38 +1,172 @@
-/* Verberg desktop-menu op mobiel */
+/* Algemene reset */
+.custom-header {
+  width: 100%;
+  background-color: var(--ion-color-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  box-shadow: none;
+  border-bottom: 1px solid transparent;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Linkerzijde van header */
+.left-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;           /* blijf naast elkaar */
+  min-width: 0;                /* nodig voor overflow handling */
+  overflow: hidden;
+  flex: 1 1 auto;              /* laat het uitrekken in beschikbare ruimte */
+}
+
+.logo {
+  height: 28px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--ion-color-secondary);
+  white-space: nowrap;        /* voorkom afbreken op spaties */
+  overflow: hidden;
+  text-overflow: ellipsis;    /* ... als het toch te smal wordt */
+  max-width: 100%;
+  flex: 1 1 auto;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  min-width: 0; /* laat overflow werken */
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+
+/* Taal-switching */
+/* Segment container - transparant blok */
+ion-segment.lang-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  --background: rgba(255, 255, 255, 0.1); /* lichte transparante achtergrond */
+  --color: var(--ion-color-medium);
+  --color-checked: var(--ion-color-secondary);
+  --indicator-color: var(--ion-color-secondary);
+
+  border-radius: 6px;
+  padding: 2px 4px;
+  max-width: 160px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+
+/* Taalknoppen */
+ion-segment.lang-switch ion-segment-button {
+  min-width: unset;
+  width: auto;
+  text-align: center;
+
+  --color: var(--ion-color-medium);
+  --color-checked: var(--ion-color-secondary);
+
+  font-size: 12px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Actieve knop via indicator (onderlijnd) */
+ion-segment.lang-switch ion-segment-button::part(indicator) {
+  background-color: var(--ion-color-secondary);
+  height: 2px;
+  bottom: 0;
+  border-radius: 0;
+  position: absolute;
+  width: 100%;
+}
+
+/* Zorg dat de indicator altijd werkt */
+ion-segment-button::part(indicator-background),
+.segment-button-indicator-background {
+  display: none !important;
+}
+
+
+/* Rechterzijde van header */
+.right-side {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.hamburger {
+  font-size: 24px;
+}
+
+/* Desktop menu zichtbaar op grote schermen */
 .desktop-menu {
   display: none;
+  gap: 10px;
 }
 
-ion-toolbar {
-  --box-shadow: none;
-  --background: var(--ion-color-primary); 
-  --border-width: 0;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-ion-header {
-  box-shadow: none !important;
-}
-
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .desktop-menu {
     display: flex;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    gap: 12px;
   }
 }
 
-/* Toon hamburger enkel op mobiel */
-.mobile-only {
+/* Verberg hamburger op desktop */
+@media (min-width: 1024px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+/* Toon hamburger op mobile en tablet */
+@media (max-width: 1023px) {
+  .mobile-only {
+    display: inline-flex !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .custom-header {
+    flex-wrap: nowrap;
+  }
+  .left-side {
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+  .logo {
+    display: none;
+  }
+  .title {
+    font-size: 15px;
+  }
+  ion-segment.lang-switch {
+    flex-shrink: 0;
+    max-width: none;
+    margin-left: 8px;
+  }
+}
+
+
+
+/* Altijd zichtbare hamburger */
+ion-menu-button {
   display: inline-flex;
 }
 
-@media (min-width: 768px) {
-  .mobile-only {
-    display: none;
-  }
+/* Mobile menu styling */
+.menu-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
 }
