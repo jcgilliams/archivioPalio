@@ -8,9 +8,6 @@ import { firstValueFrom, map } from 'rxjs';
   providedIn: 'root'
 })
 export class CavalloService {
-  private cavalliVintiList: cavalli[] = [];
-  private filteredVintiList: cavalli[] = [];
-
   constructor(private http: HttpClient) { }
 
   async getCavalloById(id: string): Promise<CavalloDetail> {

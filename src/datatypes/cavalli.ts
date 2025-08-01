@@ -33,6 +33,7 @@ export interface CavalloDetail extends cavalli {
 export interface PalioCorso {
   id: string;
   palioDate: string;
+  drappellonePalioFoto: string;
   vinto: boolean;
   caduto: boolean;
   cavalloPalioFoto: string | null;

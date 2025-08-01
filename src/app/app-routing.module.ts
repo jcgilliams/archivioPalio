@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'cavallo/:id',
     loadChildren: () => import('./cavallo/cavallo.module').then( m => m.CavalloPageModule)
   },
+  {
+    path: 'fantino/:id',
+    loadChildren: () => import('./fantino/fantino.module').then( m => m.FantinoPageModule)
+  },
 ];
 
 @NgModule({

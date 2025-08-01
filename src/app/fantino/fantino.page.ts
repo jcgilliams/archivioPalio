@@ -1,21 +1,21 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CavalloService } from '../services/cavallo.service';
-import { CavalloDetail } from 'src/datatypes/cavalli';
+import { FantinoService } from '../services/fantino.service';
+import { FantinoDetail } from 'src/datatypes/fantini';
 import { IonContent } from '@ionic/angular';
 import { LanguageService, SupportedLanguage } from '../services/language.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-cavallo',
-  templateUrl: './cavallo.page.html',
-  styleUrls: ['./cavallo.page.scss'],
+  selector: 'app-fantino',
+  templateUrl: './fantino.page.html',
+  styleUrls: ['./fantino.page.scss'],
   standalone: false,
 })
-export class CavalloPage implements OnInit {
+export class FantinoPage implements OnInit {
   @ViewChild(IonContent, { static: false }) content?: IonContent;
-  cavallo: CavalloDetail | null = null;
+  fantino: FantinoDetail | null = null;
   id: string | null = null;
   percentualeVinti = 0;
   loading = true;
@@ -25,36 +25,25 @@ export class CavalloPage implements OnInit {
   showPalio = true;
 
   openAccordionValues: string[] = [];
-  isMobile = false;
 
   currentLanguage: SupportedLanguage = 'it';
   private langSub?: Subscription;
 
-  translations: { [key: string]: { [lang: string]: string } } = {
+    translations: { [key: string]: { [lang: string]: string } } = {
     nome: {
       it: 'Nome',
       en: 'Name',
       nl: 'Naam'
     },
-    sesso: {
-      it: 'Sesso',
-      en: 'Sex',
-      nl: 'Geslacht'
-    },
-    proprietario: {
-      it: 'Proprietario',
-      en: 'Owner',
-      nl: 'Eigenaar'
+    soprannome: {
+      it: 'Soprannome',
+      en: 'Nickname',
+      nl: 'Bijnaam'
     },
     anno: {
       it: 'Anno di nascita',
       en: 'Year of birth',
       nl: 'Geboortejaar'
-    },
-    manto: {
-      it: 'Manto',
-      en: 'Coat',
-      nl: 'Vacht'
     },
     corsi: {
       it: 'Palii corsi',
@@ -81,20 +70,10 @@ export class CavalloPage implements OnInit {
       en: 'Last palio',
       nl: 'Laatste palio'
     },
-    provedinotte: {
-      it: 'Prove di Notte Corsi',
-      en: 'Night trials Ridden',
-      nl: 'Nachtritten gereden'
-    },
-    tratta: {
-      it: 'Presenze alla Tratta',
-      en: 'Presences at the Tratta',
-      nl: 'Aangeboden op de Tratta'
-    },
     scheda: {
-      it: 'Scheda cavallo',
-      en: 'Technical information horse',
-      nl: 'Technische info paard'
+      it: 'Scheda fantino',
+      en: 'Technical information jockey',
+      nl: 'Technische info ruiter'
     },
     esperienza: {
       it: 'Esperienza in Piazza',
@@ -106,23 +85,21 @@ export class CavalloPage implements OnInit {
       en: 'Ridden palios since ',
       nl: 'Gereden palio\'s sinds '
     },
-    fantino: {
-      it: 'Fantino',
-      en: 'Jockey',
-      nl: 'Ruiter'
+    cavallo: {
+      it: 'Cavallo',
+      en: 'Horse',
+      nl: 'Paard'
     }
   };
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private cavalloService: CavalloService,
+    private fantinoService: FantinoService,
     private languageService: LanguageService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.checkScreenWidth();
-
     this.langSub = this.languageService.language$.subscribe(lang => {
       this.currentLanguage = lang;
     });
@@ -130,7 +107,7 @@ export class CavalloPage implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       this.id = params.get('id');
       if (this.id) {
-        this.loadCavallo(this.id);
+        this.loadFantino(this.id);
       }
     });
     this.loading = false;
@@ -140,23 +117,24 @@ export class CavalloPage implements OnInit {
     this.langSub?.unsubscribe();
   }
 
-  private async loadCavallo(id: string) {
+  private async loadFantino(id: string) {
     try {
-      const data = await this.cavalloService.getCavalloById(id);
-      this.cavallo = data;
+      const data = await this.fantinoService.getFantinoById(id);
+      this.fantino = data;
+      console.log('Fantino data:', this.fantino);
 
       // Vermijd delen door nul
-      if (this.cavallo.paliiCorsi > 0) {
+      if (this.fantino.paliiCorsi > 0) {
         this.percentualeVinti = Number(
-          ((this.cavallo.paliiVinti / this.cavallo.paliiCorsi) * 100).toFixed(1)
+          ((this.fantino.paliiVinti / this.fantino.paliiCorsi) * 100).toFixed(1)
         );
       } else {
         this.percentualeVinti = 0;
       }
 
     } catch (error) {
-      console.error('Error on loading cavallo:', error);
-      this.cavallo = null;
+      console.error('Error on loading fantino:', error);
+      this.fantino = null;
     }
   }
   scrollToTop() {
@@ -172,32 +150,12 @@ export class CavalloPage implements OnInit {
     }
   }
 
-    @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.checkScreenWidth();
-  }
-
-  private checkScreenWidth() {
-    this.isMobile = window.innerWidth <= 767;
-  }
-
-  get displayedCavalloName(): string {
-    if (!this.cavallo?.nome) return '';
-    if (this.isMobile) {
-      return this.cavallo.nome.split('/')[0];
-    }
-    return this.cavallo.nome;
-  }
-
   getTranslation(key: string): string {
     const lang = this.languageService.getLanguage();
     return this.translations[key]?.[lang] || '';
   }
 
-  goToFantinoDetail(id: string) {
-    this.router.navigate(['/fantino', id]);
+  goToCavalloDetail(id: string) {
+    this.router.navigate(['/cavallo', id]);
   }
-  
 }
-
-

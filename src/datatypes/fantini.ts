@@ -12,6 +12,11 @@ export interface fantini {
   ultimo_date: string;
 }
 
+export interface VintoGroup {
+  vinto: number;
+  fantini: fantini[];
+}
+
 export interface FantinoDetail extends fantini {
   palioCorso: PalioCorso[];
 }
@@ -19,6 +24,7 @@ export interface FantinoDetail extends fantini {
 export interface PalioCorso {
   id: string;
   palioDate: string;
+  drappellonePalioFoto: string;
   vinto: boolean;
   caduto: boolean;
 

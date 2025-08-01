@@ -1,9 +1,9 @@
-<ion-content *ngIf="cavallo; else loadingTpl">
+<ion-content *ngIf="fantino; else loadingTpl">
   <div class="container">
     <section class="segment col-1 span-6 row-1 cavallo-header">
-      <img [src]="cavallo.foto" class="cavallo-foto" />
+      <img [src]="fantino.foto" class="cavallo-foto" />
       <h2 class="cavallo-naam-groot">
-        {{ isMobile ? cavallo.nome.split('/')[0] : cavallo.nome }}
+        {{ fantino.nome }}<ng-container *ngIf="fantino.soprannome"> detto {{ fantino.soprannome }}</ng-container>
       </h2>
     </section>
 
@@ -16,47 +16,29 @@
         <div *ngIf="showInfo">
           <ion-grid>
             <ion-row class="equal-height-row">
-              <ion-col *ngIf="cavallo.nome">
+              <ion-col *ngIf="fantino.nome">
                 <ion-item style="align-items: flex-start;"  lines="none" class="ion-itemTransparant">       
                   <ion-text class="cavallo-label">
                     <p class="custom">{{ getTranslation('nome') }}</p>
-                    <span>{{cavallo.nome}}</span>
+                    <span>{{fantino.nome}}</span>
                   </ion-text> 
                 </ion-item>
               </ion-col>
-              <ion-col *ngIf="cavallo.sesso">
+              <ion-col *ngIf="fantino.soprannome">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text color="kleur2" class="cavallo-label">
-                    <p class="custom">{{ getTranslation('sesso') }}</p>
-                    <span>{{cavallo.sesso}}</span>
+                    <p class="custom">{{ getTranslation('soprannome') }}</p>
+                    <span>{{fantino.soprannome}}</span>
                   </ion-text>
                 </ion-item>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col *ngIf="cavallo.proprietario">
-                <ion-item lines="none" class="ion-itemTransparant">
-                  <ion-text color="kleur2" class="cavallo-label">
-                    <p class="custom">{{ getTranslation('proprietario') }}</p>
-                    <span>{{cavallo.proprietario}}</span>
-                  </ion-text>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col *ngIf="cavallo.annoNascita">
+              <ion-col *ngIf="fantino.annoNascita">
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text color="kleur2" class="cavallo-label">
                     <p class="custom">{{ getTranslation('anno') }}</p>
-                    <span>{{cavallo.annoNascita}}</span>
-                  </ion-text>
-                </ion-item>
-              </ion-col>
-              <ion-col *ngIf="cavallo.manto">
-                <ion-item lines="none" class="ion-itemTransparant">
-                  <ion-text color="kleur2" class="cavallo-label">
-                    <p class="custom">{{ getTranslation('manto') }}</p>
-                    <span>{{cavallo.manto}}</span>
+                    <span>{{fantino.annoNascita}}</span>
                   </ion-text>
                 </ion-item>
               </ion-col>
@@ -80,8 +62,7 @@
                   <ion-text class="cavallo-label">
                     <p class="custom">{{ getTranslation('corsi') }}</p>
                     <div style="display: flex; gap: 4px;">
-                      <span>{{cavallo.paliiCorsi}}</span>
-                      <span *ngIf="cavallo.nonCorso">(+ {{cavallo.nonCorso}} non corse)</span>
+                      <span>{{fantino.paliiCorsi}}</span>
                     </div>
                   </ion-text> 
                 </ion-item>
@@ -90,7 +71,7 @@
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
                     <p class="custom">{{ getTranslation('vinti') }}</p>
-                    <span>{{cavallo.paliiVinti}}</span>
+                    <span>{{fantino.paliiVinti}}</span>
                   </ion-text>
                 </ion-item>
               </ion-col>
@@ -106,12 +87,12 @@
               </ion-col>
               <ion-col></ion-col>
             </ion-row>
-            <ion-row *ngIf="cavallo.paliiCorsi > 0">
+            <ion-row *ngIf="fantino.paliiCorsi > 0">
               <ion-col>
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
                     <p class="custom">{{ getTranslation('esordio') }}</p>
-                    <span>{{cavallo.esordio}}</span>
+                    <span>{{fantino.esordio}}</span>
                   </ion-text>
                 </ion-item>
               </ion-col>
@@ -119,25 +100,7 @@
                 <ion-item lines="none" class="ion-itemTransparant">
                   <ion-text class="cavallo-label">
                     <p class="custom">{{ getTranslation('ultimo') }}</p>
-                    <span>{{cavallo.ultimo}}</span>
-                  </ion-text>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col *ngIf="cavallo.presenzeProveDiNotte > 0">
-                <ion-item lines="none" class="ion-itemTransparant">
-                  <ion-text class="cavallo-label">
-                    <p class="custom">{{ getTranslation('provedinotte') }}</p>
-                    <span>{{cavallo.presenzeProveDiNotte}}</span>
-                  </ion-text>
-                </ion-item>
-              </ion-col>
-              <ion-col *ngIf="cavallo.presenzeTratta > 0">
-                <ion-item lines="none" class="ion-itemTransparant">
-                  <ion-text class="cavallo-label">
-                    <p class="custom">{{ getTranslation('tratta') }}</p>
-                    <span>{{cavallo.presenzeTratta}}</span>
+                    <span>{{fantino.ultimo}}</span>
                   </ion-text>
                 </ion-item>
               </ion-col>
@@ -146,11 +109,11 @@
         </div>
       </div>
     </section>
-    <ng-container *ngIf="cavallo.palioCorso && cavallo.palioCorso.length > 0">
+    <ng-container *ngIf="fantino.palioCorso && fantino.palioCorso.length > 0">
       <section class="segment col-1 span-6 row-3">
         <div class="subsegment">
           <h2 class="section-header" (click)="showPalio = !showPalio" style="cursor: pointer;">
-            {{ getTranslation('elenco') }} {{ cavallo.esordio }}
+            {{ getTranslation('elenco') }} {{ fantino.esordio }}
             <ion-icon [name]="showPalio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
           </h2>
           <div *ngIf="showPalio">
@@ -164,17 +127,17 @@
                 <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
               </ion-col>
               <ion-col>
-                <ion-text class="cavallo-label"><span>{{ getTranslation('fantino') }}</span></ion-text>
+                <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
               </ion-col>
             </ion-row>
 
             <!-- Mobiel: tonen bij smal scherm -->
             <ion-row class="equal-height-row row-header show-on-mobile">
               <ion-col>
-                <ion-text class="cavallo-label"><span>Palio - Contrada - Fantino</span></ion-text>
+                <ion-text class="cavallo-label"><span>Palio - Contrada - Cavallo</span></ion-text>
               </ion-col>
             </ion-row>
-            <ion-row *ngFor="let palio of cavallo.palioCorso; let i = index" 
+            <ion-row *ngFor="let palio of fantino.palioCorso; let i = index" 
                 class="equal-height-row palio-mobile-stack"
                 [ngClass]="{ 
                   'row-vinto': palio.vinto === true
@@ -187,7 +150,7 @@
                   <ion-text class="cavallo-label">
                     <span>{{ palio.palio.nome }}</span>
                   </ion-text>  
-                </div>                  
+                </div>               
               </ion-col>
               <ion-col>
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -199,27 +162,18 @@
                   </ion-text>  
                 </div>
               </ion-col>
-              <ion-col (click)="goToFantinoDetail(palio.fantino.id)" [style.cursor]="'pointer'">
+              <ion-col (click)="goToCavalloDetail(palio.cavallo.id)" [style.cursor]="'pointer'">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                  <img *ngIf="palio.fantino.foto"
-                      [src]="palio.fantino.palioFoto || palio.fantino.foto"
+                  <img *ngIf="palio.cavallo.foto"
+                      [src]="palio.cavallo.palioFoto || palio.cavallo.foto"
                       class="img-palio"  />
-                  <ng-container *ngIf="palio.fantino?.nome; else noFantino">
-                    <ion-text class="cavallo-label">
-                      <span>{{ palio.fantino.nome }}
-                      <ng-container *ngIf="palio.fantino.soprannome">
-                        detto {{ palio.fantino.soprannome }}
-                      </ng-container></span>
-                      <p class="custom2" *ngIf="palio.fantino.nome">
-                        {{ palio.puntoCaduta?.punto }}
-                      </p>
-                    </ion-text> 
-                  </ng-container>
-                  <ng-template #noFantino>
-                    <ion-text class="cavallo-label">
-                      <span>Non corse</span>
-                    </ion-text>
-                  </ng-template>
+                  <ion-text class="cavallo-label">
+                    <span>{{ palio.cavallo.nome }}
+                    <p class="custom2" *ngIf="palio.cavallo.nome">
+                      {{ palio.puntoCaduta?.punto }}
+                    </p>
+                    </span>
+                  </ion-text> 
                 </div>
               </ion-col>
             </ion-row>

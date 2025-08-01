@@ -63,7 +63,7 @@ ion-segment.lang-switch {
   --indicator-color: var(--ion-color-secondary);
 
   border-radius: 6px;
-  padding: 2px 4px;
+  padding: 2px 8px;
   max-width: 160px;
   flex-shrink: 0;
   font-size: 12px;
@@ -71,8 +71,8 @@ ion-segment.lang-switch {
 
 /* Taalknoppen */
 ion-segment.lang-switch ion-segment-button {
-  min-width: unset;
-  width: auto;
+  flex: 1 1 0;
+  min-width: 0;
   text-align: center;
 
   --color: var(--ion-color-medium);
@@ -170,3 +170,4 @@ ion-menu-button {
   --padding-start: 16px;
   --padding-end: 16px;
 }
+
