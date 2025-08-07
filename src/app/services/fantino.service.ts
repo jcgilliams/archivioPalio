@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { fantini, FantinoDetail, VintoGroup } from 'src/datatypes/fantini';
+import { FantinoDetail, VintoGroup } from 'src/datatypes/fantini';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, map } from 'rxjs';
@@ -20,18 +20,18 @@ export class FantinoService {
     return fantino;
   }  
 
-    async loadCavalliVintiOrdered(): Promise<VintoGroup[]> {
-      try {
-        const vintiGroups = await firstValueFrom(
-          this.http.get<VintoGroup[]>(`${environment.apiURL}fantini/vintiordered`)
-        );
+  async loadCavalliVintiOrdered(): Promise<VintoGroup[]> {
+    try {
+      const vintiGroups = await firstValueFrom(
+        this.http.get<VintoGroup[]>(`${environment.apiURL}fantini/vintiordered`)
+      );
     
-        return vintiGroups;
-      } catch (err) {
-        console.error('❌ Fout bij ophalen fantini vinti:', err);
-        return [];
-      }
+      return vintiGroups;
+    } catch (err) {
+      console.error('❌ Fout bij ophalen fantini vinti:', err);
+      return [];
     }
+  }
 
     private _normalizeFantinoDetail(f: any): FantinoDetail {
     return {

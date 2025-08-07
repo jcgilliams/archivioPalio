@@ -6,6 +6,7 @@ import { IonContent } from '@ionic/angular';
 import { LanguageService, SupportedLanguage } from '../services/language.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { TranslationService } from '../services/translation.service';
 
 @Component({
   selector: 'app-fantino',
@@ -29,73 +30,11 @@ export class FantinoPage implements OnInit {
   currentLanguage: SupportedLanguage = 'it';
   private langSub?: Subscription;
 
-    translations: { [key: string]: { [lang: string]: string } } = {
-    nome: {
-      it: 'Nome',
-      en: 'Name',
-      nl: 'Naam'
-    },
-    soprannome: {
-      it: 'Soprannome',
-      en: 'Nickname',
-      nl: 'Bijnaam'
-    },
-    anno: {
-      it: 'Anno di nascita',
-      en: 'Year of birth',
-      nl: 'Geboortejaar'
-    },
-    corsi: {
-      it: 'Palii corsi',
-      en: 'Palios ridden',
-      nl: 'Gereden palio\'s'
-    },
-    vinti: {
-      it: 'Palii vinti',
-      en: 'Palios won',
-      nl: 'Gewonnen palio\'s'
-    },
-    percentuale: {
-      it: 'Percentuale di vittorie',
-      en: 'Win percentage',
-      nl: 'Winstpercentage'
-    },
-    esordio: {
-      it: 'Palio di esordio',
-      en: 'Debut palio',
-      nl: 'Debuut palio'
-    },
-    ultimo: {
-      it: 'Ultimo palio',
-      en: 'Last palio',
-      nl: 'Laatste palio'
-    },
-    scheda: {
-      it: 'Scheda fantino',
-      en: 'Technical information jockey',
-      nl: 'Technische info ruiter'
-    },
-    esperienza: {
-      it: 'Esperienza in Piazza',
-      en: 'Experience on the Piazza',
-      nl: 'Ervaring op de Piazza'
-    },
-    elenco: {
-      it: 'Palii corsi dal ',
-      en: 'Ridden palios since ',
-      nl: 'Gereden palio\'s sinds '
-    },
-    cavallo: {
-      it: 'Cavallo',
-      en: 'Horse',
-      nl: 'Paard'
-    }
-  };
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private fantinoService: FantinoService,
     private languageService: LanguageService,
+    private translationService: TranslationService,
     private router: Router,
   ) { }
 
@@ -151,8 +90,7 @@ export class FantinoPage implements OnInit {
   }
 
   getTranslation(key: string): string {
-    const lang = this.languageService.getLanguage();
-    return this.translations[key]?.[lang] || '';
+    return this.translationService.getTranslation(key);
   }
 
   goToCavalloDetail(id: string) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CavalloService } from '../services/cavallo.service';
 import { CavalloDetail } from 'src/datatypes/cavalli';
@@ -6,6 +6,7 @@ import { IonContent } from '@ionic/angular';
 import { LanguageService, SupportedLanguage } from '../services/language.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { TranslationService } from '../services/translation.service';
 
 @Component({
   selector: 'app-cavallo',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cavallo.page.scss'],
   standalone: false,
 })
-export class CavalloPage implements OnInit {
+export class CavalloPage implements OnInit,OnDestroy {
   @ViewChild(IonContent, { static: false }) content?: IonContent;
   cavallo: CavalloDetail | null = null;
   id: string | null = null;
@@ -30,93 +31,11 @@ export class CavalloPage implements OnInit {
   currentLanguage: SupportedLanguage = 'it';
   private langSub?: Subscription;
 
-  translations: { [key: string]: { [lang: string]: string } } = {
-    nome: {
-      it: 'Nome',
-      en: 'Name',
-      nl: 'Naam'
-    },
-    sesso: {
-      it: 'Sesso',
-      en: 'Sex',
-      nl: 'Geslacht'
-    },
-    proprietario: {
-      it: 'Proprietario',
-      en: 'Owner',
-      nl: 'Eigenaar'
-    },
-    anno: {
-      it: 'Anno di nascita',
-      en: 'Year of birth',
-      nl: 'Geboortejaar'
-    },
-    manto: {
-      it: 'Manto',
-      en: 'Coat',
-      nl: 'Vacht'
-    },
-    corsi: {
-      it: 'Palii corsi',
-      en: 'Palios ridden',
-      nl: 'Gereden palio\'s'
-    },
-    vinti: {
-      it: 'Palii vinti',
-      en: 'Palios won',
-      nl: 'Gewonnen palio\'s'
-    },
-    percentuale: {
-      it: 'Percentuale di vittorie',
-      en: 'Win percentage',
-      nl: 'Winstpercentage'
-    },
-    esordio: {
-      it: 'Palio di esordio',
-      en: 'Debut palio',
-      nl: 'Debuut palio'
-    },
-    ultimo: {
-      it: 'Ultimo palio',
-      en: 'Last palio',
-      nl: 'Laatste palio'
-    },
-    provedinotte: {
-      it: 'Prove di Notte Corsi',
-      en: 'Night trials Ridden',
-      nl: 'Nachtritten gereden'
-    },
-    tratta: {
-      it: 'Presenze alla Tratta',
-      en: 'Presences at the Tratta',
-      nl: 'Aangeboden op de Tratta'
-    },
-    scheda: {
-      it: 'Scheda cavallo',
-      en: 'Technical information horse',
-      nl: 'Technische info paard'
-    },
-    esperienza: {
-      it: 'Esperienza in Piazza',
-      en: 'Experience on the Piazza',
-      nl: 'Ervaring op de Piazza'
-    },
-    elenco: {
-      it: 'Palii corsi dal ',
-      en: 'Ridden palios since ',
-      nl: 'Gereden palio\'s sinds '
-    },
-    fantino: {
-      it: 'Fantino',
-      en: 'Jockey',
-      nl: 'Ruiter'
-    }
-  };
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private cavalloService: CavalloService,
     private languageService: LanguageService,
+    private translationService: TranslationService,
     private router: Router,
   ) { }
 
@@ -190,8 +109,7 @@ export class CavalloPage implements OnInit {
   }
 
   getTranslation(key: string): string {
-    const lang = this.languageService.getLanguage();
-    return this.translations[key]?.[lang] || '';
+    return this.translationService.getTranslation(key);
   }
 
   goToFantinoDetail(id: string) {

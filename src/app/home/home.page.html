@@ -1,104 +1,194 @@
 <ion-content *ngIf="!loading; else loadingTpl">
   <div class="container">
 
+    <section class="segment col-1 span-2 row-1 wide-segment">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showWelcome = !showWelcome" style="cursor: pointer;">
+          <div [innerHTML]="getTranslation('welcome')"></div>
+          <ion-icon [name]="showWelcome ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showWelcome">
+          <div [innerHTML]="getTranslation('welcometext')"></div>
+        </div>
+      </div>
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showApp = !showApp" style="cursor: pointer;">
+          PalioApp?
+          <ion-icon [name]="showApp ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showApp">
+          <p class="custom">Wat is de PalioApp?</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="segment col-3 span-4 row-1 wide-segment">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showPalioAnno = !showPalioAnno" style="cursor: pointer;">
+          Palio {{ anno }} 
+          <ion-icon [name]="showPalioAnno ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showPalioAnno">
+          <ng-container *ngFor="let p of palioPerId">
+            <div class="palio-wrapper palio-wrapper--groot">
+              <ion-grid>
+                <ion-row class="equal-height-row palio-mobile-stack">
+                  <ion-col>
+                    <div class="palio-col-groot">
+                      <img 
+                        [src]="p.drappellonePalioFoto ? p.drappellonePalioFoto : 'assets/palio.png'" 
+                        class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span style="font-weight: bold">{{ p.palioNome }}</span>
+                      </ion-text>  
+                    </div>                  
+                  </ion-col>
+                  <ion-col>
+                    <ion-label>
+                      <div class="palio-col-groot">
+                        <img 
+                          [src]="p.cavalloId ? p.contradaLogo : 'assets/palio.png'" 
+                          class="img-palio" />
+                        <div style="display: flex; flex-direction: column;">
+                          <div class="cavallo-name">{{ p.contrada }}</div>
+                          <div class="cavallo-info">
+                            contrada
+                          </div>
+                        </div>
+                      </div>
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+                <ion-row class="equal-height-row palio-mobile-stack">
+                  <ion-col (click)="p.cavalloId && goToCavalloDetail(p.cavalloId)" [style.cursor]="p.cavalloId ? 'pointer' : 'default'">
+                    <ion-label>
+                      <div class="palio-col-groot">
+                        <img 
+                          [src]="p.cavalloId ? (p.cavalloPalioFoto || p.cavalloFoto) : 'assets/palio.png'" 
+                          class="img-palio" />
+                        <div style="display: flex; flex-direction: column;">
+                          <div class="cavallo-name">{{ p.cavallo }}</div>
+                          <div [innerHTML]="getTranslation('cavallo')" class="cavallo-info"></div>
+                        </div>
+                      </div>
+                    </ion-label>
+                  </ion-col>
+                  <ion-col (click)="p.fantinoId && goToFantinoDetail(p.fantinoId)" [style.cursor]="p.cavalloId ? 'pointer' : 'default'">
+                    <ion-label>
+                      <div class="palio-col-groot">
+                        <img 
+                          [src]="p.fantinoId ? (p.fantinoPalioFoto || p.fantinoFoto) : 'assets/palio.png'" 
+                          class="img-palio" />
+                        <div style="display: flex; flex-direction: column;">
+                          <div class="cavallo-name">{{ p.fantino }}</div>
+                          <div [innerHTML]="getTranslation('fantino')" class="cavallo-info"></div>
+                        </div>
+                      </div>
+                    </ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+          </ng-container>  
+        </div>
+      </div>
+    </section>        
+
     <section class="segment col-1 span-2 row-2 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showPalio = !showPalio" style="cursor: pointer;">
-          Elenco vittorie
+          Ultime 10 palii
           <ion-icon [name]="showPalio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showPalio">
-          <p>Elenco content komt hier</p>
+          <p class="custom">Hier zou ik de laatste 10 palio's willen tonen</p>
+          <p class="custom">En daaronder een link naar de pagina met de volledige lijst</p>
         </div>
       </div>
     </section>
 
-    <section class="segment col-5 span-2 row-1 fantini">
+        <section class="segment col-3 span-2 row-2 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showFantini = !showFantini" style="cursor: pointer;">
-          Fantini vincenti dal 1900
+          Fantini + 10 wins
           <ion-icon [name]="showFantini ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showFantini">
-          <p>Fantini content komt hier</p>
+          <p class="custom">Hier zou ik de fantini met 10+ wins willen tonen</p>
+          <p class="custom">En daaronder een link naar de pagina met de volledige lijst</p>
         </div>
       </div>
     </section>
 
-    <section class="segment col-1 span-6 row-3 wide-segment">
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showExtraBis = !showExtraBis" style="cursor: pointer;">
-          Extra info test breed 2
-          <ion-icon [name]="showExtraBis ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showExtraBis">
-          <p>Testen of meerder segments onder elkaar kunnen.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="segment col-1 span-4 row-1 wide-segment">
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showExtra = !showExtra" style="cursor: pointer;">
-          Extra info test breed
-          <ion-icon [name]="showExtra ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showExtra">
-          <p>Testen of meerder segments onder elkaar kunnen.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="segment col-3 span-2 row-2 cavalli">
+    <section class="segment col-5 span-2 row-2 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showCavalli = !showCavalli" style="cursor: pointer;">
-          Cavalli vincenti dal 1900
+          Cavalli + 5 wins
           <ion-icon [name]="showCavalli ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
-
         <div *ngIf="showCavalli">
-          <div class="searchbar-wrapper">
-            <ion-searchbar
-              [(ngModel)]="searchTerm"
-              (ionInput)="filterCavalli()"
-              debounce="300"
-              placeholder="Cerca cavallo..."
-              class="custom"
-            ></ion-searchbar>
-          </div>
-          <ion-accordion-group multiple [value]="openAccordionValues">
-            <ion-accordion *ngFor="let group of filteredCavalliVintiOrdered" [value]="group.vinto">
-              <!-- HEADER -->
-              <ion-item slot="header" (click)="toggleAccordion(group.vinto.toString())" style="cursor:pointer;">
-                <ion-label>{{ group.vinto }}</ion-label>
-                <ion-icon
-                  [name]="openAccordionValues.includes(group.vinto.toString()) ? 'chevron-up-outline' : 'chevron-down-outline'"
-                  class="chevron-icon"
-                ></ion-icon>
-              </ion-item>
+          <p class="custom">Hier zou ik de cavalli met 5+ wins willen tonen</p>
+          <p class="custom">En daaronder een link naar de pagina met de volledige lijst</p>
+        </div>
+      </div>
+    </section>
 
-              <!-- CONTENT -->
-              <div class="ion-padding" slot="content">
-                <ion-item *ngFor="let cavallo of group.cavalli" (click)="goToCavalloDetail(cavallo.id)" button>
-                  <ion-thumbnail slot="start">
-                    <img [src]="cavallo?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
-                  </ion-thumbnail>
+    <section class="segment col-1 span-3 row-3 wide-segment">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showContradeUltimo = !showContradeUltimo" style="cursor: pointer;">
+          Laatste overwinning per contrada 
+          <ion-icon [name]="showContradeUltimo ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showContradeUltimo">
+          <p>Lijst met laatste overwinningen per contrada (+ aantal jaar sinds laatste)</p>
+        </div>
+      </div>
+    </section>      
 
-                <ion-label>
-                  <div class="cavallo-name">{{ cavallo.nome }}</div>
-                  <div *ngIf="cavallo.paliiCorsi > 0" class="cavallo-info">
-                    <ng-container *ngIf="cavallo.paliiVinti > 0; else geenPalio">
-                      Palii Corsi: {{ cavallo.paliiCorsi }} &nbsp;|&nbsp; Palii Vinti: {{ cavallo.paliiVinti }}
-                    </ng-container>
-                    <ng-template #geenPalio>
-                      Palii Corsi: {{ cavallo.paliiCorsi }}
-                    </ng-template>
-                  </div>
-                </ion-label>
-                </ion-item>
-              </div>
-            </ion-accordion>
-          </ion-accordion-group>
+    <section class="segment col-4 span-3 row-3 cavalli">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showContradeVittorie = !showContradeVittorie" style="cursor: pointer;">
+          Aantal (officiele) overwinningen per contrada 
+          <ion-icon [name]="showContradeVittorie ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showContradeVittorie">
+          <p>Lijst met aantal (officiele) overwinningen per contrada</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="segment col-1 span-2 row-4 palio ">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showBe = !showBe" style="cursor: pointer;">
+          www.palio.be
+          <ion-icon [name]="showBe ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showBe">
+          <p class="custom">Wat is palio.be ?</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="segment col-3 span-2 row-4 palio ">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showEu = !showEu" style="cursor: pointer;">
+          www.thepalio.eu
+          <ion-icon [name]="showEu ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showEu">
+          <p class="custom">Wat is thepalio.eu ?</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="segment col-5 span-2 row-4 palio ">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showApp = !showApp" style="cursor: pointer;">
+          PalioApp?
+          <ion-icon [name]="showApp ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showApp">
+          <p class="custom">Wat is de PalioApp?</p>
         </div>
       </div>
     </section>
@@ -112,5 +202,7 @@
 </ion-content>
 
 <ng-template #loadingTpl>
-  <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+  <div class="spinner-wrapper">
+    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+  </div>
 </ng-template>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { cavalli, VintoGroup, CavalloDetail } from 'src/datatypes/cavalli';
+import { cavalli, VintoGroup, CavalloDetail, alboCavalli } from 'src/datatypes/cavalli';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +36,31 @@ export class CavalloService {
       console.error('❌ Fout bij ophalen cavalli vinti:', err);
       return [];
     }
+  }
+
+  searchCavalli(zoekterm: string): Observable<cavalli[]> {
+    if (!zoekterm || zoekterm.trim().length === 0) {
+      return of([]);
+    }
+
+    return this.http
+      .get<any[]>(`${environment.apiURL}searchCavalli.php?search=${encodeURIComponent(zoekterm)}`)
+      .pipe(
+        map(resultaten => resultaten.map(this._normalizeCavallo))
+      );
+  }
+
+  async loadAlboCavalliByYear(anno: string): Promise<alboCavalli[]> {
+    const alboCavalli = await firstValueFrom(
+      this.http.get<alboCavalli[]>(`${environment.apiURL}alboCavalli/${anno}`).pipe(
+        map(items => items.map(c => ({
+          ...c,
+          ammesso: Number(c.ammesso) === 1,
+          assente: Number(c.assente) === 1,
+        })))
+      )
+    );
+    return alboCavalli;
   }
 
   private _normalizeCavallo(c: any): cavalli {

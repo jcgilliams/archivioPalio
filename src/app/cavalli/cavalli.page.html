@@ -1,0 +1,186 @@
+<ion-content *ngIf="!loading; else loadingTpl">
+  <div class="container">
+
+    <section class="segment col-1 span-6 row-1 cavallo-header">
+      <img src="https://api.palioapp.com/images/cavalli/palio.png" class="cavallo-foto" />
+      <h2 class="cavallo-naam-groot">
+        {{ getTranslation('titelCavalli') }}
+      </h2>
+    </section>
+
+    <section class="segment col-1 span-4 row-2 cavalli">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showCavalli = !showCavalli" style="cursor: pointer;">
+          {{ getTranslation('vincentiCavalli') }}
+          <ion-icon [name]="showCavalli ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+
+        <div *ngIf="showCavalli">
+          <!-- Mobiele layout -->
+          <div class="mobile-layout">
+            <!-- mobiele content hier -->
+            <div class="searchbar-wrapper">
+              <ion-searchbar
+                [(ngModel)]="searchTerm"
+                (ionInput)="filterCavalli()"
+                debounce="300"
+                [placeholder]="getTranslation('search_placeholderCavallo')"
+                class="custom"
+              ></ion-searchbar>
+            </div>
+            <ion-accordion-group multiple [value]="openAccordionValues">
+              <ion-accordion *ngFor="let group of filteredCavalliVintiOrdered" [value]="group.vinto">
+                <!-- HEADER -->
+                <ion-item slot="header" (click)="toggleAccordion(group.vinto.toString())" style="cursor:pointer;">
+                  <ion-label>{{ group.vinto }}</ion-label>
+                  <ion-icon
+                    [name]="openAccordionValues.includes(group.vinto.toString()) ? 'chevron-up-outline' : 'chevron-down-outline'"
+                    class="chevron-icon"
+                  ></ion-icon>
+                </ion-item>
+
+                <!-- CONTENT -->
+                <div class="ion-padding" slot="content">
+                  <ion-item *ngFor="let cavallo of group.cavalli" (click)="goToCavalloDetail(cavallo.id)" button>
+                    <ion-thumbnail slot="start">
+                      <img [src]="cavallo?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+                    </ion-thumbnail>
+
+                    <ion-label>
+                      <div class="cavallo-name">{{ cavallo.nome }}</div>
+                      <div *ngIf="cavallo.paliiCorsi > 0" class="cavallo-info">
+                        <ng-container *ngIf="cavallo.paliiVinti > 0; else geenPalio">
+                          {{ getTranslation('corsi') }} {{ cavallo.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }} {{ cavallo.paliiVinti }}
+                        </ng-container>
+                        <ng-template #geenPalio>
+                          {{ getTranslation('corsi') }} {{ cavallo.paliiCorsi }}
+                        </ng-template>
+                      </div>
+                    </ion-label>
+                  </ion-item>
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </div>
+          <!-- Desktop layout -->
+          <div class="desktop-layout">
+            <!-- desktop content hier -->
+            <div class="searchbar-wrapper">
+              <ion-searchbar
+                [(ngModel)]="searchTerm"
+                (ionInput)="filterCavalli()"
+                debounce="300"
+                [placeholder]="getTranslation('search_placeholderCavallo')"
+                class="custom"
+              ></ion-searchbar>
+            </div>
+            <ion-accordion-group multiple [value]="openAccordionValues">
+              <ion-accordion *ngFor="let group of filteredCavalliVintiOrdered" [value]="group.vinto">
+                <!-- HEADER -->
+                <ion-item slot="header" (click)="toggleAccordion(group.vinto.toString())" style="cursor:pointer;">
+                  <ion-label>{{ group.vinto }}</ion-label>
+                  <ion-icon
+                    [name]="openAccordionValues.includes(group.vinto.toString()) ? 'chevron-up-outline' : 'chevron-down-outline'"
+                    class="chevron-icon"
+                  ></ion-icon>
+                </ion-item>
+
+                <!-- CONTENT -->
+                <div class="ion-padding" slot="content">
+                  <div class="cavalli-grid">
+                    <ion-card *ngFor="let cavallo of group.cavalli" (click)="goToCavalloDetail(cavallo.id)" button class="cavallo-card custom-card">
+                      <div class="foto-wrapper">
+                        <img class="cavallo-foto" [src]="cavallo?.foto ?? '/assets/palio.png'" alt="cavallo_palio" />
+                      </div>
+                      <ion-card-header>
+                        <ion-card-title class="cavallo-titel">{{ cavallo.nome.split('/')[0] }}</ion-card-title>
+                      </ion-card-header>
+
+                      <ion-card-content>
+                        <div class="cavallo-info">
+                          <ng-container>
+                            {{ getTranslation('corsi') }} {{ cavallo.paliiCorsi }}
+                          </ng-container>
+                        </div>
+                      </ion-card-content>
+                    </ion-card>
+                  </div>
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="segment col-5 span-2 row-2 palio ">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showSearch = !showSearch" style="cursor: pointer;">
+          {{ getTranslation('cercaCavallo') }}
+          <ion-icon [name]="showSearch ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showSearch">
+          <div class="searchbar-wrapper">
+            <ion-searchbar
+              [(ngModel)]="zoekterm"
+              (ionInput)="searchCavalli()"
+              debounce="300"
+              [placeholder]="getTranslation('search_placeholderCavallo')"
+              class="custom"
+            ></ion-searchbar>
+          </div>
+          
+          <!-- Zoekresultaten tonen -->
+          <ion-list *ngIf="zoekterm && zoekResultaten.length > 0">
+            <ion-item *ngFor="let c of zoekResultaten" (click)="goToCavalloDetail(c.id)" button style="padding: 0 5px 0 5px;">
+              <ion-thumbnail slot="start">
+                <img [src]="c?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+              </ion-thumbnail>
+              <ion-label>
+                <div class="cavallo-name">{{ c.nome }}</div>
+                <div *ngIf="c.paliiCorsi > 0" class="cavallo-info">
+                  <ng-container *ngIf="c.paliiVinti > 0; else geenPalio">
+                    {{ getTranslation('corsi') }} {{ c.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }} {{ c.paliiVinti }}
+                  </ng-container>
+                  <ng-template #geenPalio>
+                    {{ getTranslation('corsi') }} {{ c.paliiCorsi }}
+                  </ng-template>
+                </div>
+               </ion-label>
+            </ion-item>
+          </ion-list>  
+         </div>
+      </div>
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showProtocollo = !showProtocollo" style="cursor: pointer;">
+          Protocollo {{ anno }}
+          <ion-icon [name]="showProtocollo ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showProtocollo">
+          <ion-list>
+          <ion-item *ngFor="let c of alboCavalli" (click)="goToCavalloDetail(c.cavalloId)" button>
+              <ion-thumbnail slot="start">
+                <img [src]="c?.cavalloFoto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+              </ion-thumbnail>
+              <ion-label>
+                <div class="cavallo-name">{{ c.cavalloNome }}</div>
+              </ion-label>
+          </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </section>
+
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scrollToTop()" color="tertiary">
+      <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<ng-template #loadingTpl>
+  <div class="spinner-wrapper">
+    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+  </div>
+</ng-template>

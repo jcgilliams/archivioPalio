@@ -74,3 +74,13 @@ export interface PalioCorso {
     punto: string;
   } | null;
 }
+
+export interface alboCavalli {
+  id: number;
+  anno: string;
+  ammesso: boolean;
+  assente: boolean;
+  cavalloId: string;
+  cavalloNome: string;
+  cavalloFoto: string;
+}

@@ -16,7 +16,7 @@ export class LanguageService {
     this.currentLanguageSubject.next(initialLang);
   }
    
-   setLanguage(lang: SupportedLanguage) {
+  setLanguage(lang: SupportedLanguage) {
     localStorage.setItem('lang', lang);
     this.currentLanguageSubject.next(lang);
   }

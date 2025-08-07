@@ -399,6 +399,65 @@
     display: none;
   }
 
+  .palio-wrapper {
+    border: 1px solid;
+    border-color: var(--ion-color-primary);
+    border-radius: 12px;
+    padding: 8px;
+    margin-bottom: 12px;
+  }
+
+  .palio-col-groot {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* kan iets kleiner op mobiel */
+    flex-direction: row; /* zorg dat het altijd naast elkaar is */
+  }
+
+  .palio-wrapper .cavallo-info {
+    text-transform: lowercase;
+  }
+
+
+@media (min-width: 1025px) {
+  .palio-wrapper--groot {
+    font-size: 1.2rem; 
+  }
+
+  .palio-wrapper--groot .palio-col-groot {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .palio-wrapper--groot .img-palio {
+    width: 50px;
+    height: 50px;
+  }
+
+  .palio-wrapper--groot .cavallo-label span {
+    font-size: 22px;
+  }
+
+  .palio-wrapper--groot .cavallo-name {
+    font-size: 18px;
+  }
+}
+
+  /* spinner */
+  .spinner-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Zorgt dat de container de volledige viewport hoogte heeft */
+    width: 100vw;  /* Volledige viewport breedte */
+    position: fixed; /* Zorgt dat het altijd bovenaan ligt */
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8); /* optioneel: lichte achtergrond */
+    z-index: 9999; /* zorg dat het boven andere content komt */
+  }
+
 
   /* === GRID CONTAINER === */
   .container {
