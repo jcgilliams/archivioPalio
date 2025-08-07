@@ -16,9 +16,17 @@
   /* Goud winnaar */
   --ion-color-gold: #FFD700;
 
-  body, ion-app, ion-content {
-    background: var(--ion-background-color);
+  body, ion-app {
+    background: transparent;
   }
+
+  ion-content {
+    --background: transparent;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+  }
+
 
   ion-footer.custom-footer {
     --background: var(--ion-color-primary);
@@ -354,7 +362,7 @@
 
   .cavallo-naam-groot {
     font-size: 2rem;
-    color: var(--ion-color-secondary);
+    color: var(--ion-background-color) !important;
     margin: 0;
   }
 
