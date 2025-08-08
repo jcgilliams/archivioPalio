@@ -1,0 +1,14 @@
+<ion-content *ngIf="!loading; else loadingTpl">
+  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; color: white;">
+    <h2 style="margin: 0;">Palio detailpagina</h2>
+    <p style="margin-top: 8px;">{{ slug }}</p>
+  </div>
+</ion-content>
+
+<ng-template #loadingTpl>
+  <div class="spinner-wrapper">
+    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+  </div>
+</ng-template>
+
+

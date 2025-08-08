@@ -181,7 +181,7 @@ ion-menu-button {
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
-  filter: brightness(0.7); // eventueel aanpassen voor lichtere of donkerdere filter
+  filter: brightness(0.8); // eventueel aanpassen voor lichtere of donkerdere filter
 
   /* Overlay met ion-background-color */
   &::after {
@@ -191,7 +191,7 @@ ion-menu-button {
     width: 100%;
     height: 100%;
     background-color: var(--ion-background-color);
-    opacity: 0.6; // Pas dit aan naar wens
+    opacity: 0.3; // Pas dit aan naar wens
     
   }
 }

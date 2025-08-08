@@ -179,7 +179,7 @@
                 [ngClass]="{ 
                   'row-vinto': palio.vinto === true
                   }">
-              <ion-col>
+              <ion-col (click)="goToPalioDetail(palio.palioDate)" [style.cursor]="'pointer'">
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <img *ngIf="palio.drappellonePalioFoto"
                       [src]="palio.drappellonePalioFoto"
@@ -189,7 +189,7 @@
                   </ion-text>  
                 </div>                  
               </ion-col>
-              <ion-col>
+              <ion-col (click)="goToContradaDetail(palio.contrada.nome)" [style.cursor]="'pointer'">
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <img *ngIf="palio.contrada.nome"
                       [src]="palio.contrada.logo"

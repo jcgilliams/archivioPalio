@@ -17,7 +17,7 @@
           <ion-icon [name]="showApp ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showApp">
-          <p class="custom">Wat is de PalioApp?</p>
+          <div [innerHTML]="getTranslation('palioApp')"></div>
         </div>
       </div>
     </section>
@@ -33,7 +33,7 @@
             <div class="palio-wrapper palio-wrapper--groot">
               <ion-grid>
                 <ion-row class="equal-height-row palio-mobile-stack">
-                  <ion-col>
+                  <ion-col (click)="p.palioDate && goToPalioDetail(p.palioDate)" [style.cursor]="p.palioDate ? 'pointer' : 'default'">
                     <div class="palio-col-groot">
                       <img 
                         [src]="p.drappellonePalioFoto ? p.drappellonePalioFoto : 'assets/palio.png'" 
@@ -43,7 +43,7 @@
                       </ion-text>  
                     </div>                  
                   </ion-col>
-                  <ion-col>
+                  <ion-col (click)="p.fantinoId && goToContradaDetail(p.contrada)" [style.cursor]="p.fantinoId ? 'pointer' : 'default'">
                     <ion-label>
                       <div class="palio-col-groot">
                         <img 
@@ -169,7 +169,7 @@
       </div>
     </section>
 
-    <section class="segment col-3 span-2 row-4 palio ">
+    <section class="segment col-5 span-2 row-4 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showEu = !showEu" style="cursor: pointer;">
           www.thepalio.eu
@@ -177,18 +177,6 @@
         </h2>
         <div *ngIf="showEu">
           <p class="custom">Wat is thepalio.eu ?</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="segment col-5 span-2 row-4 palio ">
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showApp = !showApp" style="cursor: pointer;">
-          PalioApp?
-          <ion-icon [name]="showApp ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showApp">
-          <p class="custom">Wat is de PalioApp?</p>
         </div>
       </div>
     </section>

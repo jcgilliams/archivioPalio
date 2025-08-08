@@ -59,6 +59,7 @@ export class CavalloPage implements OnInit,OnDestroy {
     this.langSub?.unsubscribe();
   }
 
+  
   private async loadCavallo(id: string) {
     try {
       const data = await this.cavalloService.getCavalloById(id);
@@ -114,6 +115,14 @@ export class CavalloPage implements OnInit,OnDestroy {
 
   goToFantinoDetail(id: string) {
     this.router.navigate(['/fantino', id]);
+  }
+
+  goToPalioDetail(slug: string) {
+    this.router.navigate(['/palio', slug]);
+  }  
+
+  goToContradaDetail(contrada: string) {
+    this.router.navigate(['/contrada', contrada.toLowerCase()]);
   }
   
 }

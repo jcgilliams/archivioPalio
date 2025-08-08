@@ -23,6 +23,14 @@ const routes: Routes = [
     path: 'cavalli',
     loadChildren: () => import('./cavalli/cavalli.module').then( m => m.CavalliPageModule)
   },
+  {
+    path: 'palio/:slug',
+    loadChildren: () => import('./palio/palio.module').then( m => m.PalioPageModule)
+  },
+  {
+    path: 'contrada/:nome',
+    loadChildren: () => import('./contrada/contrada.module').then( m => m.ContradaPageModule)
+  },
 ];
 
 @NgModule({

@@ -96,4 +96,12 @@ export class FantinoPage implements OnInit {
   goToCavalloDetail(id: string) {
     this.router.navigate(['/cavallo', id]);
   }
+
+  goToPalioDetail(slug: string) {
+    this.router.navigate(['/palio', slug]);
+  }  
+
+  goToContradaDetail(contrada: string) {
+    this.router.navigate(['/contrada', contrada.toLowerCase()]);
+  }  
 }

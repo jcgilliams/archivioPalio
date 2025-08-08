@@ -84,6 +84,14 @@ export class HomePage implements OnInit {
     this.router.navigate(['/fantino', id]);
   }  
 
+  goToPalioDetail(slug: string) {
+    this.router.navigate(['/palio', slug]);
+  }  
+
+  goToContradaDetail(contrada: string) {
+    this.router.navigate(['/contrada', contrada.toLowerCase()]);
+  }
+
   toggleAccordion(value: string) {
     const index = this.openAccordionValues.indexOf(value);
     if(index > -1) {
