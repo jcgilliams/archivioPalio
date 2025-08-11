@@ -1,0 +1,18 @@
+@media (max-width: 1025px) {
+  .no-mobile-stack .palio-mobile-stack {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important; /* laat niets naar nieuwe regel gaan */
+  }
+
+  .no-mobile-stack .palio-mobile-stack ion-col:first-child {
+    flex: 1 1 auto !important;   /* vult resterende ruimte */
+    max-width: calc(100% - 80px) !important; /* 2 smalle kolommen van 40px elk */
+  }
+
+  .no-mobile-stack .palio-mobile-stack ion-col:nth-child(2),
+  .no-mobile-stack .palio-mobile-stack ion-col:nth-child(3) {
+    flex: 0 0 40px !important;
+    max-width: 40px !important;
+    text-align: center;
+  }
+}

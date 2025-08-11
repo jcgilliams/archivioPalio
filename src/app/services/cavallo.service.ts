@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { cavalli, VintoGroup, CavalloDetail, alboCavalli } from 'src/datatypes/cavalli';
+import { cavalli, VintoGroupCavalli, CavalloDetail, alboCavalli } from 'src/datatypes/cavalli';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, map, Observable, of } from 'rxjs';
@@ -19,10 +19,10 @@ export class CavalloService {
     return cavallo;
   }
 
-  async loadCavalliVintiOrdered(): Promise<VintoGroup[]> {
+  async loadCavalliVintiOrdered(): Promise<VintoGroupCavalli[]> {
     try {
       const vintiGroups = await firstValueFrom(
-        this.http.get<VintoGroup[]>(`${environment.apiURL}cavalli/vintiordered`)
+        this.http.get<VintoGroupCavalli[]>(`${environment.apiURL}cavalli/vintiordered`)
       );
 
       // Normaliseer elke cavallo in de groepen

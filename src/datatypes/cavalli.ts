@@ -21,7 +21,7 @@ export interface cavalli {
   ultimo_date: string;
 }
 
-export interface VintoGroup {
+export interface VintoGroupCavalli {
   vinto: number;
   cavalli: cavalli[];
 }

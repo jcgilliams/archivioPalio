@@ -12,7 +12,7 @@ export interface fantini {
   ultimo_date: string;
 }
 
-export interface VintoGroup {
+export interface VintoGroupFantini {
   vinto: number;
   fantini: fantini[];
 }

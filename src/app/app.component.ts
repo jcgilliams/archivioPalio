@@ -40,7 +40,7 @@ export class AppComponent {
     statistiche: {
       it: 'Statistiche',
       en: 'Statistics',
-      nl: 'Statistiek'
+      nl: 'Statistieken'
     }
   };
 

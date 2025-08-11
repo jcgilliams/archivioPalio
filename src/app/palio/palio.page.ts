@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-palio',
@@ -8,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   standalone: false,
 })
 export class PalioPage implements OnInit {
+  @ViewChild(IonContent, { static: false }) content?: IonContent;
   slug: string | null = null;
   loading = true;
 
@@ -20,4 +22,9 @@ export class PalioPage implements OnInit {
 
     this.loading = false;
   }
+
+  scrollToTop() {
+    this.content?.scrollToTop(500);
+  }
+
 }

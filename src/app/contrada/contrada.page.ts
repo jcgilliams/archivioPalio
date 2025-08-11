@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-contrada',
@@ -8,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   standalone: false,
 })
 export class ContradaPage implements OnInit {
+  @ViewChild(IonContent, { static: false }) content?: IonContent;
   nome: string | null = null;
   loading = true;
 
@@ -18,5 +20,13 @@ export class ContradaPage implements OnInit {
   ngOnInit() {
     this.nome = this.route.snapshot.paramMap.get('nome');
     this.loading = false;
+  }
+
+  async ionViewWillEnter() {
+    this.content?.scrollToTop(0);
+  }
+  
+  scrollToTop() {
+    this.content?.scrollToTop(500);
   }
 }

@@ -91,31 +91,74 @@
             </div>
           </ng-container>  
         </div>
+        <hr class="home-divider">
+        <ion-button (click)="goToProtocolloPage()" class="home-button">{{ getTranslation('protocolloLink') }} {{ anno }}</ion-button>
       </div>
     </section>        
 
     <section class="segment col-1 span-2 row-2 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showPalio = !showPalio" style="cursor: pointer;">
-          Ultime 10 palii
+          <div [innerHTML]="getTranslation('palio10')"></div>
           <ion-icon [name]="showPalio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showPalio">
-          <p class="custom">Hier zou ik de laatste 10 palio's willen tonen</p>
-          <p class="custom">En daaronder een link naar de pagina met de volledige lijst</p>
+          <ion-item *ngFor="let p of palioList" (click)="goToPalioDetail(p.palioDate)" button class="palio-hover-item">
+            <ion-thumbnail slot="start">
+              <img [src]="p?.contradaLogo ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+            </ion-thumbnail>
+
+            <ion-label>
+              <div class="cavallo-name"><strong>{{ p.palio }}</strong> ({{ p.contradaNome }})</div>
+              <div class="palio-info">
+                  {{ p.fantinoNome }} detto {{ p.fantinoSoprannome }} 
+                  <span class="no-italic">{{ getTranslation('op') }}</span>
+                  {{ p.cavalloNome }}
+              </div>
+            </ion-label>
+          </ion-item>
         </div>
+        <hr class="home-divider">
+        <ion-button (click)="goToVittoriePage()" class="home-button">{{ getTranslation('vittorieLink') }}</ion-button>
       </div>
     </section>
 
-        <section class="segment col-3 span-2 row-2 palio ">
+    <section class="segment col-3 span-2 row-2 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showFantini = !showFantini" style="cursor: pointer;">
-          Fantini + 10 wins
+          <div [innerHTML]="getTranslation('fantini10')"></div>
           <ion-icon [name]="showFantini ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showFantini">
-          <p class="custom">Hier zou ik de fantini met 10+ wins willen tonen</p>
-          <p class="custom">En daaronder een link naar de pagina met de volledige lijst</p>
+          <ion-accordion-group multiple [value]="openFantiniAccordionValues">
+            <ion-accordion *ngFor="let group of fantiniList" [value]="group.vinto">
+              <ion-item slot="header" (click)="toggleFantiniAccordion(group.vinto.toString())" style="cursor:pointer;">
+                <ion-label>{{ group.vinto }}</ion-label>
+                <ion-icon
+                  [name]="openFantiniAccordionValues.includes(group.vinto.toString()) ? 'chevron-up-outline' : 'chevron-down-outline'"
+                  class="chevron-icon"
+                ></ion-icon>
+              </ion-item>
+
+                <!-- CONTENT -->
+              <div class="ion-padding" slot="content">
+                <ion-item *ngFor="let f of group.fantini" (click)="goToFantinoDetail(f.id)" button>
+                  <ion-thumbnail slot="start">
+                    <img [src]="f?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+                  </ion-thumbnail>
+
+                  <ion-label>
+                    <div class="cavallo-name">{{ f.nome }} detto {{ f.soprannome }}</div>
+                    <div class="cavallo-info">
+                        {{ getTranslation('corsi') }}: {{ f.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }}: {{ f.paliiVinti }}
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+          <hr class="home-divider">
+          <ion-button (click)="goToFantiniPage()" class="home-button">{{ getTranslation('fantiniLink') }}</ion-button>
         </div>
       </div>
     </section>
@@ -123,12 +166,39 @@
     <section class="segment col-5 span-2 row-2 palio ">
       <div class="subsegment">
         <h2 class="section-header" (click)="showCavalli = !showCavalli" style="cursor: pointer;">
-          Cavalli + 5 wins
+          <div [innerHTML]="getTranslation('cavalli5')"></div>
           <ion-icon [name]="showCavalli ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showCavalli">
-          <p class="custom">Hier zou ik de cavalli met 5+ wins willen tonen</p>
-          <p class="custom">En daaronder een link naar de pagina met de volledige lijst</p>
+          <ion-accordion-group multiple [value]="openCavalliAccordionValues">
+            <ion-accordion *ngFor="let group of cavalliList" [value]="group.vinto">
+              <ion-item slot="header" (click)="toggleCavalliAccordion(group.vinto.toString())" style="cursor:pointer;">
+                <ion-label>{{ group.vinto }}</ion-label>
+                <ion-icon
+                  [name]="openCavalliAccordionValues.includes(group.vinto.toString()) ? 'chevron-up-outline' : 'chevron-down-outline'"
+                  class="chevron-icon"
+                ></ion-icon>
+              </ion-item>
+
+                <!-- CONTENT -->
+              <div class="ion-padding" slot="content">
+                <ion-item *ngFor="let c of group.cavalli" (click)="goToCavalloDetail(c.id)" button>
+                  <ion-thumbnail slot="start">
+                    <img [src]="c?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+                  </ion-thumbnail>
+
+                  <ion-label>
+                    <div class="cavallo-name">{{ c.nome }}</div>
+                    <div class="cavallo-info">
+                        {{ getTranslation('corsi') }}: {{ c.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }}: {{ c.paliiVinti }}
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </div>
+            </ion-accordion>
+          </ion-accordion-group>
+          <hr class="home-divider">
+          <ion-button (click)="goToCavalliPage()" class="home-button">{{ getTranslation('cavalliLink') }}</ion-button>
         </div>
       </div>
     </section>
@@ -136,11 +206,110 @@
     <section class="segment col-1 span-3 row-3 wide-segment">
       <div class="subsegment">
         <h2 class="section-header" (click)="showContradeUltimo = !showContradeUltimo" style="cursor: pointer;">
-          Laatste overwinning per contrada 
+          {{ getTranslation('ultimaVittoria') }}
           <ion-icon [name]="showContradeUltimo ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showContradeUltimo">
-          <p>Lijst met laatste overwinningen per contrada (+ aantal jaar sinds laatste)</p>
+          <ion-grid class="palio-grid">
+            <!-- Desktop: tonen bij breed scherm -->
+            <ion-row class="equal-height-row row-header hide-on-mobile">
+              <ion-col size="2" size-md="2" size-lg="2" style="display: flex; align-items: center; justify-content: center; text-align: center;"> 
+                <ion-text class="cavallo-label"><span>{{ getTranslation('jaren') }}</span></ion-text>
+              </ion-col>
+              <ion-col size="4" size-md="4" size-lg="4">
+                <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
+              </ion-col>
+              <ion-col size="6" size-md="6" size-lg="6">
+                <ion-text class="cavallo-label"><span>Palio</span></ion-text>
+              </ion-col>
+            </ion-row>
+            <!-- Mobile: tonen bij klein scherm -->
+            <ion-row class="equal-height-row row-header show-on-mobile">
+              <ion-col size="2" size-sm="2" style="display: flex; align-items: center; justify-content: center; text-align: center;"> 
+                <ion-text class="cavallo-label"><span>{{ getTranslation('jaren') }}</span></ion-text>
+              </ion-col>
+              <ion-col size="10" size-sm="10"> 
+                <div style="display: flex;">
+                  <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
+                </div>
+                <hr>
+                <div style="display: flex">
+                  <ion-text class="cavallo-label"><span>Palio</span></ion-text>
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <!-- Desktop: tonen bij breed scherm -->            
+            <ion-row *ngFor="let u of ultimaVittoriaList; let i = index" 
+              class="equal-height-row hide-on-mobile">
+              <ion-col size="2" size-md="2" size-lg="2">
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                  <ion-text class="cavallo-label">
+                    <span>
+                      {{ u.jarenSindsOverwinning }}
+                    </span>
+                  </ion-text>  
+                </div>
+              </ion-col>
+              <ion-col (click)="goToContradaDetail(u.contrada)" [style.cursor]="'pointer'" size="4" size-md="4" size-lg="4">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="u.logo"
+                      [src]="u.logo"
+                      class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ u.contrada }}</span>
+                  </ion-text>  
+                </div>             
+              </ion-col>
+              <ion-col (click)="goToPalioDetail(u.palioDate)" [style.cursor]="'pointer'" size="6" size-md="6" size-lg="6">
+                <div>
+                  <ion-text class="cavallo-label">
+                    <span>
+                      <strong>{{ u.palio }}</strong>
+                    </span>
+                    <div class="palio-info">
+                      {{ u.fantino }} {{ getTranslation('op') }} {{ u.cavallo }}
+                    </div>
+                  </ion-text> 
+                </div> 
+              </ion-col>
+            </ion-row>
+
+            <!-- Mobile: tonen bij klein scherm -->            
+            <ion-row *ngFor="let u of ultimaVittoriaList; let i = index" 
+              class="equal-height-row show-on-mobile">
+              <ion-col size="2" size-sm="2">
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                  <ion-text class="cavallo-label">
+                    <span>
+                      {{ u.jarenSindsOverwinning }}
+                    </span>
+                  </ion-text>  
+                </div>
+              </ion-col>
+              <ion-col size="10" size-sm="10">
+                <div (click)="goToContradaDetail(u.contrada)" [style.cursor]="'pointer'" style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="u.logo"
+                      [src]="u.logo"
+                      class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ u.contrada }}</span>
+                  </ion-text>  
+                </div> 
+                <hr>          
+                <div (click)="goToPalioDetail(u.palioDate)" [style.cursor]="'pointer'" >
+                  <ion-text class="cavallo-label">
+                    <span>
+                      <strong>{{ u.palio }}</strong>
+                    </span>
+                    <p class="custom">{{ u.fantino }} {{ getTranslation('op') }} {{ u.cavallo }} </p>
+                  </ion-text> 
+                </div> 
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <hr class="home-divider">
+          <ion-button (click)="goTostatistichePage()" class="home-button">{{ getTranslation('statisticheLink') }}</ion-button>
         </div>
       </div>
     </section>      
@@ -148,42 +317,97 @@
     <section class="segment col-4 span-3 row-3 cavalli">
       <div class="subsegment">
         <h2 class="section-header" (click)="showContradeVittorie = !showContradeVittorie" style="cursor: pointer;">
-          Aantal (officiele) overwinningen per contrada 
+          {{ getTranslation('vittorie') }}
           <ion-icon [name]="showContradeVittorie ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showContradeVittorie">
-          <p>Lijst met aantal (officiele) overwinningen per contrada</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="segment col-1 span-2 row-4 palio ">
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showBe = !showBe" style="cursor: pointer;">
-          www.palio.be
-          <ion-icon [name]="showBe ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showBe">
-          <p class="custom">Wat is palio.be ?</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="segment col-5 span-2 row-4 palio ">
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showEu = !showEu" style="cursor: pointer;">
-          www.thepalio.eu
-          <ion-icon [name]="showEu ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showEu">
-          <p class="custom">Wat is thepalio.eu ?</p>
+          <ion-grid class="palio-grid">
+            <ion-row>
+              <ion-col size="12" size-md="6">
+                <ion-grid class="palio-grid">
+                  <ion-row class="equal-height-row">
+                    <ion-text class="cavallo-label"><p class="custom3"><strong>{{ getTranslation('vittorieCitta') }}</strong></p></ion-text>
+                  </ion-row>
+                  <ion-row class="equal-height-row row-header">
+                    <ion-col size="10" size-sm="10" size-md="10" size-lg="10">
+                      <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
+                    </ion-col>
+                    <ion-col size="2" size-sm="2" size-md="2" size-lg="2">
+                      <ion-text class="cavallo-label"><span>#</span></ion-text>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngFor="let v of vittorieCittaList; let i = index" 
+                    class="equal-height-row">
+                    <ion-col (click)="goToContradaDetail(v.contrada)" [style.cursor]="'pointer'" size="10" size-sm="10" size-md="10" size-lg="10">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <img *ngIf="v.logo"
+                            [src]="v.logo"
+                            class="img-palio" />
+                        <ion-text class="cavallo-label">
+                          <span>{{ v.contrada }}</span>
+                        </ion-text>  
+                      </div>             
+                    </ion-col>
+                    <ion-col size="2" size-sm="2" size-md="2" size-lg="2">
+                      <div>
+                        <ion-text class="cavallo-label">
+                          <span>
+                            {{ v.vittorieCitta % 1 === 0 ? (v.vittorieCitta | number:'1.0-0') : v.vittorieCitta }}
+                          </span>
+                        </ion-text> 
+                      </div> 
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col size="12" size-md="6">
+                <ion-grid class="palio-grid">
+                  <ion-row class="equal-height-row">
+                    <ion-text class="cavallo-label"><p class="custom3"><strong>{{ getTranslation('vittorieContrada') }}</strong></p></ion-text>
+                  </ion-row>
+                  <ion-row class="equal-height-row row-header">
+                    <ion-col size="10" size-sm="10" size-md="10" size-lg="10">
+                      <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
+                    </ion-col>
+                    <ion-col size="2" size-sm="2" size-md="2" size-lg="2">
+                      <ion-text class="cavallo-label"><span>#</span></ion-text>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row *ngFor="let v of vittorieContradeList; let i = index" 
+                    class="equal-height-row">
+                    <ion-col (click)="goToContradaDetail(v.contrada)" [style.cursor]="'pointer'" size="10" size-sm="10" size-md="10" size-lg="10">
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <img *ngIf="v.logo"
+                            [src]="v.logo"
+                            class="img-palio" />
+                        <ion-text class="cavallo-label">
+                          <span>{{ v.contrada }}</span>
+                        </ion-text>  
+                      </div>             
+                    </ion-col>
+                    <ion-col size="2" size-sm="2" size-md="2" size-lg="2">
+                      <div>
+                        <ion-text class="cavallo-label">
+                          <span>
+                            {{ v.vittorieContrada % 1 === 0 ? (v.vittorieContrada | number:'1.0-0') : v.vittorieContrada }}
+                          </span>
+                        </ion-text> 
+                      </div> 
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <hr class="home-divider">
+          <ion-button (click)="goTostatistichePage()" class="home-button">{{ getTranslation('statisticheLink') }}</ion-button>
         </div>
       </div>
     </section>
 
   </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="scrollToTop()" color="tertiary">
+    <ion-fab-button (click)="scrollToTop()" color="secondary">
       <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
     </ion-fab-button>
   </ion-fab>

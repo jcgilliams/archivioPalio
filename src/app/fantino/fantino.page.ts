@@ -56,6 +56,10 @@ export class FantinoPage implements OnInit {
     this.langSub?.unsubscribe();
   }
 
+  async ionViewWillEnter() {
+    this.content?.scrollToTop(0);
+  }
+
   private async loadFantino(id: string) {
     try {
       const data = await this.fantinoService.getFantinoById(id);

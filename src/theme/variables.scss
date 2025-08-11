@@ -65,6 +65,21 @@
     color: var(--ion-color-secondary);
   }
 
+  ion-button.home-button {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-secondary);
+    width: 100%;
+    display: block;
+    font-size: 12px;
+  }
+
+  hr.home-divider {
+    border: none;
+    border-top: 2px solid var(--ion-color-secondary);
+    width: 100%;
+    margin: 16px 0; /* optioneel: ruimte boven/onder */
+  }
+
   ion-thumbnail img {
     object-fit: cover;
     width: 100%;
@@ -259,6 +274,19 @@
     line-height: 1;
   }
 
+  .palio-info {
+    font-size: 13px;
+    margin: 5px 0 0 0;
+    padding: 0;
+    color: var(--ion-color-tertiary) !important;
+    font-style: italic;
+    line-height: 1;
+  }
+
+  .palio-info .no-italic {
+    font-style: normal;
+  }
+
   .section-header {
     display: flex;
     align-items: center;
@@ -338,6 +366,14 @@
     color: var(--ion-color-secondary); 
   }
 
+  .cavallo-label p.custom3 {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.1;
+    color: var(--ion-color-secondary); 
+    font-style: italic;
+  }
+
   .cavallo-label span {
     margin: 0;
     font-size: 16px;
@@ -398,7 +434,7 @@
   .palio-grid ion-row.row-header span {
     color: var(--ion-color-primary);
   }
-
+    
   .hide-on-mobile {
     display: flex;
   }
@@ -426,6 +462,29 @@
     text-transform: lowercase;
   }
 
+  .palio-hover-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    height: 65px;
+    padding: 0.25rem;
+    --background: white;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    cursor: pointer; /* geef visuele hint dat het hoverbaar is */
+  }
+
+  /* Hover effect */
+  .palio-hover-item:hover,
+  .palio-hover-item::part(native):hover {
+    background-color: var(--ion-color-primary-hover) !important;
+  }
 
 @media (min-width: 1025px) {
   .palio-wrapper--groot {

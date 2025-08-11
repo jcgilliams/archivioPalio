@@ -1,7 +1,30 @@
 <ion-footer class="custom-footer">
   <ion-toolbar color="secondary">
-    <ion-title size="small" class="ion-text-center" color="primary">
-      © 2025 Archivio Palio - Jan-Christiaan Gilliams - v1.0
-    </ion-title>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+
+        <!-- Linker kolom - enkel tonen op medium scherm en groter -->
+        <ion-col size="4" class="ion-hide-sm-down ion-text-right">
+          <a href="https://www.palio.be" target="_blank" rel="noopener">
+            <img src="assets/palioBE.png" alt="Palio logo" style="height: 40px;">
+          </a>
+        </ion-col>
+
+        <!-- Midden kolom - altijd tonen -->
+        <ion-col size="12" size-md="4" class="ion-text-center">
+          <ion-title size="small" color="primary">
+            © 2025 Archivio Palio - Jan-Christiaan Gilliams - v1.0
+          </ion-title>
+        </ion-col>
+
+        <!-- Rechter kolom - enkel tonen op medium scherm en groter -->
+        <ion-col size="4" class="ion-hide-sm-down ion-text-left">
+          <a href="https://www.thepalio.eu" target="_blank" rel="noopener">
+            <img src="assets/thepalioEU.png" alt="Palio logo" style="height: 40px;">
+          </a>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-footer>

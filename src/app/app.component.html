@@ -17,7 +17,7 @@
         <ion-item routerLink="/cavalli" (click)="closeMenu()">{{ getTranslation('cavalli') }}</ion-item>
         <ion-item routerLink="/fantini" (click)="closeMenu()">{{ getTranslation('fantini') }}</ion-item>
         <ion-item routerLink="/contrade" (click)="closeMenu()">{{ getTranslation('contrade') }}</ion-item>        
-        <ion-item routerLink="/elenco" (click)="closeMenu()">{{ getTranslation('elenco') }}</ion-item>
+        <ion-item routerLink="/vittorie" (click)="closeMenu()">{{ getTranslation('elenco') }}</ion-item>
         <ion-item routerLink="/statistiche" (click)="closeMenu()">{{ getTranslation('statistiche') }}</ion-item>        
       </ion-list>
     </ion-content>
@@ -42,7 +42,7 @@
         <ion-button routerLink="/cavalli" fill="clear" color="secondary">{{ getTranslation('cavalli') }}</ion-button>
         <ion-button routerLink="/fantini" fill="clear" color="secondary">{{ getTranslation('fantini') }}</ion-button>
         <ion-button routerLink="/contrade" fill="clear" color="secondary">{{ getTranslation('contrade') }}</ion-button>
-        <ion-button routerLink="/elenco" fill="clear" color="secondary">{{ getTranslation('elenco') }}</ion-button>
+        <ion-button routerLink="/vittorie" fill="clear" color="secondary">{{ getTranslation('elenco') }}</ion-button>
         <ion-button routerLink="/statistiche" fill="clear" color="secondary">{{ getTranslation('statistiche') }}</ion-button>        
       </div>
       <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="changeLanguage($event.detail.value)" class="lang-switch">

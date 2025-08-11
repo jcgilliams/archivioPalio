@@ -38,6 +38,76 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     ervan met meer info en mogelijkheden. <br><br>De app is gratis te downloaden via 
     <a href="https://www.palioapp.com" target="_blank" rel="noopener noreferrer">palioapp.com</a></p>`
   },
+  palio10: {
+    it: 'Gli ultimi 10 Palii',
+    en: 'The last 10 Palios',
+    nl: 'De laatste 10 Palio\'s'
+  },
+  fantini10: {
+    it: 'Fantini con almeno 10 vittorie dal 1900',
+    en: 'Jockeys with at least 10 wins since 1900',
+    nl: 'Ruiters met minstens 10 overwinningen sinds 1900'
+  },
+  cavalli5: {
+    it: 'Cavalli con almeno 5 vittorie dal 1900',
+    en: 'Horses with at least 5 wins since 1900',
+    nl: 'Paarden met minstens 5 overwinningen sinds 1900'
+  },
+  ultimaVittoria: {
+    it: 'Ultima vittoria per contrada',
+    en: 'Last victory per contrada',
+    nl: 'Laatste overwinning per contrada'
+  },
+  vittorie: {
+    it: 'Numero di vittorie per contrada',
+    en: 'Number of victories per contrada',
+    nl: 'Aantal overwinningen per contrada'
+  },
+  vittorieCitta: {
+    it: 'Vittorie riconosciute dal Comune',
+    en: 'Victories recognized by the city',
+    nl: 'Overwinningen erkend door de stad'
+  },
+  vittorieContrada: {
+    it: 'Vittorie che le Contrade si attribuiscono',
+    en: 'Victories that the Contrade attribute to themselves',
+    nl: 'Overwinningen die de Contrade zichzelf toeschrijven'
+  },
+  fantiniLink: {
+    it: 'Maggiori informazioni sui fantini',
+    en: 'More information about jockeys',
+    nl: 'Meer info over ruiters'
+  },
+  cavalliLink: {
+    it: 'Maggiori informazioni sui cavalli',
+    en: 'More information about horses',
+    nl: 'Meer info over paarden'
+  },
+  vittorieLink: {
+    it: 'Vedi tutti i Palii',
+    en: 'See all Palios',
+    nl: 'Zie alle Palio\'s'
+  },
+  protocolloLink: {
+    it: 'Vedi Albo Cavalli Protocollo',
+    en: 'See the Protocollo Horse Register',
+    nl: 'Ga naar het paardenregister Protocollo'
+  },
+  statisticheLink: {
+    it: 'Altre statistiche',
+    en: 'More statistics',
+    nl: 'Meer statistieken'
+  },
+  op: {
+    it: 'su',
+    en: 'on',
+    nl: 'op'
+  },
+  jaren: {
+    it: '# anni fa',
+    en: '# years ago',
+    nl: '# jaar geleden'
+  },
   nome: {
     it: 'Nome',
     en: 'Name',
@@ -82,6 +152,11 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     it: 'Scheda fantino',
     en: 'Technical information jockey',
     nl: 'Technische info ruiter'
+  },
+  schedaCavallo: {
+    it: 'Scheda cavallo',
+    en: 'Technical information horse',
+    nl: 'Technische info paard'
   },
   esperienza: {
     it: 'Esperienza in Piazza',
@@ -147,5 +222,61 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     it: 'Cerca cavallo',
     en: 'Search horse',
     nl: 'Zoek paard'
+  },
+  titelFantini: {
+    it: 'Fantini',
+    en: 'Jockeys',
+    nl: 'Ruiters'
+  },
+  titelElenco: {
+    it: 'Elenco delle vittorie',
+    en: 'List of victories',
+    nl: 'Lijst met overwinningen'
+  },
+  titelContrade: {
+    it: 'Contrade',
+    en: 'Districts',
+    nl: 'Wijken'
+  },
+  titelStatistiche: {
+    it: 'Statistiche',
+    en: 'Statistics',
+    nl: 'Statistieken'
+  },
+  titelProtocollo: {
+    it: 'Albo Cavalli Protocollo',
+    en: 'Protocollo Horse Register',
+    nl: 'Paardenregister Protocollo'
+  },
+  ammesso: {
+    it: 'ammesso',
+    en: 'admitted',
+    nl: 'toegelaten'
+  },
+  assente: {
+    it: 'assente',
+    en: 'absent',
+    nl: 'afwezig'
+  },
+  annoPrecedente: {
+    it: 'anno precedente',
+    en: 'previous year',
+    nl: 'vorig jaar'
+  },
+  annoSuccessivo: {
+    it: 'anno successivo',
+    en: 'next year',
+    nl: 'volgend jaar'
+  },
+  infoProtocollo: {
+    it: 'Sono <b>{{ totaal }}</b> i soggetti iscritti alle visite per l\'ammissione all\'albo cavalli del protocollo per l\'anno {{ anno }}. Di questi vengono ammessi <i>{{ aantalAmmesso }}</i>, mentre <i>{{ nietAmmesso }}</i> vengono respinti, di cui <i>{{ aantalAssente }}</i> assenti.',
+    en: '<b>{{ totaal }}</b> horses were registered for admission to the Protocollo {{ anno }} horse register. Of these, <i>{{ aantalAmmesso }}</i> were admitted and  <i>{{ nietAmmesso }}</i> were rejected, including <i>{{ aantalAssente }}</i> absentees.',
+    nl: 'Er werden <b>{{ totaal }}</b> paarden geregistreerd voor toelating tot het paardenregister Protocollo {{ anno }}. Hiervan werden er <i>{{ aantalAmmesso }}</i> toegelaten en <i>{{ nietAmmesso }}</i> afgewezen waaronder <i>{{ aantalAssente }}</i> afwezigen.'
+  },
+  noResult: {
+    it: 'Nessun risultato trovato',
+    en: 'No results found',
+    nl: 'Geen resultaat gevonden'
+
   },
 };

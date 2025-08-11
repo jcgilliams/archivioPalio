@@ -10,7 +10,7 @@
     <section class="segment col-1 span-3 row-2">
       <div class="subsegment">
         <h2 class="section-header" (click)="showInfo = !showInfo" style="cursor: pointer;">
-          {{ getTranslation('scheda') }}
+          {{ getTranslation('schedaCavallo') }}
           <ion-icon [name]="showInfo ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
         <div *ngIf="showInfo">
@@ -230,7 +230,7 @@
     </ng-container> 
   </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="scrollToTop()" color="tertiary">
+    <ion-fab-button (click)="scrollToTop()" color="secondary">
       <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
     </ion-fab-button>
   </ion-fab>

@@ -3,6 +3,11 @@
     <h2 style="margin: 0;">Palio detailpagina</h2>
     <p style="margin-top: 8px;">{{ slug }}</p>
   </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scrollToTop()" color="secondary">
+      <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <ng-template #loadingTpl>

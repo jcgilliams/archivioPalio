@@ -1,9 +1,13 @@
 <ion-content *ngIf="!loading; else loadingTpl">
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; color: white;">
-    <h2 style="margin: 0;">Contrada detailpagina</h2>
-    <p style="margin-top: 8px;">{{ nome ? (nome.charAt(0).toUpperCase() + nome.slice(1)) : '' }}</p>
-  </div>
+  <div class="container">
 
+    <section class="segment col-1 span-6 row-1 cavallo-header">
+      <img src="https://api.palioapp.com/images/cavalli/palio.png" class="cavallo-foto" />
+      <h2 class="cavallo-naam-groot">
+        {{ getTranslation('titelContrade') }}
+      </h2>
+    </section>
+  </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="scrollToTop()" color="secondary">
       <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
@@ -16,5 +20,6 @@
     <ion-spinner name="dots" class="ion-padding"></ion-spinner>
   </div>
 </ng-template>
+
 
 

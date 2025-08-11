@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CavalloService } from '../services/cavallo.service';
 import { ConfigService } from '../services/config.service'; 
-import { VintoGroup, cavalli, alboCavalli } from 'src/datatypes/cavalli';
+import { VintoGroupCavalli, cavalli, alboCavalli } from 'src/datatypes/cavalli';
 import { Router } from '@angular/router';
 import { IonContent } from '@ionic/angular';
 import { LanguageService, SupportedLanguage } from '../services/language.service';
@@ -21,8 +21,8 @@ export class CavalliPage implements OnInit, OnDestroy {
   zoekterm: string = '';
   zoekResultaten: cavalli[] = [];
 
-  cavalliVintiOrdered: VintoGroup[] = [];
-  filteredCavalliVintiOrdered: VintoGroup[] = [];
+  cavalliVintiOrdered: VintoGroupCavalli[] = [];
+  filteredCavalliVintiOrdered: VintoGroupCavalli[] = [];
   alboCavalli: alboCavalli[] = [];
   
   loading = true;
@@ -75,6 +75,10 @@ export class CavalliPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.langSub?.unsubscribe();
+  }
+
+  async ionViewWillEnter() {
+    this.content?.scrollToTop(0);
   }
 
   getTranslation(key: string): string {

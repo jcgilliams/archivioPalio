@@ -31,6 +31,26 @@ const routes: Routes = [
     path: 'contrada/:nome',
     loadChildren: () => import('./contrada/contrada.module').then( m => m.ContradaPageModule)
   },
+  {
+    path: 'fantini',
+    loadChildren: () => import('./fantini/fantini.module').then( m => m.FantiniPageModule)
+  },
+  {
+    path: 'vittorie',
+    loadChildren: () => import('./vittorie/vittorie.module').then( m => m.VittoriePageModule)
+  },
+  {
+    path: 'contrade',
+    loadChildren: () => import('./contrade/contrade.module').then( m => m.ContradePageModule)
+  },
+  {
+    path: 'statistiche',
+    loadChildren: () => import('./statistiche/statistiche.module').then( m => m.StatistichePageModule)
+  },
+  {
+    path: 'albo-cavalli/:anno',
+    loadChildren: () => import('./albo-cavalli/albo-cavalli.module').then( m => m.AlboCavalliPageModule)
+  },
 ];
 
 @NgModule({
