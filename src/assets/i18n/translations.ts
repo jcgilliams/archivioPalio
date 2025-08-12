@@ -228,6 +228,21 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     en: 'Jockeys',
     nl: 'Ruiters'
   },
+  vincentiFantini: {
+    it: 'Fantini vincenti dal 1900',
+    en: 'Winning jockeys since 1900',
+    nl: 'Winnende ruiters sinds 1900'
+  },
+  search_placeholderFantino: {
+    it: 'Nome fantino...',
+    en: 'Name jockey...',
+    nl: 'Naam ruiter...'
+  },
+  cercaFantino: {
+    it: 'Cerca fantino',
+    en: 'Search jockey',
+    nl: 'Zoek ruiter'
+  },
   titelElenco: {
     it: 'Elenco delle vittorie',
     en: 'List of victories',

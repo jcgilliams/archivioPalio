@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FantinoDetail, VintoGroupFantini } from 'src/datatypes/fantini';
+import { fantini, FantinoDetail, VintoGroupFantini } from 'src/datatypes/fantini';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,27 @@ export class FantinoService {
     }
   }
 
-    private _normalizeFantinoDetail(f: any): FantinoDetail {
+  searchFantini(zoekterm: string): Observable<fantini[]> {
+    if (!zoekterm || zoekterm.trim().length === 0) {
+      return of([]);
+    }
+
+    return this.http
+      .get<any[]>(`${environment.apiURL}searchFantini.php?search=${encodeURIComponent(zoekterm)}`)
+      .pipe(
+        map(resultaten => resultaten.map(this._normalizeFantino))
+      );
+  } 
+
+  private _normalizeFantino(c: any): fantini {
+    return {
+      ...c,
+      paliiVinti: c.paliiVinti ?? 0,
+      paliiCorsi: Number(c.paliiCorsi),
+    };
+  }  
+
+  private _normalizeFantinoDetail(f: any): FantinoDetail {
     return {
       ...f,
       palioCorso: (f.palioCorso ?? []).map((p: any) => ({
@@ -43,4 +63,5 @@ export class FantinoService {
       }))
     };
   }
+ 
 }

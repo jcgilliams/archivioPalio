@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { LanguageService, SupportedLanguage } from '../services/language.service';
 import { Subscription } from 'rxjs';
 import { TranslationService } from '../services/translation.service';
+import { FantinoService } from '../services/fantino.service';
+import { fantini, VintoGroupFantini } from 'src/datatypes/fantini';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-fantini',
@@ -17,13 +21,39 @@ export class FantiniPage implements OnInit {
   currentLanguage: SupportedLanguage = 'it';
   private langSub?: Subscription;
 
-  constructor(
+  searchTerm: string = '';
+
+  zoekterm: string = '';
+  zoekResultaten: fantini[] = [];
+
+  fantiniVintiOrdered: VintoGroupFantini[] = [];
+  filteredFantiniVintiOrdered: VintoGroupFantini[] = [];
+  
+  showFantini = true;
+  showSearch = true;
+
+  openAccordionValues: string[] = [];
+
+  private zoekTimeout: any;  
+
+  constructor(    
+    private fantiniService: FantinoService,
     private languageService: LanguageService,
     private translationService: TranslationService,
-  ) { }
+    private router: Router) {}
 
-  ngOnInit() {
-    this.loading = false;
+  async ngOnInit() {
+    try {
+      this.fantiniVintiOrdered = await this.fantiniService.loadFantiniVintiOrdered();
+      this.filteredFantiniVintiOrdered = [...this.fantiniVintiOrdered]; 
+      this.openAccordionValues = this.filteredFantiniVintiOrdered.map(g => g.vinto.toString());
+
+
+    } catch (error) {
+      console.error('❌ Fout bij ophalen van fantini-data:', error);
+    } finally {
+      this.loading = false;
+    }
     this.langSub = this.languageService.language$.subscribe(lang => {
       this.currentLanguage = lang;
     });
@@ -40,8 +70,72 @@ export class FantiniPage implements OnInit {
   getTranslation(key: string): string {
     return this.translationService.getTranslation(key);
   }
-  
+
+  goToFantinoDetail(id: string) {
+    this.router.navigate(['/fantino', id]);
+  }
+
+  toggleAccordion(value: string) {
+    const index = this.openAccordionValues.indexOf(value);
+    if(index > -1) {
+      this.openAccordionValues.splice(index, 1);
+    } else {
+      this.openAccordionValues.push(value);
+    }
+  }
+
+  filterFantini() {
+    const term = this.searchTerm.toLowerCase();
+
+    if (!term) {
+      // Geen zoekterm, toon alle groepen zoals normaal
+      this.filteredFantiniVintiOrdered = [...this.fantiniVintiOrdered];
+    } else {
+      // Filter elke groep, houd alleen cavalli die matchen op naam
+      this.filteredFantiniVintiOrdered = this.fantiniVintiOrdered
+        .map(group => {
+          const filteredFantini = group.fantini.filter(fantini =>
+            (fantini.nome && fantini.nome.toLowerCase().includes(term)) ||
+            (fantini.soprannome && fantini.soprannome.toLowerCase().includes(term))
+          );
+          return {
+            ...group,
+            fantini: filteredFantini
+          };
+        })
+        // optioneel: groepen zonder cavalli wegfilteren
+        .filter(group => group.fantini.length > 0);
+    }
+
+    // Open alle accordeons van de gefilterde groepen
+    this.openAccordionValues = this.filteredFantiniVintiOrdered.map(g => g.vinto.toString());
+  }
+    
   scrollToTop() {
     this.content?.scrollToTop(500);
   }
+
+  searchFantino() {
+    clearTimeout(this.zoekTimeout);
+
+    const term = this.zoekterm.trim();
+
+    if (term.length < 1) {
+      this.zoekResultaten = [];
+      return;
+    }
+
+    this.zoekTimeout = setTimeout(() => {
+      this.fantiniService.searchFantini(term).subscribe({
+        next: (resultaten) => {
+          this.zoekResultaten = resultaten;
+        },
+        error: (err) => {
+          console.error('Fout bij zoeken:', err);
+          this.zoekResultaten = [];
+        }
+      });
+    }, 300);
+  }
+
 }

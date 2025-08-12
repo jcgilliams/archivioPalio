@@ -7,6 +7,169 @@
         {{ getTranslation('titelFantini') }}
       </h2>
     </section>
+
+    <section class="segment col-1 span-4 row-2 cavalli">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showFantini = !showFantini" style="cursor: pointer;">
+          {{ getTranslation('vincentiFantini') }}
+          <ion-icon [name]="showFantini ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+
+        <div *ngIf="showFantini">
+          <!-- Mobiele layout -->
+          <div class="mobile-layout">
+            <!-- mobiele content hier -->
+            <div class="searchbar-wrapper">
+              <ion-searchbar
+                [(ngModel)]="searchTerm"
+                (ionInput)="filterFantini()"
+                debounce="300"
+                [placeholder]="getTranslation('search_placeholderFantino')"
+                class="custom"
+              ></ion-searchbar>
+            </div>
+            <ion-accordion-group multiple [value]="openAccordionValues">
+              <ion-accordion *ngFor="let group of filteredFantiniVintiOrdered" [value]="group.vinto">
+                <!-- HEADER -->
+                <ion-item slot="header" (click)="toggleAccordion(group.vinto.toString())" style="cursor:pointer;">
+                  <ion-label>{{ group.vinto }}</ion-label>
+                  <ion-icon
+                    [name]="openAccordionValues.includes(group.vinto.toString()) ? 'chevron-up-outline' : 'chevron-down-outline'"
+                    class="chevron-icon"
+                  ></ion-icon>
+                </ion-item>
+
+                <!-- CONTENT -->
+                <div class="ion-padding" slot="content">
+                  <ion-item *ngFor="let fantino of group.fantini" (click)="goToFantinoDetail(fantino.id)" button>
+                    <ion-thumbnail slot="start">
+                      <img [src]="fantino?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+                    </ion-thumbnail>
+
+                    <ion-label>
+                      <div class="cavallo-name">{{ fantino.nome }} detto {{ fantino.soprannome }}</div>
+                      <div *ngIf="fantino.paliiCorsi > 0" class="cavallo-info">
+                        <ng-container *ngIf="fantino.paliiVinti > 0; else geenPalio">
+                          {{ getTranslation('corsi') }}: {{ fantino.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }}: {{ fantino.paliiVinti }}
+                        </ng-container>
+                        <ng-template #geenPalio>
+                          {{ getTranslation('corsi') }}: {{ fantino.paliiCorsi }}
+                        </ng-template>
+                      </div>
+                    </ion-label>
+                  </ion-item>
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </div>
+          <!-- Desktop layout -->
+          <div class="desktop-layout">
+            <!-- desktop content hier -->
+            <div class="searchbar-wrapper">
+              <ion-searchbar
+                [(ngModel)]="searchTerm"
+                (ionInput)="filterFantini()"
+                debounce="300"
+                [placeholder]="getTranslation('search_placeholderFantino')"
+                class="custom"
+              ></ion-searchbar>
+            </div>
+            <ion-accordion-group multiple [value]="openAccordionValues">
+              <ion-accordion *ngFor="let group of filteredFantiniVintiOrdered" [value]="group.vinto">
+                <!-- HEADER -->
+                <ion-item slot="header" (click)="toggleAccordion(group.vinto.toString())" style="cursor:pointer;">
+                  <ion-label>{{ group.vinto }}</ion-label>
+                  <ion-icon
+                    [name]="openAccordionValues.includes(group.vinto.toString()) ? 'chevron-up-outline' : 'chevron-down-outline'"
+                    class="chevron-icon"
+                  ></ion-icon>
+                </ion-item>
+
+                <!-- CONTENT -->
+                <div class="ion-padding" slot="content">
+                  <div class="cavalli-grid">
+                    <ion-card *ngFor="let fantino of group.fantini" (click)="goToFantinoDetail(fantino.id)" button class="cavallo-card custom-card">
+                      <div class="foto-wrapper">
+                        <img class="cavallo-foto" [src]="fantino?.foto ?? '/assets/palio.png'" alt="cavallo_palio" />
+                      </div>
+                      <ion-card-header>
+                        <ion-card-title class="cavallo-titel">{{ fantino.soprannome }}</ion-card-title>
+                      </ion-card-header>
+
+                      <ion-card-content>
+                        <div class="cavallo-info">
+                          <ng-container>
+                            {{ getTranslation('corsi') }}: {{ fantino.paliiCorsi }}
+                          </ng-container>
+                        </div>
+                      </ion-card-content>
+                    </ion-card>
+                  </div>
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </div>
+          <div *ngIf="filteredFantiniVintiOrdered.length === 0 && !loading" class="no-results">
+            <ion-text class="cavallo-label" style="margin-left: 10px;">
+              <span>
+                {{ getTranslation('noResult') }}
+              </span>
+            </ion-text>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="segment col-5 span-2 row-2 palio ">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showSearch = !showSearch" style="cursor: pointer;">
+          {{ getTranslation('cercaFantino') }}
+          <ion-icon [name]="showSearch ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showSearch">
+          <div class="searchbar-wrapper">
+            <ion-searchbar
+              [(ngModel)]="zoekterm"
+              (ionInput)="searchFantino()"
+              debounce="300"
+              [placeholder]="getTranslation('search_placeholderFantino')"
+              class="custom"
+            ></ion-searchbar>
+          </div>
+          
+          <!-- Zoekresultaten tonen -->
+          <ion-list *ngIf="zoekterm && zoekResultaten.length > 0">
+            <ion-item *ngFor="let f of zoekResultaten" (click)="goToFantinoDetail(f.id)" button style="padding: 0 5px 0 5px;">
+              <ion-thumbnail slot="start">
+                <img [src]="f?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+              </ion-thumbnail>
+              <ion-label>
+                <div class="cavallo-name">
+                  {{ f.nome }}
+                  <span *ngIf="f.soprannome"> detto {{ f.soprannome }}</span>
+                </div>
+                <div *ngIf="f.paliiCorsi > 0" class="cavallo-info">
+                  <ng-container *ngIf="f.paliiVinti > 0; else geenPalio">
+                    {{ getTranslation('corsi') }} {{ f.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }} {{ f.paliiVinti }}
+                  </ng-container>
+                  <ng-template #geenPalio>
+                    {{ getTranslation('corsi') }} {{ f.paliiCorsi }}
+                  </ng-template>
+                </div>
+               </ion-label>
+            </ion-item>
+          </ion-list>  
+          <div *ngIf="zoekterm && zoekterm.trim() !== '' && zoekResultaten.length === 0 && !loading" class="no-results">
+            <ion-text class="cavallo-label" style="margin-left: 10px;">
+              <span>
+                {{ getTranslation('noResult') }}
+              </span>
+            </ion-text>
+          </div>
+         </div>
+      </div>
+    </section>
+
   </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="scrollToTop()" color="secondary">
