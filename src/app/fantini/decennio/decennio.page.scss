@@ -1,0 +1,145 @@
+.mobile-layout {
+  display: block;
+}
+.desktop-layout {
+  display: none;
+}
+
+.desktop-layout ion-accordion ion-item[slot="header"] {
+  margin-bottom: 0.25rem;
+}
+
+.desktop-layout .cavalli-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 0.5rem;
+  grid-row-gap: 0.25rem;
+}
+
+.desktop-layout ion-accordion > div[slot="content"].ion-padding {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.desktop-layout ion-accordion div[slot="content"] {
+  border-top: none !important;
+}
+
+
+.cavalli-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 1rem; 
+  grid-row-gap: 0.5rem;  
+}
+
+.cavallo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: transparent; /* geen achtergrond */
+  border: 2px solid #D2B385; /* jouw kleur als rand */
+  border-radius: 8px; /* mooi afgeronde hoeken */
+  box-shadow: 0 4px 8px rgba(210, 179, 133, 0.3); /* zachte schaduw in je kleur */
+  padding: 1rem;
+  transition: box-shadow 0.3s ease;
+  background: white;
+}
+
+.cavallo-card:hover {
+  box-shadow: 0 8px 16px rgba(210, 179, 133, 0.5); /* iets grotere schaduw bij hover */
+}
+ 
+.cavallo-card img {
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+}
+
+.foto-wrapper {
+  width: 100px !important;
+  height: 100px !important;
+  min-width: 100px !important;
+  min-height: 100px !important;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 1rem auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.foto-wrapper .cavallo-foto {
+  width: 100px !important;
+  height: 100px !important;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  max-width: none !important;
+}
+
+.cavallo-titel {
+  color: var(--ion-color-secondary);
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.cavallo-info {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  margin-top: 0.25rem;
+}
+
+ion-card-header {
+  padding: 0;
+  margin: 0;
+}
+
+ion-card-header, 
+ion-card-content {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+ion-card-title {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+ion-list,
+ion-list.list-md,
+ion-list::part(native),
+ion-list::part(scroll) {
+  background: transparent !important;
+}
+
+/* Specifiek voor de ion-accordion content div binnen desktop layout */
+.desktop-layout ion-accordion div[slot="content"].ion-padding {
+  background: transparent !important;
+  padding: 0 !important;       /* optioneel, afhankelijk van spacing */
+  margin: 0 !important;        /* optioneel */
+  border: none !important;     /* als er een rand is */
+  box-shadow: none !important; /* als er een schaduw is */
+}
+
+.desktop-layout ion-accordion-group,
+.desktop-layout ion-accordion {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+@media (min-width: 768px) {
+  .mobile-layout {
+    display: none;
+  }
+  .desktop-layout {
+    display: block;
+  }
+}
+
+

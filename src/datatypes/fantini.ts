@@ -65,3 +65,13 @@ export interface PalioCorso {
     punto: string;
   } | null;
 }
+
+export interface fantiniDecennium {
+  fantinoId: string;
+  nome: string;
+  soprannome: string;
+  foto: string;
+  paliiCorsi: number;
+  paliiVinti: number;
+  aantal: number;
+}

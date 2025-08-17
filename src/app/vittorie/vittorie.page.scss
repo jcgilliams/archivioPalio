@@ -1,0 +1,129 @@
+.elenco-mobile-stack {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.small-label {
+  font-size: 12px !important;   
+  white-space: normal !important;  
+  word-wrap: break-word !important; 
+  overflow-wrap: anywhere !important; 
+  text-align: center; 
+  text-transform: none !important; 
+}
+
+/* POPOVER CONTRADE SELECT */
+.select-label {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: var(--ion-color-secondary);
+}
+
+/* Wrapper voor breedte + custom pijltje */
+.select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* Select */
+.custom-select {
+  width: 100%;
+  padding: 15px 40px 15px 12px;
+  border: 1.5px solid var(--ion-color-primary);
+  border-radius: 8px;
+  background: var(--select-bg);
+  color: var(--ion-color-secondary);
+  font-size: 14px; 
+  line-height: 1.4;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+}
+
+/* Pijltje (CSS arrow) */
+.select-wrap::after {
+  content: '▼';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ion-color-secondary);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* Optionele placeholder-stijl (werkt in de dropdownlijst niet overal) */
+.custom-select:invalid {
+  color: var(--select-placeholder);
+}
+
+
+/* TUSSEN TWEE DATUMS INPUT */
+.custom-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid var(--ion-color-primary);
+  border-radius: 8px;
+  background-color: #fff;
+  color: var(--ion-color-secondary);
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: var(--ion-color-tertiary);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  }
+}
+
+/* Checkboxen */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  font-size: 14px; 
+  color: var(--ion-color-secondary);
+}
+
+/* ion-checkbox styling */
+ion-checkbox {
+  --background: #eee; 
+  --checkmark-color: var(--ion-color-secondary);
+  --border-radius: 4px;
+}
+/* Donkere modus voorbeeld (optioneel) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --select-bg: #1e1f24;
+    --select-fg: #e9e9ee;
+    --select-border: #8a8f98;
+    --select-border-focus: #c7cbd1;
+    --select-placeholder: #a0a3aa;
+  }
+}
+
+/* Mobile: stapel de kolommen */
+@media (max-width: 768px) {
+  .elenco-mobile-stack {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .elenco-mobile-stack ion-col {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

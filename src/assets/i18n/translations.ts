@@ -223,6 +223,21 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     en: 'Search horse',
     nl: 'Zoek paard'
   },
+  decennioCavalli: {
+    it: 'Cavalli per decennio',
+    en: 'Horses per decade',
+    nl: 'Paarden per decennium'
+  },
+  decennioFantini: {
+    it: 'Fantini per decennio',
+    en: 'Jockeys per decade',
+    nl: 'Ruiters per decennium'
+  },
+  ditDecennium: {
+    it: 'questo decennio',
+    en: 'this decade',
+    nl: 'dit decennium'
+  },
   titelFantini: {
     it: 'Fantini',
     en: 'Jockeys',
@@ -288,10 +303,79 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     en: '<b>{{ totaal }}</b> horses were registered for admission to the Protocollo {{ anno }} horse register. Of these, <i>{{ aantalAmmesso }}</i> were admitted and  <i>{{ nietAmmesso }}</i> were rejected, including <i>{{ aantalAssente }}</i> absentees.',
     nl: 'Er werden <b>{{ totaal }}</b> paarden geregistreerd voor toelating tot het paardenregister Protocollo {{ anno }}. Hiervan werden er <i>{{ aantalAmmesso }}</i> toegelaten en <i>{{ nietAmmesso }}</i> afgewezen waaronder <i>{{ aantalAssente }}</i> afwezigen.'
   },
+  geenProtocollo: {
+    it: 'Per l\'anno <b>{{ anno }}</b> non sono ancora disponibili dati. Il sito è ancora in fase di costruzione.',
+    en: 'For the year <b>{{ anno }}</b> no data is available yet. The website is still under construction.',
+    nl: 'Voor het jaar <b>{{ anno }}</b> is nog geen data beschikbaar. De website is nog in opbouw.'
+  },
   noResult: {
     it: 'Nessun risultato trovato',
     en: 'No results found',
     nl: 'Geen resultaat gevonden'
-
   },
+  anni: {
+    it: 'Anni ',
+    en: '',
+    nl: 'Jaren '
+  },
+  anni2: {
+    it: '',
+    en: 's',
+    nl: ''
+  },
+  searchElenco: {
+    it: 'Cerca nell\'elenco...',
+    en: 'Search list...',
+    nl: 'Zoek in lijst...'
+  },
+  filter: {
+    it: 'Filtri e ricerche',
+    en: 'Filters and searches',
+    nl: 'Filters en zoekopdrachten'
+  },   
+  filtraContrada: {
+    it: 'Filtra per contrada',
+    en: 'Filter by contrada',
+    nl: 'Filter op contrada'
+  },
+  tuttiPalii: {
+    it: 'Tutti Palii',
+    en: 'All Palios',
+    nl: 'Alle Palio\'s'
+  },
+  resetFilter: {
+    it: 'Annula tutti i filtri',
+    en: 'Clear all filters',
+    nl: 'Wis alle filters'    
+  },
+  dueAnni: {
+    it: 'Cerca tra 2 anni',
+    en: 'Filter between 2 years',
+    nl: 'Filter tussen 2 jaren'
+  },
+  primoAnno: {
+    it: 'Primo anno',
+    en: 'First year',
+    nl: 'Eerste jaar'
+  },
+  ultimoAnno: {
+    it: 'Ultimo anno',
+    en: 'Last year',
+    nl: 'Laatste jaar'
+  },
+  invalidYears: {
+    it: 'Anno non valido! Inserisci 2 anni validi di 4 cifre oppure lascia gli anni vuoti.',
+    en: 'Invalid year! Please enter two valid 4-digit years or leave the years blank.',
+    nl: 'Ongeldig jaartal! Voer twee geldige viercijferige jaartallen in of laat de jaartallen leeg.'
+  },
+ svuotate: {
+  it: 'Svuotate gli anni',
+  en: 'Reset years',
+  nl: 'Jaren resetten'
+ },
+ vai: {
+  it: 'Vai',
+  en: 'Go',
+  nl: 'Ok'
+ }
 };

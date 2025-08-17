@@ -4,7 +4,7 @@ import { LanguageService, SupportedLanguage } from '../services/language.service
 import { Subscription } from 'rxjs';
 import { TranslationService } from '../services/translation.service';
 import { FantinoService } from '../services/fantino.service';
-import { fantini, VintoGroupFantini } from 'src/datatypes/fantini';
+import { fantini, fantiniDecennium, VintoGroupFantini } from 'src/datatypes/fantini';
 import { Router } from '@angular/router';
 
 
@@ -26,11 +26,15 @@ export class FantiniPage implements OnInit {
   zoekterm: string = '';
   zoekResultaten: fantini[] = [];
 
+  periodes: string[] = [];
+  periodesMetAantal: { periode: string; aantal: number }[] = [];
+
   fantiniVintiOrdered: VintoGroupFantini[] = [];
   filteredFantiniVintiOrdered: VintoGroupFantini[] = [];
   
   showFantini = true;
   showSearch = true;
+  showDecennio = true;
 
   openAccordionValues: string[] = [];
 
@@ -40,7 +44,11 @@ export class FantiniPage implements OnInit {
     private fantiniService: FantinoService,
     private languageService: LanguageService,
     private translationService: TranslationService,
-    private router: Router) {}
+    private router: Router) {
+       for(let start = 2020; start >= 1900; start -= 10) {
+        this.periodes.push(`${start}-${start+9}`);
+      }
+   }
 
   async ngOnInit() {
     try {
@@ -48,6 +56,7 @@ export class FantiniPage implements OnInit {
       this.filteredFantiniVintiOrdered = [...this.fantiniVintiOrdered]; 
       this.openAccordionValues = this.filteredFantiniVintiOrdered.map(g => g.vinto.toString());
 
+      await this.loadAantalPeriodes();
 
     } catch (error) {
       console.error('❌ Fout bij ophalen van fantini-data:', error);
@@ -67,6 +76,29 @@ export class FantiniPage implements OnInit {
     this.content?.scrollToTop(0);
   }
 
+  async loadAantalPeriodes() {
+    this.periodesMetAantal = [];
+
+    for (const periode of this.periodes) {
+      const apiCode = periode.substring(0, 3);
+
+      try {
+        const fantiniDecenniumList: fantiniDecennium[] = await this.fantiniService.loadFantiniDecennium(apiCode);
+        
+        this.periodesMetAantal.push({
+          periode,
+          aantal: fantiniDecenniumList.length
+        });
+      } catch (error) {
+        console.error(`Fout bij ophalen fantini decennium voor ${periode}:`, error);
+        this.periodesMetAantal.push({
+          periode,
+          aantal: 0
+        });
+      }
+    }
+  }    
+
   getTranslation(key: string): string {
     return this.translationService.getTranslation(key);
   }
@@ -74,6 +106,11 @@ export class FantiniPage implements OnInit {
   goToFantinoDetail(id: string) {
     this.router.navigate(['/fantino', id]);
   }
+
+  goToDecennio(input: string) {
+    this.router.navigate(['/fantini/decennio', input]);
+  }
+
 
   toggleAccordion(value: string) {
     const index = this.openAccordionValues.indexOf(value);

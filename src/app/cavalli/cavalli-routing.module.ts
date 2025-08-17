@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: CavalliPage
+  },  {
+    path: 'decennio',
+    loadChildren: () => import('./decennio/decennio.module').then( m => m.DecennioPageModule)
   }
+
 ];
 
 @NgModule({

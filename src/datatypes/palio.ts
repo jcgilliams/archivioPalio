@@ -38,3 +38,37 @@ export interface Palio {
     cavalloNome: string | null;
     cavalloFoto: string | null;
 }
+
+export interface PalioLista {
+    id: number;
+    palio: string;
+    palioDate: string;
+    contrada: string;
+    fantino: string;
+    cavallo: string;
+    straordinario: boolean;
+    rinviato: boolean;
+    cappotto: boolean;
+    contradaId: number;
+    contradaNome: string;
+    contradaLogo: string;
+    fantinoId: string;
+    fantinoNome: string;
+    fantinoSoprannome: string;
+    fantinoFoto: string;
+    fantinoPalioFoto: string;
+    cavalloId: string;
+    cavalloNome: string;
+    cavalloFoto: string;
+    cavalloPalioFoto: string;
+    mossiereId: number;
+    mossiereNome: string;
+    mossiereFoto: string;
+    drappellonePalioFoto: string;
+    drappelloneId: number;
+    drappelloneFoto: string;
+    drappelloneArtista: string;
+    video: string;
+    tempo: string;
+    fotoArrivo: string;
+}

@@ -99,7 +99,6 @@ export class HomePage implements OnInit {
     } finally {
       this.loading = false;
     }
-    console.log(this.anno)
     this.langSub = this.languageService.language$.subscribe(lang => {
       this.currentLanguage = lang;
     });

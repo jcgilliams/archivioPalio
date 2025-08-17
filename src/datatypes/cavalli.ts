@@ -84,3 +84,12 @@ export interface alboCavalli {
   cavalloNome: string;
   cavalloFoto: string;
 }
+
+export interface cavalliDecennium {
+  cavalloId: string;
+  nome: string;
+  foto: string;
+  paliiCorsi: number;
+  paliiVinti: number;
+  aantal: number;
+}

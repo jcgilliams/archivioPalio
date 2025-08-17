@@ -170,29 +170,52 @@ ion-menu-button {
 }
 
 
+/* Algemene achtergrond */
 .background-image {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   background-image: url('/assets/bg/bg1.JPG');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
-  filter: brightness(0.8); // eventueel aanpassen voor lichtere of donkerdere filter
-
-  /* Overlay met ion-background-color */
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--ion-background-color);
-    opacity: 0.3; // Pas dit aan naar wens
-    
-  }
+  filter: brightness(0.8);
 }
+
+.background-image::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--ion-background-color);
+  opacity: 0.3;
+}
+
+.bg-cavalli .background-image {
+  background-image: url('/assets/bg/bg5.JPG') !important;
+  filter: brightness(0.6);
+}
+
+.bg-fantini .background-image {
+  background-image: url('/assets/bg/bg7.jpg') !important;
+  filter: brightness(0.6);
+}
+
+.bg-palio .background-image {
+  background-image: url('/assets/bg/bg4.JPG') !important;
+  filter: brightness(0.7);
+}
+
+.bg-contrade .background-image {
+  background-image: url('/assets/bg/bg3.JPG') !important;
+  filter: brightness(0.6);
+}
+
+.bg-statistiche .background-image {
+  background-image: url('/assets/bg/bg2.JPG') !important;
+  filter: brightness(0.7);
+}
+
 

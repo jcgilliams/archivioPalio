@@ -49,12 +49,9 @@
                     <ion-label>
                       <div class="cavallo-name">{{ cavallo.nome }}</div>
                       <div *ngIf="cavallo.paliiCorsi > 0" class="cavallo-info">
-                        <ng-container *ngIf="cavallo.paliiVinti > 0; else geenPalio">
-                          {{ getTranslation('corsi') }}: {{ cavallo.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }}: {{ cavallo.paliiVinti }}
-                        </ng-container>
-                        <ng-template #geenPalio>
+                        <ng-container *ngIf="cavallo.paliiVinti > 0;">
                           {{ getTranslation('corsi') }}: {{ cavallo.paliiCorsi }}
-                        </ng-template>
+                        </ng-container>
                       </div>
                     </ion-label>
                   </ion-item>
@@ -165,23 +162,20 @@
           </div>
          </div>
       </div>
+
       <div class="subsegment">
-        <h2 class="section-header" (click)="showProtocollo = !showProtocollo" style="cursor: pointer;">
-          Protocollo {{ anno }}
-          <ion-icon [name]="showProtocollo ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        <h2 class="section-header" (click)="showDecennio = !showDecennio" style="cursor: pointer;">
+          {{ getTranslation('decennioCavalli') }}
+          <ion-icon [name]="showDecennio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
         </h2>
-        <div *ngIf="showProtocollo">
-          <ion-list>
-          <ion-item *ngFor="let c of alboCavalli" (click)="goToCavalloDetail(c.cavalloId)" button class="palio-hover-item">
-              <ion-thumbnail slot="start">
-                <img [src]="c?.cavalloFoto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
-              </ion-thumbnail>
-              <ion-label>
-                <div class="cavallo-name">{{ c.cavalloNome }}</div>
-              </ion-label>
-          </ion-item>
-          </ion-list>
-        </div>
+        <div *ngIf="showDecennio"> 
+          <ion-button *ngFor="let p of periodesMetAantal" (click)="goToDecennio(p.periode)" class="decennio-button">
+            <ion-label>
+              <div>{{ p.periode }}</div>
+              <div class="custom">{{ p.aantal }} {{ getTranslation('titelCavalli') }}</div>
+            </ion-label>
+          </ion-button>
+        </div>        
       </div>
     </section>
 
@@ -195,6 +189,6 @@
 
 <ng-template #loadingTpl>
   <div class="spinner-wrapper">
-    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+    <ion-spinner name="circular" color="light" class="ion-padding"></ion-spinner>
   </div>
 </ng-template>

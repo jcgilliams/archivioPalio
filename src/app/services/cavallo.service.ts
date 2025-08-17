@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { cavalli, VintoGroupCavalli, CavalloDetail, alboCavalli } from 'src/datatypes/cavalli';
+import { cavalli, VintoGroupCavalli, CavalloDetail, alboCavalli, cavalliDecennium } from 'src/datatypes/cavalli';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, map, Observable, of } from 'rxjs';
@@ -62,6 +62,19 @@ export class CavalloService {
     );
     return alboCavalli;
   }
+
+  async loadCavalliDecennium(decennium: string): Promise<cavalliDecennium[]> {
+    try {
+      const cavalliDecennium = await firstValueFrom(
+        this.http.get<cavalliDecennium[]>(`${environment.apiURL}cavalli/decennium/${decennium}`)
+      );
+    
+      return cavalliDecennium;
+    } catch (err) {
+      console.error('❌ Fout bij ophalen cavalli decennium:', err);
+      return [];
+    }
+  }    
 
   private _normalizeCavallo(c: any): cavalli {
     return {

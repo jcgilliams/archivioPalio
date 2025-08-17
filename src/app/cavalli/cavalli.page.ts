@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { CavalloService } from '../services/cavallo.service';
-import { ConfigService } from '../services/config.service'; 
-import { VintoGroupCavalli, cavalli, alboCavalli } from 'src/datatypes/cavalli';
+import { VintoGroupCavalli, cavalli, cavalliDecennium  } from 'src/datatypes/cavalli';
 import { Router } from '@angular/router';
 import { IonContent } from '@ionic/angular';
 import { LanguageService, SupportedLanguage } from '../services/language.service';
@@ -13,27 +12,26 @@ import { TranslationService } from '../services/translation.service';
   templateUrl: './cavalli.page.html',
   styleUrls: ['./cavalli.page.scss'],
   standalone: false,
-})
+}) 
 export class CavalliPage implements OnInit, OnDestroy {
   @ViewChild(IonContent, { static: false }) content?: IonContent;
   searchTerm: string = '';
 
   zoekterm: string = '';
   zoekResultaten: cavalli[] = [];
+  periodes: string[] = [];
+  periodesMetAantal: { periode: string; aantal: number }[] = [];
 
   cavalliVintiOrdered: VintoGroupCavalli[] = [];
   filteredCavalliVintiOrdered: VintoGroupCavalli[] = [];
-  alboCavalli: alboCavalli[] = [];
   
   loading = true;
 
   showCavalli = true;
   showSearch = true;
-  showProtocollo = true;
+  showDecennio = true;
 
   openAccordionValues: string[] = [];
-
-  anno = '';
 
   currentLanguage: SupportedLanguage = 'it';
   private langSub?: Subscription;
@@ -42,26 +40,21 @@ export class CavalliPage implements OnInit, OnDestroy {
 
   constructor(    
     private cavalloService: CavalloService,
-    private configService: ConfigService,
     private languageService: LanguageService,
     private translationService: TranslationService,
-    private router: Router) {}
+    private router: Router) {
+      for(let start = 2020; start >= 1900; start -= 10) {
+        this.periodes.push(`${start}-${start+9}`);
+      }
+    }
 
   async ngOnInit() {
     try {
-      const config = await this.configService.retrieveConfig(1);
-
-      if (config?.anno) {
-        this.anno = config.anno;
-      } else {
-        console.warn('⚠️ Geen geldig anno gevonden in config.');
-      }
-
       this.cavalliVintiOrdered = await this.cavalloService.loadCavalliVintiOrdered();
       this.filteredCavalliVintiOrdered = [...this.cavalliVintiOrdered]; 
       this.openAccordionValues = this.filteredCavalliVintiOrdered.map(g => g.vinto.toString());
 
-      this.alboCavalli = await this.cavalloService.loadAlboCavalliByYear(this.anno);
+      await this.loadAantalPeriodes();
 
     } catch (error) {
       console.error('❌ Fout bij ophalen van config of cavalli-data:', error);
@@ -81,12 +74,39 @@ export class CavalliPage implements OnInit, OnDestroy {
     this.content?.scrollToTop(0);
   }
 
+  async loadAantalPeriodes() {
+    this.periodesMetAantal = [];
+
+    for (const periode of this.periodes) {
+      const apiCode = periode.substring(0, 3);
+
+      try {
+        const cavalliDecenniumList: cavalliDecennium[] = await this.cavalloService.loadCavalliDecennium(apiCode);
+        
+        this.periodesMetAantal.push({
+          periode,
+          aantal: cavalliDecenniumList.length
+        });
+      } catch (error) {
+        console.error(`Fout bij ophalen cavalli decennium voor ${periode}:`, error);
+        this.periodesMetAantal.push({
+          periode,
+          aantal: 0
+        });
+      }
+    }
+  }  
+
   getTranslation(key: string): string {
     return this.translationService.getTranslation(key);
   }
 
   goToCavalloDetail(id: string) {
     this.router.navigate(['/cavallo', id]);
+  }
+
+  goToDecennio(input: string) {
+    this.router.navigate(['/cavalli/decennio', input]);
   }
 
   toggleAccordion(value: string) {

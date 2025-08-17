@@ -32,7 +32,7 @@
           <ng-container *ngFor="let p of palioPerId">
             <div class="palio-wrapper palio-wrapper--groot">
               <ion-grid>
-                <ion-row class="equal-height-row palio-mobile-stack">
+                <ion-row class="equal-height-row elenco-mobile-stack">
                   <ion-col (click)="p.palioDate && goToPalioDetail(p.palioDate)" [style.cursor]="p.palioDate ? 'pointer' : 'default'">
                     <div class="palio-col-groot">
                       <img 
@@ -59,7 +59,7 @@
                     </ion-label>
                   </ion-col>
                 </ion-row>
-                <ion-row class="equal-height-row palio-mobile-stack">
+                <ion-row class="equal-height-row elenco-mobile-stack">
                   <ion-col (click)="p.cavalloId && goToCavalloDetail(p.cavalloId)" [style.cursor]="p.cavalloId ? 'pointer' : 'default'">
                     <ion-label>
                       <div class="palio-col-groot">
@@ -415,6 +415,6 @@
 
 <ng-template #loadingTpl>
   <div class="spinner-wrapper">
-    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+    <ion-spinner name="circular" color="light"></ion-spinner>
   </div>
 </ng-template>

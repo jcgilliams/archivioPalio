@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { LanguageService, SupportedLanguage } from './services/language.service';
 import { MenuController } from '@ionic/angular';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -44,9 +46,39 @@ export class AppComponent {
     }
   };
 
-  constructor(private languageService: LanguageService, private menuCtrl: MenuController) {
+  constructor(private languageService: LanguageService, private menuCtrl: MenuController,private router: Router) {
     this.selectedLanguage = this.languageService.getLanguage();
     console.log('Actieve taal:', this.selectedLanguage); 
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: any) => {
+        const ionApp = document.querySelector('ion-app');
+        if (!ionApp) return;
+
+        ionApp.classList.remove('bg-cavalli', 'bg-fantini', 'bg-palio', 'bg-contrade', 'bg-statistiche', 'bg-default');
+
+        const cavalliRoutes = ['/cavallo/', '/cavalli', '/albo-cavalli/'];
+        const fantiniRoutes = ['/fantini', '/fantino/'];
+        const palioRoutes = ['/palio', '/vittorie'];
+        const contradeRoutes = ['/contrade', '/contrada'];
+        const statisticheRoutes = ['/statistiche'];
+
+        const url = e.urlAfterRedirects;
+
+        if (cavalliRoutes.some(route => url.includes(route))) {
+          ionApp.classList.add('bg-cavalli');
+        } else if (fantiniRoutes.some(route => url.includes(route))) {
+          ionApp.classList.add('bg-fantini');
+        } else if (palioRoutes.some(route => url.includes(route))) {
+          ionApp.classList.add('bg-palio');
+        } else if (contradeRoutes.some(route => url.includes(route))) {
+          ionApp.classList.add('bg-contrade');    
+        } else if (statisticheRoutes.some(route => url.includes(route))) {
+          ionApp.classList.add('bg-statistiche');                    
+        } else {
+          ionApp.classList.add('bg-default');
+        }
+      });
   }
 
   changeLanguage(lang: any) {

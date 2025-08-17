@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, map } from 'rxjs';
-import { PalioAnno, Palio } from 'src/datatypes/palio';
+import { PalioAnno, Palio, PalioLista } from 'src/datatypes/palio';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +32,28 @@ export class PalioService {
           items.map((p: any) => ({
             ...p,
             straordinario: Number(p.straordinario) === 1,
-            rinviato: Number(p.straordinario) === 1,
-            cappotto: Number(p.straordinario) === 1
+            rinviato: Number(p.rinviato) === 1,
+            cappotto: Number(p.cappotto) === 1
           }))
         ),
       )
     );
     return palio;
   }
+
+  async getPalioLista(): Promise<PalioLista[]> {
+    const PalioLista = await firstValueFrom(
+      this.http.get<PalioLista[]>(`${environment.apiURL}palio/palioLista`).pipe(
+        map((items: any[]): PalioLista[] => 
+          items.map((p: any) => ({
+            ...p,
+            straordinario: Number(p.straordinario) === 1,
+            rinviato: Number(p.rinviato) === 1,
+            cappotto: Number(p.cappotto) === 1
+          }))
+        ),
+      )
+    );
+    return PalioLista;
+  }  
 }

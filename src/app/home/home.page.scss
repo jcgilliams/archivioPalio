@@ -1,0 +1,18 @@
+.elenco-mobile-stack {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* Mobile: stapel de kolommen */
+@media (max-width: 768px) {
+  .elenco-mobile-stack {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .elenco-mobile-stack ion-col {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

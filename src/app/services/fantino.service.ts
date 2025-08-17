@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { fantini, FantinoDetail, VintoGroupFantini } from 'src/datatypes/fantini';
+import { fantini, FantinoDetail, VintoGroupFantini, fantiniDecennium } from 'src/datatypes/fantini';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, map, Observable, of } from 'rxjs';
@@ -32,6 +32,19 @@ export class FantinoService {
       return [];
     }
   }
+
+  async loadFantiniDecennium(decennium: string): Promise<fantiniDecennium[]> {
+    try {
+      const fantiniDecennium = await firstValueFrom(
+        this.http.get<fantiniDecennium[]>(`${environment.apiURL}fantini/decennium/${decennium}`)
+      );
+    
+      return fantiniDecennium;
+    } catch (err) {
+      console.error('❌ Fout bij ophalen fantini decennium:', err);
+      return [];
+    }
+  }  
 
   searchFantini(zoekterm: string): Observable<fantini[]> {
     if (!zoekterm || zoekterm.trim().length === 0) {

@@ -73,6 +73,25 @@
     font-size: 12px;
   }
 
+  ion-button.decennio-button {
+    --background: var(--ion-color-secondary);
+    --color: var(--ion-color-primary);
+    width: 100%;
+    display: block;
+    font-size: 15px;
+    margin: 10px 0;
+    text-transform: none;
+    text-align: center;
+  }
+
+  ion-button.decennio-button .custom {
+    font-size: 11px;
+    font-weight: normal;
+    color: var(--ion-color-primary);
+    margin-top: 2px;
+  }
+
+
   hr.home-divider {
     border: none;
     border-top: 2px solid var(--ion-color-secondary);
@@ -513,18 +532,20 @@
 
   /* spinner */
   .spinner-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Zorgt dat de container de volledige viewport hoogte heeft */
-    width: 100vw;  /* Volledige viewport breedte */
-    position: fixed; /* Zorgt dat het altijd bovenaan ligt */
-    top: 0;
-    left: 0;
-    background: transparent;
-    z-index: 9999; /* zorg dat het boven andere content komt */
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      justify-content: center; 
+      align-items: flex-start; 
+      padding-top: 30vh; 
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
   }
 
+  ion-spinner {
+    width: 100px;
+    height: 100px;
+  }
 
   /* === GRID CONTAINER === */
   .container {
@@ -535,6 +556,7 @@
     max-width: 1200px;
     width: 90%;
     margin: 0 auto;
+    align-items: start;
   }
 
   /* Standaard segment */

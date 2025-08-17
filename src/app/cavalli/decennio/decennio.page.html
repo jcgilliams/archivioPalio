@@ -1,0 +1,100 @@
+<ion-content *ngIf="!loading; else loadingTpl">
+  <div class="container">
+
+    <section class="segment col-1 span-6 row-1 cavallo-header">
+      <img src="https://api.palioapp.com/images/cavalli/palio.png" class="cavallo-foto" />
+      <h2 class="cavallo-naam-groot">
+        {{ getTranslation('decennioCavalli') }}: {{ periode }}
+      </h2>
+    </section>
+
+    <section class="segment col-1 span-4 row-2 cavalli">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showCavalli = !showCavalli" style="cursor: pointer;">
+          {{ aantalCavalliInPeriode}} {{ getTranslation('titelCavalli') }}
+          <ion-icon [name]="showCavalli ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+
+        <div *ngIf="showCavalli">
+          <!-- Mobiele layout -->
+          <div class="mobile-layout">
+            <!-- mobiele content hier -->
+                <!-- CONTENT -->
+                <div class="ion-padding" slot="content">
+                  <ion-item *ngFor="let d of cavalliDecenniumList" (click)="goToCavalloDetail(d.cavalloId)" button>
+                    <ion-thumbnail slot="start">
+                      <img [src]="d.foto" alt="cavallo_palio" style="border-radius: 50%" />
+                    </ion-thumbnail>
+                    <ion-label>
+                      <div class="cavallo-name">{{ d.nome }}</div>
+                      <div class="cavallo-info">
+                        <ng-container>
+                          {{ getTranslation('corsi') }} {{ getTranslation('ditDecennium') }}: {{ d.aantal}}  
+                        </ng-container>
+                      </div>
+                    </ion-label>
+                  </ion-item>
+                </div>
+          </div>
+          <!-- Desktop layout -->
+          <div class="desktop-layout">
+            <!-- desktop content hier -->
+                <!-- CONTENT -->
+                <div class="ion-padding" slot="content">
+                  <div class="cavalli-grid">
+                    <ion-card *ngFor="let d of cavalliDecenniumList" (click)="goToCavalloDetail(d.cavalloId)" button class="cavallo-card custom-card">
+                      <div class="foto-wrapper">
+                        <img class="cavallo-foto" [src]="d?.foto ?? '/assets/palio.png'" alt="cavallo_palio" />
+                      </div>
+                      <ion-card-header>
+                        <ion-card-title class="cavallo-titel">{{ d.nome.split('/')[0] }}</ion-card-title>
+                      </ion-card-header>
+
+                      <ion-card-content>
+                        <div class="cavallo-info">
+                          <ng-container>
+                            {{ getTranslation('corsi') }} {{ getTranslation('ditDecennium') }}: {{ d.aantal}}                          </ng-container>
+                        </div>
+                      </ion-card-content>
+                    </ion-card>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </section>   
+    
+        <section class="segment col-5 span-2 row-2 palio ">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showDecennio = !showDecennio" style="cursor: pointer;">
+          {{ getTranslation('decennioCavalli') }}
+          <ion-icon [name]="showDecennio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showDecennio"> 
+          <ng-container *ngFor="let p of periodesMetAantal">
+            <ion-button *ngIf="p.periode !== periode" 
+                        (click)="goToDecennio(p.periode)" 
+                        class="decennio-button">
+              <ion-label>
+                <div>{{ p.periode }}</div>
+                <div class="custom">{{ p.aantal }} {{ getTranslation('titelCavalli') }}</div>
+              </ion-label>
+            </ion-button>
+          </ng-container>
+        </div>        
+      </div>
+    </section>   
+
+  </div>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="scrollToTop()" color="secondary">
+      <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<ng-template #loadingTpl>
+  <div class="spinner-wrapper">
+    <ion-spinner name="circular" color="light" class="ion-padding"></ion-spinner>
+  </div>
+</ng-template>

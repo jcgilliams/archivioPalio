@@ -168,6 +168,20 @@
           </div>
          </div>
       </div>
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showDecennio = !showDecennio" style="cursor: pointer;">
+          {{ getTranslation('decennioFantini') }}
+          <ion-icon [name]="showDecennio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showDecennio"> 
+          <ion-button *ngFor="let p of periodesMetAantal" (click)="goToDecennio(p.periode)" class="decennio-button">
+            <ion-label>
+              <div>{{ p.periode }}</div>
+              <div class="custom">{{ p.aantal }} {{ getTranslation('titelFantini') }}</div>
+            </ion-label>
+          </ion-button>
+        </div>        
+      </div>
     </section>
 
   </div>
@@ -180,7 +194,7 @@
 
 <ng-template #loadingTpl>
   <div class="spinner-wrapper">
-    <ion-spinner name="dots" class="ion-padding"></ion-spinner>
+    <ion-spinner name="circular" color="light" class="ion-padding"></ion-spinner>
   </div>
 </ng-template>
 
