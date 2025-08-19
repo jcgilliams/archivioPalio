@@ -61,14 +61,5 @@ export interface PalioLista {
     cavalloNome: string;
     cavalloFoto: string;
     cavalloPalioFoto: string;
-    mossiereId: number;
-    mossiereNome: string;
-    mossiereFoto: string;
     drappellonePalioFoto: string;
-    drappelloneId: number;
-    drappelloneFoto: string;
-    drappelloneArtista: string;
-    video: string;
-    tempo: string;
-    fotoArrivo: string;
 }
