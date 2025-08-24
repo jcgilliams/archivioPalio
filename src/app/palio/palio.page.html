@@ -1,7 +1,224 @@
 <ion-content *ngIf="!loading; else loadingTpl">
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; color: white;">
-    <h2 style="margin: 0;">Palio detailpagina</h2>
-    <p style="margin-top: 8px;">{{ slug }}</p>
+  <div class="container">
+    <section class="segment col-1 span-6 row-1 cavallo-header">
+      <img [src]=" palio?.contrada?.id
+                ? palio?.contrada?.logo
+                : 'https://api.palioapp.com/images/cavalli/palio.png'
+                " class="cavallo-foto" />
+      <h2 class="cavallo-naam-groot">
+        Palio <span *ngIf="palio?.straordinario">Straordinario </span>{{ palio?.palio }}
+      </h2>
+    </section>
+
+    <section class="segment col-1 span-1 row-2 wide-segment">
+      <ion-button class="home-button" *ngIf="palio?.precedente" (click)="gaNaarVorigePalio()">
+        {{ palio?.precedenteNome }}
+      </ion-button>
+    </section>
+
+    <section class="segment col-6 span-1 row-2 wide-segment">
+      <ion-button class="home-button" *ngIf="palio?.successivo" (click)="gaNaarVolgendePalio()">
+        {{ palio?.successivoNome }}
+      </ion-button>
+    </section>
+
+    <section class="col-1 span-6 row-3 wide-segment">
+      <div class="button-row">
+        <ion-button (click)="activeTab = 'home'" [class.active]="activeTab === 'home'" class="palio-button">
+          PALIO
+        </ion-button>
+        <ion-button (click)="activeTab = 'previsite'" [class.active]="activeTab === 'previsite'" class="palio-button">
+          PREVISITE
+        </ion-button>
+        <ion-button (click)="activeTab = 'proveDiNotte'" [class.active]="activeTab === 'proveDiNotte'" class="palio-button">
+          PROVE DI NOTTE
+        </ion-button>
+        <ion-button (click)="activeTab = 'tratta'" [class.active]="activeTab === 'tratta'" class="palio-button">
+          TRATTA
+        </ion-button>
+        <ion-button (click)="activeTab = 'prove'" [class.active]="activeTab === 'prove'" class="palio-button">
+          PROVE
+        </ion-button>
+        <ion-button (click)="activeTab = 'canape'" [class.active]="activeTab === 'canape'" class="palio-button">
+          INGRESSO AL CANAPE
+        </ion-button>
+      </div>
+    </section>
+
+    <ng-container *ngIf="palio?.contrada?.id; else alternatiefTpl">
+      <section class="segment col-1 span-3 row-4" *ngIf="activeTab === 'home'">
+        <div class="subsegment">
+          <div class="palio-wrapper--groot">
+            <ion-grid>
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.contrada as contrada" (click)="contrada.id && goToContradaDetail(contrada.id)"
+                  [style.cursor]="contrada.id ? 'pointer' : 'default'">
+                  <ion-label>
+                    <div class="palio-col-groot">
+                      <img [src]="contrada.logo" class="img-palio" />
+                      <div style="display: flex; flex-direction: column;">
+                        <div class="cavallo-name">{{ contrada.nome }}</div>
+                        <div class="cavallo-info">
+                          contrada
+                        </div>
+                      </div>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.cavallo as cavallo" (click)="goToCavalloDetail(cavallo.id)"
+                  [style.cursor]="cavallo.id ? 'pointer' : 'default'">
+                  <ion-label>
+                    <div class="palio-col-groot">
+                      <img [src]="cavallo.id ? (cavallo.cavalloPalioFoto || cavallo.foto) : 'assets/palio.png'"
+                        class="img-palio" />
+                      <div style="display: flex; flex-direction: column;">
+                        <div class="cavallo-name">{{ cavallo.nome }}</div>
+                        <div [innerHTML]="getTranslation('cavallo')" class="cavallo-info"></div>
+                      </div>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col *ngIf="palio?.fantino as fantino" (click)="goToFantinoDetail(fantino.id)"              
+                  [style.cursor]="fantino.id ? 'pointer' : 'default'">
+                  <ion-label>
+                    <div class="palio-col-groot">
+                      <img [src]="fantino.id ? (fantino.fantinoPalioFoto || fantino.foto) : 'assets/palio.png'"
+                        class="img-palio" />
+                      <div style="display: flex; flex-direction: column;">
+                        <div class="cavallo-name">{{ fantino.nome }} detto {{ fantino.soprannome }} </div>
+                        <div [innerHTML]="getTranslation('fantino')" class="cavallo-info"></div>
+                      </div>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>            </ion-grid>
+          </div>
+        </div>
+      </section>
+      <section class="segment col-4 span-2 row-4" *ngIf="activeTab === 'home'">
+        <div class="subsegment">
+          <div class="palio-wrapper--groot">
+            <ion-grid>
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.mossiere as mossiere">
+                  <ion-label>
+                    <div class="palio-col-groot">
+                      <img [src]="mossiere.foto" class="img-palio" />
+                      <div style="display: flex; flex-direction: column;">
+                        <div class="cavallo-name">{{ mossiere.nome }}</div>
+                        <div [innerHTML]="getTranslation('mossiere')" class="cavallo-info"></div>
+                      </div>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.tempo">
+                  <ion-label>
+                    <div class="palio-col-groot">
+                      <ion-icon name="hourglass-outline" class="img-palio"></ion-icon>
+                      <div style="display: flex; flex-direction: column;">
+                        <div class="cavallo-name">{{ palio?.tempo }}</div>
+                        <div [innerHTML]="getTranslation('tempo')" class="cavallo-info"></div>
+                      </div>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row> 
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.drappellone as drappellone">
+                  <ion-label>
+                    <div class="palio-col-groot">
+                      <img [src]="palio?.drappellonePalioFoto" class="img-palio" />
+                      <div style="display: flex; flex-direction: column;">
+                        <div class="cavallo-name">{{ drappellone.artista }}</div>
+                        <div [innerHTML]="getTranslation('artista')" class="cavallo-info"></div>
+                      </div>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>                               
+              <ion-row>
+                <p>niet vergeten : video + arrivo foto?</p>
+              </ion-row>          
+            </ion-grid>
+          </div>
+        </div>
+      </section>
+      <section class="segment col-6 span-1 row-4" *ngIf="activeTab === 'home'">
+        <div class="subsegment">
+          <div class="palio-wrapper--groot">
+            <ion-grid>
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.drappellone as drappellone">
+                  <ion-label>
+                    <div class="palio-col-groot centered-img">
+                      <img [src]="drappellone.foto"class="img-drappellone"/>
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>              
+            </ion-grid>
+          </div>                    
+        </div>
+      </section>
+
+      <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'previsite'">
+        <div class="subsegment">
+          <ion-grid>
+            <p>previsite</p>
+          </ion-grid>
+        </div>
+      </section>   
+      
+      <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'proveDiNotte'">
+        <div class="subsegment">
+          <ion-grid>
+            <p>prove di notte</p>
+          </ion-grid>
+        </div>
+      </section>   
+
+      <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'tratta'">
+        <div class="subsegment">
+          <ion-grid>
+            <p>tratta</p>
+          </ion-grid>
+        </div>
+      </section>      
+
+      <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'prove'">
+        <div class="subsegment">
+          <ion-grid>
+            <p>prove</p>
+          </ion-grid>
+        </div>
+      </section> 
+      
+      <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'canape'">
+        <div class="subsegment">
+          <ion-grid>
+            <p>ingresso al canape</p>
+          </ion-grid>
+        </div>
+      </section>       
+            
+    </ng-container>
+
+    <ng-template #alternatiefTpl>
+      <section class="segment col-1 span-6 row-4 wide-segment">
+        <div class="subsegment">
+          <p class="custom" [innerHTML]="getTranslationParams('geenPalio', { palio: palio?.palio })">
+          </p>
+        </div>
+      </section>
+    </ng-template>
+
+
   </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="scrollToTop()" color="secondary">
@@ -15,5 +232,3 @@
     <ion-spinner name="circular" color="light" class="ion-padding"></ion-spinner>
   </div>
 </ng-template>
-
-

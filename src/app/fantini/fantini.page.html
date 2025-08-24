@@ -8,6 +8,70 @@
       </h2>
     </section>
 
+    <section class="segment col-5 span-2 row-2 palio ">
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showSearch = !showSearch" style="cursor: pointer;">
+          {{ getTranslation('cercaFantino') }}
+          <ion-icon [name]="showSearch ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showSearch">
+          <div class="searchbar-wrapper">
+            <ion-searchbar
+              [(ngModel)]="zoekterm"
+              (ionInput)="searchFantino()"
+              debounce="300"
+              [placeholder]="getTranslation('search_placeholderFantino')"
+              class="custom"
+            ></ion-searchbar>
+          </div>
+          
+          <!-- Zoekresultaten tonen -->
+          <ion-list *ngIf="zoekterm && zoekResultaten.length > 0">
+            <ion-item *ngFor="let f of zoekResultaten" (click)="goToFantinoDetail(f.id)" button style="padding: 0 5px 0 5px;">
+              <ion-thumbnail slot="start">
+                <img [src]="f?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
+              </ion-thumbnail>
+              <ion-label>
+                <div class="cavallo-name">
+                  {{ f.nome }}
+                  <span *ngIf="f.soprannome"> detto {{ f.soprannome }}</span>
+                </div>
+                <div *ngIf="f.paliiCorsi > 0" class="cavallo-info">
+                  <ng-container *ngIf="f.paliiVinti > 0; else geenPalio">
+                    {{ getTranslation('corsi') }} {{ f.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }} {{ f.paliiVinti }}
+                  </ng-container>
+                  <ng-template #geenPalio>
+                    {{ getTranslation('corsi') }} {{ f.paliiCorsi }}
+                  </ng-template>
+                </div>
+               </ion-label>
+            </ion-item>
+          </ion-list>  
+          <div *ngIf="zoekterm && zoekterm.trim() !== '' && zoekResultaten.length === 0 && !loading" class="no-results">
+            <ion-text class="cavallo-label" style="margin-left: 10px;">
+              <span>
+                {{ getTranslation('noResult') }}
+              </span>
+            </ion-text>
+          </div>
+         </div>
+      </div>
+      <div class="subsegment">
+        <h2 class="section-header" (click)="showDecennio = !showDecennio" style="cursor: pointer;">
+          {{ getTranslation('decennioFantini') }}
+          <ion-icon [name]="showDecennio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
+        </h2>
+        <div *ngIf="showDecennio"> 
+          <ion-button *ngFor="let p of periodesMetAantal" (click)="goToDecennio(p.periode)" class="decennio-button">
+            <ion-label>
+              <div>{{ p.periode }}</div>
+              <div class="custom">{{ p.aantal }} {{ getTranslation('titelFantini') }}</div>
+            </ion-label>
+          </ion-button>
+        </div>        
+      </div>
+    </section>    
+
     <section class="segment col-1 span-4 row-2 cavalli">
       <div class="subsegment">
         <h2 class="section-header" (click)="showFantini = !showFantini" style="cursor: pointer;">
@@ -117,70 +181,6 @@
             </ion-text>
           </div>
         </div>
-      </div>
-    </section>
-    
-    <section class="segment col-5 span-2 row-2 palio ">
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showSearch = !showSearch" style="cursor: pointer;">
-          {{ getTranslation('cercaFantino') }}
-          <ion-icon [name]="showSearch ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showSearch">
-          <div class="searchbar-wrapper">
-            <ion-searchbar
-              [(ngModel)]="zoekterm"
-              (ionInput)="searchFantino()"
-              debounce="300"
-              [placeholder]="getTranslation('search_placeholderFantino')"
-              class="custom"
-            ></ion-searchbar>
-          </div>
-          
-          <!-- Zoekresultaten tonen -->
-          <ion-list *ngIf="zoekterm && zoekResultaten.length > 0">
-            <ion-item *ngFor="let f of zoekResultaten" (click)="goToFantinoDetail(f.id)" button style="padding: 0 5px 0 5px;">
-              <ion-thumbnail slot="start">
-                <img [src]="f?.foto ?? '/assets/palio.png'" alt="cavallo_palio" style="border-radius: 50%" />
-              </ion-thumbnail>
-              <ion-label>
-                <div class="cavallo-name">
-                  {{ f.nome }}
-                  <span *ngIf="f.soprannome"> detto {{ f.soprannome }}</span>
-                </div>
-                <div *ngIf="f.paliiCorsi > 0" class="cavallo-info">
-                  <ng-container *ngIf="f.paliiVinti > 0; else geenPalio">
-                    {{ getTranslation('corsi') }} {{ f.paliiCorsi }} &nbsp;|&nbsp; {{ getTranslation('vinti') }} {{ f.paliiVinti }}
-                  </ng-container>
-                  <ng-template #geenPalio>
-                    {{ getTranslation('corsi') }} {{ f.paliiCorsi }}
-                  </ng-template>
-                </div>
-               </ion-label>
-            </ion-item>
-          </ion-list>  
-          <div *ngIf="zoekterm && zoekterm.trim() !== '' && zoekResultaten.length === 0 && !loading" class="no-results">
-            <ion-text class="cavallo-label" style="margin-left: 10px;">
-              <span>
-                {{ getTranslation('noResult') }}
-              </span>
-            </ion-text>
-          </div>
-         </div>
-      </div>
-      <div class="subsegment">
-        <h2 class="section-header" (click)="showDecennio = !showDecennio" style="cursor: pointer;">
-          {{ getTranslation('decennioFantini') }}
-          <ion-icon [name]="showDecennio ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-        </h2>
-        <div *ngIf="showDecennio"> 
-          <ion-button *ngFor="let p of periodesMetAantal" (click)="goToDecennio(p.periode)" class="decennio-button">
-            <ion-label>
-              <div>{{ p.periode }}</div>
-              <div class="custom">{{ p.aantal }} {{ getTranslation('titelFantini') }}</div>
-            </ion-label>
-          </ion-button>
-        </div>        
       </div>
     </section>
 

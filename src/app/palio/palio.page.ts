@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent } from '@ionic/angular';
+import { PaliotuttoService } from '../services/paliotutto.service';
+import { PalioTutto } from 'src/datatypes/palioTutto';
+import { LanguageService, SupportedLanguage } from '../services/language.service';
+import { Subscription } from 'rxjs';
+import { TranslationService } from '../services/translation.service';
 
 @Component({
   selector: 'app-palio',
@@ -11,20 +16,75 @@ import { IonContent } from '@ionic/angular';
 export class PalioPage implements OnInit {
   @ViewChild(IonContent, { static: false }) content?: IonContent;
   slug: string | null = null;
+  palio?: PalioTutto;
   loading = true;
+  showInfo = true;
+  activeTab: string = 'home';
+
+  currentLanguage: SupportedLanguage = 'it';
+  private langSub?: Subscription;  
 
   constructor(
     private route: ActivatedRoute,
+    private palioService: PaliotuttoService,
+    private router: Router,
+    private languageService: LanguageService,
+    private translationService: TranslationService, 
   ) { }
 
   ngOnInit() {
     this.slug = this.route.snapshot.paramMap.get('slug');
 
-    this.loading = false;
+    if (this.slug) {
+      this.palioService.getPalio(this.slug).subscribe({
+        next: (data) => {
+          this.palio = data;
+          this.loading = false;
+          console.log('✅ Palio data geladen:', this.palio);
+        },
+        error: (err) => {
+          console.error('❌ Fout bij ophalen palio', err);
+          this.loading = false;
+        }
+      });
+    } else {
+      this.loading = false;
+    }
+    this.langSub = this.languageService.language$.subscribe(lang => {
+      this.currentLanguage = lang;
+    });
   }
 
   scrollToTop() {
     this.content?.scrollToTop(500);
   }
+
+  gaNaarVorigePalio() {
+    this.router.navigate(['/palio', this.palio?.precedente]);
+  }
+
+  gaNaarVolgendePalio() {
+    this.router.navigate(['/palio', this.palio?.successivo]);
+  }  
+
+  getTranslation(key: string): string {
+    return this.translationService.getTranslation(key);
+  }
+
+  getTranslationParams(key: string, params?: { [key: string]: any }): string {
+    return this.translationService.getTranslation(key, params);
+  } 
+  
+  goToCavalloDetail(id: string) {
+    this.router.navigate(['/cavallo', id]);
+  }
+
+  goToFantinoDetail(id: string) {
+    this.router.navigate(['/fantino', id]);
+  }  
+
+  goToContradaDetail(contrada: string) {
+    this.router.navigate(['/contrada', contrada.toLowerCase()]);
+  }  
 
 }

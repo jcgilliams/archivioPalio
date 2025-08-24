@@ -169,9 +169,9 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     nl: 'Gereden palio\'s sinds '
   },
   cavallo: {
-    it: 'Cavallo',
-    en: 'Horse',
-    nl: 'Paard'
+    it: 'cavallo',
+    en: 'horse',
+    nl: 'paard'
   },
   sesso: {
     it: 'Sesso',
@@ -199,9 +199,9 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     nl: 'Aangeboden op de Tratta'
   },
   fantino: {
-    it: 'Fantino',
-    en: 'Jockey',
-    nl: 'Ruiter'
+    it: 'fantino',
+    en: 'jockey',
+    nl: 'ruiter'
   },
   titelCavalli: {
     it: 'Cavalli',
@@ -305,7 +305,7 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
   },
   geenProtocollo: {
     it: 'Per l\'anno <b>{{ anno }}</b> non sono ancora disponibili dati. Il sito è ancora in fase di costruzione.',
-    en: 'For the year <b>{{ anno }}</b> no data is available yet. The website is still under construction.',
+    en: 'No data is yet available for the year <b>{{ anno }}</b>. The website is still under construction.',
     nl: 'Voor het jaar <b>{{ anno }}</b> is nog geen data beschikbaar. De website is nog in opbouw.'
   },
   noResult: {
@@ -377,5 +377,25 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
   it: 'Vai',
   en: 'Go',
   nl: 'Ok'
- }
+ },
+geenPalio: {
+  it: 'Per il Palio del <b>{{ palio }}</b> non sono ancora disponibili dati. Il sito è ancora in fase di costruzione.',
+  en: 'No data is yet available for the Palio of <b>{{ palio }}</b>. The website is still under construction.',
+  nl: 'Voor de Palio van <b>{{ palio }}</b> is nog geen data beschikbaar. De website is nog in opbouw.'
+},
+mossiere: {
+  it: 'mossiere',
+  en: 'starter',
+  nl: 'starter'
+},
+artista: {
+  it: 'artista',
+  en: 'artist',
+  nl: 'kunstenaar'
+},
+tempo: {
+  it: 'tempo',
+  en: 'time',
+  nl: 'tijd'
+}
 };

@@ -64,7 +64,6 @@ export class FantinoPage implements OnInit {
     try {
       const data = await this.fantinoService.getFantinoById(id);
       this.fantino = data;
-      console.log('Fantino data:', this.fantino);
 
       // Vermijd delen door nul
       if (this.fantino.paliiCorsi > 0) {

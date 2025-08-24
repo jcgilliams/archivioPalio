@@ -56,6 +56,7 @@ export class VittoriePage implements OnInit {
     // Originele lijst ophalen
     this.allPalioList = await this.palioService.getPalioLista();
     this.allContrade = await this.contradaService.loadContrade();
+    console.log(this.allPalioList)
 
     // Eerste keer groeperen
     this.applyFilters();

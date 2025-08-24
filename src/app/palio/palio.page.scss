@@ -1,0 +1,49 @@
+.img-drappellone { 
+  width: 100%;  
+  height: auto;
+  max-width: none; 
+}
+
+.centered-img {
+  display: flex;
+  justify-content: center; /* horizontaal centreren */
+  align-items: center;     /* verticaal centreren */
+}
+.centered-img img {
+  max-width: 100%;
+  height: auto;           /* behoudt verhouding */
+}
+
+.button-row {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+/* Desktop: alle naast elkaar */
+@media (min-width: 1024px) {
+  .button-row {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); /* alle naast elkaar */
+  }
+}
+
+/* Tablet: 3 per rij */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .button-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile: 2 per rij */
+@media (max-width: 767px) {
+  .button-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+ion-button.palio-button {
+  --background: var(--ion-color-secondary);
+  --color: var(--ion-color-primary);
+  width: 100%; /* vult de grid cell */
+  font-size: 12px;
+}
