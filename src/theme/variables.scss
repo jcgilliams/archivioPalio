@@ -454,14 +454,6 @@
     color: var(--ion-color-primary);
   }
     
-  .hide-on-mobile {
-    display: flex;
-  }
-
-  .show-on-mobile {
-    display: none;
-  }
-
   .palio-wrapper {
     border: 1px solid;
     border-color: var(--ion-color-primary);
@@ -614,6 +606,14 @@
   
 }
 
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .show-on-mobile {
+    display: flex !important;
+  }
+
 /* --- MEDIA QUERY VOOR MOBIEL --- */
 @media (max-width: 1025px) {
   .container {
@@ -675,6 +675,8 @@
   .cavallo-naam-groot {
     font-size: 1.5rem !important; 
   }
+
+@media (max-width: 767px) {  
   .palio-mobile-stack {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -684,6 +686,8 @@
     width: 100% !important;
     max-width: 100% !important;
   }
+}
+
   .palio-grid ion-row {
     padding: 4px 4px;
     min-height: unset;

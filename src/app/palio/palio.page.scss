@@ -1,7 +1,9 @@
 .img-drappellone { 
   width: 100%;  
   height: auto;
-  max-width: none; 
+  max-width: 300px;
+  display: block;
+  margin: 0 auto;
 }
 
 .centered-img {
@@ -20,6 +22,26 @@
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 }
 
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.contrade-centered {
+  justify-content: space-evenly; 
+  width: 100%;
+}
+
 /* Desktop: alle naast elkaar */
 @media (min-width: 1024px) {
   .button-row {
@@ -32,6 +54,9 @@
   .button-row {
     grid-template-columns: repeat(3, 1fr);
   }
+  .img-drappellone {
+    max-width: 150px !important;
+  }  
 }
 
 /* Mobile: 2 per rij */
@@ -39,6 +64,9 @@
   .button-row {
     grid-template-columns: repeat(2, 1fr);
   }
+  .img-drappellone {
+    max-width: 150px !important;
+  }  
 }
 
 ion-button.palio-button {

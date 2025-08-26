@@ -2,6 +2,7 @@
   <ion-content>
     <div class="container">
 
+      <!-- Titel -->
       <section class="segment col-1 span-6 row-1 cavallo-header">
         <img src="https://api.palioapp.com/images/cavalli/palio.png" class="cavallo-foto" />
         <h2 class="cavallo-naam-groot">
@@ -9,13 +10,14 @@
         </h2>
       </section>
 
-      <section class="segment col-5 span-2 row-2 cavallo-header">
+      <!-- Filters -->
+      <section class="segment col-5 span-2 row-2 palio">
         <div class="subsegment">
           <h2 class="section-header" (click)="showFilter = !showFilter" style="cursor: pointer;">
             <div [innerHTML]="getTranslation('filter')"></div>
             <ion-icon [name]="showFilter ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
           </h2>
-          <div *ngIf="showFilter">             
+          <div *ngIf="showFilter">
             <div class="searchbar-wrapper">
               <ion-searchbar
                 [(ngModel)]="searchTerm"
@@ -28,18 +30,16 @@
             <hr class="home-divider">
             <ion-segment [(ngModel)]="filterType" (ionChange)="applyFilters()">
               <ion-segment-button value="erkend">
-                <ion-label class="small-label">{{ getTranslation('vittorieCitta') }}</ion-label>              
+                <ion-label class="small-label">{{ getTranslation('vittorieCitta') }}</ion-label>
               </ion-segment-button>
               <ion-segment-button value="nietErkend">
                 <ion-label class="small-label">{{ getTranslation('vittorieContrada') }}</ion-label>
               </ion-segment-button>
-            </ion-segment> 
+            </ion-segment>
             <hr class="home-divider">
-            <div>
-              <label for="contradaSelect" class="select-label">
-                {{ getTranslation('filtraContrada') }}
-              </label>
 
+            <div>
+              <label for="contradaSelect" class="select-label">{{ getTranslation('filtraContrada') }}</label>
               <div class="select-wrap">
                 <select
                   id="contradaSelect"
@@ -48,88 +48,55 @@
                   (change)="chooseContrada()"
                 >
                   <option value="">{{ getTranslation('tuttiPalii') }}</option>
-                  <option
-                    *ngFor="let contrada of allContrade"
-                    [ngValue]="contrada.nome"
-                    [hidden]="contrada.id === '0'"
-                  >
+                  <option *ngFor="let contrada of allContrade" [ngValue]="contrada.nome" [hidden]="contrada.id === '0'">
                     {{ contrada.nome }}
                   </option>
                 </select>
               </div>
             </div>
-            <hr class="home-divider">  
+            <hr class="home-divider">
+
             <div class="checkbox-row">
               <label class="custom-checkbox">
                 Palii Straordinari
-                <ion-checkbox
-                  slot="end"
-                  [(ngModel)]="straordinario"
-                  (ionChange)="applyFilters()">
-                </ion-checkbox>
+                <ion-checkbox slot="end" [(ngModel)]="straordinario" (ionChange)="applyFilters()"></ion-checkbox>
               </label>
             </div>
-
             <div class="checkbox-row">
               <label class="custom-checkbox">
                 Palii Rinviati
-                <ion-checkbox
-                  slot="end"
-                  [(ngModel)]="rinviato"
-                  (ionChange)="applyFilters()">
-                </ion-checkbox>
+                <ion-checkbox slot="end" [(ngModel)]="rinviato" (ionChange)="applyFilters()"></ion-checkbox>
               </label>
             </div>
-
             <div class="checkbox-row">
               <label class="custom-checkbox">
                 Cappotti
-                <ion-checkbox
-                  slot="end"
-                  [(ngModel)]="cappotto"
-                  (ionChange)="applyFilters()">
-                </ion-checkbox>
+                <ion-checkbox slot="end" [(ngModel)]="cappotto" (ionChange)="applyFilters()"></ion-checkbox>
               </label>
             </div>
-            <hr class="home-divider">        
+            <hr class="home-divider">
+
             <ion-grid>
               <ion-row>
-                <label class="select-label">
-                  {{ getTranslation('dueAnni') }}
-                </label>
+                <label class="select-label">{{ getTranslation('dueAnni') }}</label>
               </ion-row>
               <ion-row>
                 <ion-col size="6">
-                  <input
-                    type="number"
-                    [placeholder]="getTranslation('primoAnno')"
-                    [(ngModel)]="beginJaar"
-                    class="custom-input"
-                  />
+                  <input type="number" [placeholder]="getTranslation('primoAnno')" [(ngModel)]="beginJaar" class="custom-input" />
                 </ion-col>
                 <ion-col size="6">
-                  <input
-                    type="number"
-                    [placeholder]="getTranslation('ultimoAnno')"
-                    [(ngModel)]="eindJaar"
-                    class="custom-input"
-                  />
+                  <input type="number" [placeholder]="getTranslation('ultimoAnno')" [(ngModel)]="eindJaar" class="custom-input" />
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col size="6">
-                  <ion-button class="home-button" (click)="wisJaarFilter()">
-                    {{ getTranslation('svuotate') }}
-                  </ion-button>
+                  <ion-button class="home-button" (click)="wisJaarFilter()">{{ getTranslation('svuotate') }}</ion-button>
                 </ion-col>
                 <ion-col size="6">
-                  <ion-button class="home-button" (click)="vai()">
-                    {{ getTranslation('vai') }}
-                  </ion-button>
+                  <ion-button class="home-button" (click)="vai()">{{ getTranslation('vai') }}</ion-button>
                 </ion-col>
               </ion-row>
               <ion-row class="ion-justify-content-center">
-                <!-- Foutmelding voor ongeldig jaar -->
                 <ion-col size="12">
                   <label class="select-label" *ngIf="invalidYear" style="color: red;">
                     {{ getTranslation('invalidYears') }}
@@ -138,60 +105,48 @@
               </ion-row>
             </ion-grid>
             <hr class="home-divider">
+
             <ion-button (click)="resetFilters()" class="home-button">{{ getTranslation('resetFilter') }}</ion-button>
           </div>
         </div>
       </section>
 
+      <!-- Lijst zonder eeuwheader -->
       <section class="segment col-1 span-4 row-2 cavalli">
-        <div class="subsegment" *ngFor="let century of (getFilteredGroupedPalioList() | keyvalue: sortCenturies)">
-          <h2 class="section-header" (click)="expandedCenturies[century.key] = !expandedCenturies[century.key]" style="cursor: pointer;">
-            {{ getTranslation('anni') }}{{ century.key }}{{ getTranslation('anni2') }}
-            <ion-icon [name]="expandedCenturies[century.key] ? 'chevron-up-outline' : 'chevron-down-outline'" class="chevron-icon"></ion-icon>
-          </h2>
-
-          <div *ngIf="expandedCenturies[century.key]">
-            <ng-container *ngFor="let p of century.value">
+        <div class="subsegment">
+          <ng-container *ngIf="getPagedItems().length > 0; else noItemsTpl">
+            <ng-container *ngFor="let p of getPagedItems()">
               <div class="palio-wrapper palio-wrapper--groot">
                 <ion-grid>
                   <ion-row class="equal-height-row elenco-mobile-stack">
-                    <ion-col (click)="p.palioDate && p.contradaId && goToPalioDetail(p.palioDate)" [style.cursor]="p.palioDate && p.contradaId ? 'pointer' : 'default'">
+                    <ion-col (click)="p.palioDate && goToPalioDetail(p.palioDate)" [style.cursor]="p.palioDate ? 'pointer' : 'default'">
                       <div class="palio-col-groot">
-                        <img 
-                          [src]="p.drappellonePalioFoto ? p.drappellonePalioFoto : 'assets/palio.png'" 
-                          class="img-palio" />
+                        <img [src]="p.drappellonePalioFoto || 'assets/palio.png'" class="img-palio" />
                         <ion-text class="cavallo-label">
                           <span style="font-weight: bold">{{ p.palio }}</span>
-                        </ion-text>  
-                      </div>                  
+                        </ion-text>
+                      </div>
                     </ion-col>
-                    <ion-col (click)="p.contradaNome != '?' && goToContradaDetail(p.contrada)" [style.cursor]="p.contradaNome != '?' ? 'pointer' : 'default'">
+                    <ion-col (click)="p.contrada && goToContradaDetail(p.contrada)" [style.cursor]="p.contrada ? 'pointer' : 'default'">
                       <ion-label>
                         <div class="palio-col-groot">
                           <img 
-                              [src]="
-                                p.contradaLogo
-                                  ? p.contradaLogo
-                                  : (p.contrada ? 'https://api.palioapp.com/images/contrade/' + p.contrada + '.png' : 'assets/palio.png')
-                              "
+                            [src]="p.contradaLogo || (p.contrada ? 'https://api.palioapp.com/images/contrade/' + p.contrada + '.png' : 'assets/palio.png')" 
                             class="img-palio" />
                           <div style="display: flex; flex-direction: column;">
                             <div class="cavallo-name">{{ p.contrada }}</div>
-                            <div class="cavallo-info">
-                              contrada
-                            </div>
+                            <div class="cavallo-info">contrada</div>
                           </div>
                         </div>
                       </ion-label>
                     </ion-col>
                   </ion-row>
-                  <ion-row class="equal-height-row  elenco-mobile-stack">
+
+                  <ion-row class="equal-height-row elenco-mobile-stack">
                     <ion-col (click)="p.cavalloId && goToCavalloDetail(p.cavalloId)" [style.cursor]="p.cavalloId ? 'pointer' : 'default'">
                       <ion-label>
                         <div class="palio-col-groot">
-                          <img 
-                            [src]="p.cavalloId ? (p.cavalloPalioFoto || p.cavalloFoto) : 'assets/palio.png'" 
-                            class="img-palio" />
+                          <img [src]="p.cavalloId ? (p.cavalloPalioFoto || p.cavalloFoto) : 'assets/palio.png'" class="img-palio" />
                           <div style="display: flex; flex-direction: column;">
                             <div class="cavallo-name">{{ p.cavallo }}</div>
                             <div [innerHTML]="getTranslation('cavallo')" class="cavallo-info"></div>
@@ -199,12 +154,10 @@
                         </div>
                       </ion-label>
                     </ion-col>
-                    <ion-col (click)="p.fantinoId && goToFantinoDetail(p.fantinoId)" [style.cursor]="p.cavalloId ? 'pointer' : 'default'">
+                    <ion-col (click)="p.fantinoId && goToFantinoDetail(p.fantinoId)" [style.cursor]="p.fantinoId ? 'pointer' : 'default'">
                       <ion-label>
                         <div class="palio-col-groot">
-                          <img 
-                            [src]="p.fantinoId ? (p.fantinoPalioFoto || p.fantinoFoto) : 'https://api.palioapp.com/images/fantini/fantino.jpg'" 
-                            class="img-palio" />
+                          <img [src]="p.fantinoId ? (p.fantinoPalioFoto || p.fantinoFoto) : 'https://api.palioapp.com/images/fantini/fantino.jpg'" class="img-palio" />
                           <div style="display: flex; flex-direction: column;">
                             <div class="cavallo-name">{{ p.fantino }}</div>
                             <div [innerHTML]="getTranslation('fantino')" class="cavallo-info"></div>
@@ -213,26 +166,55 @@
                       </ion-label>
                     </ion-col>
                   </ion-row>
-                </ion-grid>                     
+                </ion-grid>
               </div>
-            </ng-container>  
-          </div>        
+            </ng-container>
+          </ng-container>
+          <ng-template #noItemsTpl>
+            <div class="palio-wrapper palio-wrapper--groot">
+                <ion-grid>
+                  <ion-row class="equal-height-row elenco-mobile-stack">
+                    <ion-col>
+                      <div class="cavallo-name">{{ getTranslation('noResult') }}</div>                      
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>            
+            </div>
+          </ng-template>
         </div>
+
+          <!-- Paginatie knoppen -->
+          <div class="pagination-buttons">
+            <ion-button 
+              (click)="currentPage = currentPage - 1"
+              [style.visibility]="currentPage > 1 ? 'visible' : 'hidden'">
+              &lt;
+            </ion-button>
+
+            <span>{{ getTranslation('pagina') }} {{ currentPage }} {{ getTranslation('di') }} {{ totalPages }}</span>
+
+            <ion-button 
+              (click)="currentPage = currentPage + 1"
+              [style.visibility]="currentPage < totalPages ? 'visible' : 'hidden'">
+              &gt;
+            </ion-button>
+          </div>
+
+
       </section>
 
-
     </div>
+
     <ion-fab slot="fixed" vertical="bottom" horizontal="end">
       <ion-fab-button (click)="scrollToTop()" color="secondary">
         <ion-icon name="chevron-up-circle" color="primary"></ion-icon>
       </ion-fab-button>
     </ion-fab>
   </ion-content>
-</ng-container>  
+</ng-container>
 
 <ng-template #loadingTpl>
   <div class="spinner-wrapper">
     <ion-spinner name="circular" color="light" class="ion-padding"></ion-spinner>
   </div>
 </ng-template>
-

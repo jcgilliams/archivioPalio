@@ -46,11 +46,11 @@
     </section>
 
     <ng-container *ngIf="palio?.contrada?.id; else alternatiefTpl">
-      <section class="segment col-1 span-3 row-4" *ngIf="activeTab === 'home'">
+      <section class="segment col-1 span-5 row-4" *ngIf="activeTab === 'home'">
         <div class="subsegment">
           <div class="palio-wrapper--groot">
             <ion-grid>
-              <ion-row class="equal-height-row">
+              <ion-row class="equal-height-row palio-mobile-stack">
                 <ion-col *ngIf="palio?.contrada as contrada" (click)="contrada.id && goToContradaDetail(contrada.id)"
                   [style.cursor]="contrada.id ? 'pointer' : 'default'">
                   <ion-label>
@@ -66,7 +66,7 @@
                   </ion-label>
                 </ion-col>
               </ion-row>
-              <ion-row class="equal-height-row">
+              <ion-row class="equal-height-row palio-mobile-stack">
                 <ion-col *ngIf="palio?.cavallo as cavallo" (click)="goToCavalloDetail(cavallo.id)"
                   [style.cursor]="cavallo.id ? 'pointer' : 'default'">
                   <ion-label>
@@ -80,8 +80,6 @@
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row>
-              <ion-row>
                 <ion-col *ngIf="palio?.fantino as fantino" (click)="goToFantinoDetail(fantino.id)"              
                   [style.cursor]="fantino.id ? 'pointer' : 'default'">
                   <ion-label>
@@ -95,15 +93,9 @@
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row>            </ion-grid>
-          </div>
-        </div>
-      </section>
-      <section class="segment col-4 span-2 row-4" *ngIf="activeTab === 'home'">
-        <div class="subsegment">
-          <div class="palio-wrapper--groot">
-            <ion-grid>
-              <ion-row class="equal-height-row">
+              </ion-row>
+              <hr class="home-divider"> 
+              <ion-row class="equal-height-row palio-mobile-stack">
                 <ion-col *ngIf="palio?.mossiere as mossiere">
                   <ion-label>
                     <div class="palio-col-groot">
@@ -115,8 +107,6 @@
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row>
-              <ion-row class="equal-height-row">
                 <ion-col *ngIf="palio?.tempo">
                   <ion-label>
                     <div class="palio-col-groot">
@@ -128,8 +118,8 @@
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row> 
-              <ion-row class="equal-height-row">
+              </ion-row>  
+              <ion-row class="equal-height-row palio-mobile-stack">
                 <ion-col *ngIf="palio?.drappellone as drappellone">
                   <ion-label>
                     <div class="palio-col-groot">
@@ -141,14 +131,20 @@
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row>                               
+              </ion-row> 
+              <hr class="home-divider">                                            
               <ion-row>
-                <p>niet vergeten : video + arrivo foto?</p>
-              </ion-row>          
+                <div class="palio-col-groot contrade-centered">
+                  <div *ngFor="let p of palio?.accoppiate">
+                    <img [src]="p?.contrada?.logo" class="img-palio" />
+                  </div>
+                </div>
+              </ion-row>
             </ion-grid>
           </div>
         </div>
       </section>
+
       <section class="segment col-6 span-1 row-4" *ngIf="activeTab === 'home'">
         <div class="subsegment">
           <div class="palio-wrapper--groot">
@@ -166,6 +162,43 @@
           </div>                    
         </div>
       </section>
+
+
+      <section class="segment col-1 span-3 row-5" *ngIf="activeTab === 'home'">
+        <div class="subsegment">
+          <div class="palio-wrapper--groot">
+            <ion-grid>
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.fotoArrivo">
+                  <ion-label>
+                    <div class="palio-col-groot centered-img">
+                      <img [src]="palio?.fotoArrivo" />
+                    </div>
+                  </ion-label>
+                </ion-col>
+              </ion-row>       
+            </ion-grid>
+          </div>
+        </div>
+      </section>
+
+      <section class="segment col-4 span-3 row-5" *ngIf="activeTab === 'home'">
+        <div class="subsegment">
+          <div class="palio-wrapper--groot">
+            <ion-grid>
+              <ion-row class="equal-height-row">
+                <ion-col *ngIf="palio?.video">
+                  <div class="video-container">
+                    <iframe [src]="safeYoutubeUrl" frameborder="0" allowfullscreen></iframe>
+                  </div>                    
+                </ion-col>
+              </ion-row>          
+            </ion-grid>
+          </div>
+        </div>
+      </section>
+
+
 
       <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'previsite'">
         <div class="subsegment">

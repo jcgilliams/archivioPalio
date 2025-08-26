@@ -397,5 +397,15 @@ tempo: {
   it: 'tempo',
   en: 'time',
   nl: 'tijd'
+},
+di: {
+  it: 'di',
+  en: 'of',
+  nl: 'van'
+},
+pagina:{
+  it: 'Pagina',
+  en: 'Page',
+  nl: 'Pagina'  
 }
 };
