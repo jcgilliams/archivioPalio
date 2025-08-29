@@ -469,7 +469,7 @@
       </section>
 
       <section class="segment col-4 span-3 row-4" *ngIf="activeTab === 'tratta'">
-        <div class="subsegment">
+        <div class="subsegment" *ngIf="(palio?.presentazione || []).length > 0">
           <h2 class="section-header">
             <div>Presentazione dei cavalli</div>
           </h2>
@@ -528,7 +528,7 @@
       </section>
 
       <section class="segment col-1 span-6 row-5" *ngIf="activeTab === 'tratta'">
-        <div class="subsegment">
+        <div class="subsegment" *ngIf="(palio?.batterie || []).length > 0">
           <h2 class="section-header">
             <div>Batterie</div>
           </h2>
@@ -714,7 +714,8 @@
                   </ion-col>
                 </ion-row>
 
-                <ion-row *ngFor="let pr of pro.accoppiate" class="palio-mobile-stack">
+                <ion-row *ngFor="let pr of pro.accoppiate" class="palio-mobile-stack" 
+                  [ngClass]="{ 'row-vinto': pr.vinto === true}">
                   <ion-col (click)="goToContradaDetail(pr.contrada.id)" [style.cursor]="'pointer'">
                     <div style="display: flex; align-items: center; gap: 8px;">
                       <ion-text class="cavallo-label">
