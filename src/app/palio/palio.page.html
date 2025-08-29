@@ -24,22 +24,25 @@
 
     <section class="col-1 span-6 row-3 wide-segment">
       <div class="button-row">
-        <ion-button (click)="activeTab = 'home'" [class.active]="activeTab === 'home'" class="palio-button">
+        <ion-button *ngIf="(palio?.accoppiate || []).length > 0" (click)="activeTab = 'home'" [class.active]="activeTab === 'home'" class="palio-button">
           PALIO
         </ion-button>
-        <ion-button (click)="activeTab = 'previsite'" [class.active]="activeTab === 'previsite'" class="palio-button">
+        <ion-button *ngIf="(palio?.previsite || []).length > 0" (click)="activeTab = 'previsite'"
+          [class.active]="activeTab === 'previsite'" class="palio-button">
           PREVISITE
         </ion-button>
-        <ion-button (click)="activeTab = 'proveDiNotte'" [class.active]="activeTab === 'proveDiNotte'" class="palio-button">
+        <ion-button *ngIf="(palio?.proveDiNotte || []).length > 0" (click)="activeTab = 'proveDiNotte'"
+          [class.active]="activeTab === 'proveDiNotte'" class="palio-button">
           PROVE DI NOTTE
         </ion-button>
-        <ion-button (click)="activeTab = 'tratta'" [class.active]="activeTab === 'tratta'" class="palio-button">
+        <ion-button *ngIf="(palio?.assegnazione || []).length > 0" (click)="activeTab = 'tratta'"
+          [class.active]="activeTab === 'tratta'" class="palio-button">
           TRATTA
         </ion-button>
-        <ion-button (click)="activeTab = 'prove'" [class.active]="activeTab === 'prove'" class="palio-button">
+        <ion-button *ngIf="(palio?.prove || []).length > 0" (click)="activeTab = 'prove'" [class.active]="activeTab === 'prove'" class="palio-button">
           PROVE
         </ion-button>
-        <ion-button (click)="activeTab = 'canape'" [class.active]="activeTab === 'canape'" class="palio-button">
+        <ion-button *ngIf="(palio?.accoppiate || []).length > 0" (click)="activeTab = 'canape'" [class.active]="activeTab === 'canape'" class="palio-button">
           INGRESSO AL CANAPE
         </ion-button>
       </div>
@@ -59,7 +62,7 @@
                       <div style="display: flex; flex-direction: column;">
                         <div class="cavallo-name">{{ contrada.nome }}</div>
                         <div class="cavallo-info">
-                          contrada
+                          Contrada
                         </div>
                       </div>
                     </div>
@@ -80,7 +83,7 @@
                     </div>
                   </ion-label>
                 </ion-col>
-                <ion-col *ngIf="palio?.fantino as fantino" (click)="goToFantinoDetail(fantino.id)"              
+                <ion-col *ngIf="palio?.fantino as fantino" (click)="goToFantinoDetail(fantino.id)"
                   [style.cursor]="fantino.id ? 'pointer' : 'default'">
                   <ion-label>
                     <div class="palio-col-groot">
@@ -94,7 +97,7 @@
                   </ion-label>
                 </ion-col>
               </ion-row>
-              <hr class="home-divider"> 
+              <hr class="home-divider">
               <ion-row class="equal-height-row palio-mobile-stack">
                 <ion-col *ngIf="palio?.mossiere as mossiere">
                   <ion-label>
@@ -118,7 +121,7 @@
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row>  
+              </ion-row>
               <ion-row class="equal-height-row palio-mobile-stack">
                 <ion-col *ngIf="palio?.drappellone as drappellone">
                   <ion-label>
@@ -131,11 +134,12 @@
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row> 
-              <hr class="home-divider">                                            
+              </ion-row>
+              <hr class="home-divider">
               <ion-row>
                 <div class="palio-col-groot contrade-centered">
-                  <div *ngFor="let p of palio?.accoppiate">
+                  <div *ngFor="let p of palio?.accoppiate" (click)="goToContradaDetail(p.contrada.id)"
+                    [style.cursor]="p.contrada.id ? 'pointer' : 'default'">
                     <img [src]="p?.contrada?.logo" class="img-palio" />
                   </div>
                 </div>
@@ -153,46 +157,46 @@
                 <ion-col *ngIf="palio?.drappellone as drappellone">
                   <ion-label>
                     <div class="palio-col-groot centered-img">
-                      <img [src]="drappellone.foto"class="img-drappellone"/>
+                      <img [src]="drappellone.foto" class="img-drappellone" />
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row>              
+              </ion-row>
             </ion-grid>
-          </div>                    
+          </div>
         </div>
       </section>
 
 
-      <section class="segment col-1 span-3 row-5" *ngIf="activeTab === 'home'">
+      <section class="segment col-1 span-3 row-5" *ngIf="activeTab === 'home' && palio?.fotoArrivo">
         <div class="subsegment">
           <div class="palio-wrapper--groot">
             <ion-grid>
               <ion-row class="equal-height-row">
-                <ion-col *ngIf="palio?.fotoArrivo">
+                <ion-col>
                   <ion-label>
                     <div class="palio-col-groot centered-img">
                       <img [src]="palio?.fotoArrivo" />
                     </div>
                   </ion-label>
                 </ion-col>
-              </ion-row>       
+              </ion-row>
             </ion-grid>
           </div>
         </div>
       </section>
 
-      <section class="segment col-4 span-3 row-5" *ngIf="activeTab === 'home'">
+      <section class="segment col-4 span-3 row-5" *ngIf="activeTab === 'home' && palio?.video">
         <div class="subsegment">
           <div class="palio-wrapper--groot">
             <ion-grid>
               <ion-row class="equal-height-row">
-                <ion-col *ngIf="palio?.video">
+                <ion-col>
                   <div class="video-container">
                     <iframe [src]="safeYoutubeUrl" frameborder="0" allowfullscreen></iframe>
-                  </div>                    
+                  </div>
                 </ion-col>
-              </ion-row>          
+              </ion-row>
             </ion-grid>
           </div>
         </div>
@@ -202,44 +206,648 @@
 
       <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'previsite'">
         <div class="subsegment">
-          <ion-grid>
-            <p>previsite</p>
+          <ion-grid class="palio-grid no-mobile-stack">
+            <!-- Desktop: tonen bij breed scherm -->
+            <ion-row class="equal-height-row row-header hide-on-mobile">
+              <ion-col size="11" size-md="10" size-lg="11">
+                <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
+              </ion-col>
+              <ion-col size="1" size-md="2" size-lg="1" >
+                <ion-text class="cavallo-label"><span>{{ getTranslation('assente') }}</span></ion-text>
+              </ion-col>
+            </ion-row>
+            <!-- Mobiel: tonen bij smal scherm -->
+            <ion-row class="equal-height-row row-header show-on-mobile">
+              <ion-col>
+                <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }} - {{ getTranslation('assente')}}</span></ion-text>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngFor="let p of palio?.previsite; let i = index" class="equal-height-row">
+              <ion-col (click)="goToCavalloDetail(p.cavallo.id)" [style.cursor]="'pointer'" size="11" size-md="10"
+                size-lg="11">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="p.cavallo.foto" [src]="p.cavallo.foto" class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ p.cavallo.nome }}</span>
+                  </ion-text>
+                </div>
+              </ion-col>
+              <ion-col size="1" size-md="2" size-lg="1">
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                  <span [style.color]="p.assente ? 'green' : 'red'">
+                    {{ p.assente ? '✔' : '✘' }}
+                  </span>
+                </div>
+              </ion-col>
+            </ion-row>
           </ion-grid>
+          <ion-button *ngIf="palio?.previsite?.length" (click)="goToProtocolloPage(palio!.previsite![0].anno)"
+            class="home-button">{{ getTranslation('protocolloLink') }} {{ palio!.previsite![0].anno }}</ion-button>
         </div>
-      </section>   
-      
+      </section>
+
       <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'proveDiNotte'">
         <div class="subsegment">
-          <ion-grid>
-            <p>prove di notte</p>
-          </ion-grid>
-        </div>
-      </section>   
+          <ng-container *ngFor="let pdn of palio?.proveDiNotte; let i = index">
+            <h2 class="section-header">
+              <div>{{ pdn.giorno }} {{ palio?.palioDate | slice:0:4 }}</div>
+            </h2>
+            <ng-container *ngFor="let pr of pdn.prove">
+              <ion-row>
+                <ion-col>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    min-height: 40px;
+                    padding: 0 12px;
+                    background: var(--ion-color-primary);
+                    color: var(--ion-color-secondary);
+                    box-sizing: border-box;
+                    font-weight: bold;
+                  ">
+                    {{ pr.proveNome }}
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-grid class="palio-grid">
+                <ion-row class="equal-height-row row-header hide-on-mobile">
+                  <ion-col>
+                    <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
+                  </ion-col>
+                  <ion-col>
+                    <ion-text class="cavallo-label" style="padding-left: 16px;"><span>{{ getTranslation('fantino') }}</span></ion-text>
+                  </ion-col>
+                </ion-row>
 
-      <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'tratta'">
+                <!-- Mobiel: tonen bij smal scherm -->
+                <ion-row class="equal-height-row row-header show-on-mobile">
+                  <ion-col>
+                    <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }} - {{ getTranslation('fantino')}}</span></ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row *ngFor="let cavallo of pr.cavalli" class="palio-mobile-stack">
+                  <ion-col (click)="goToCavalloDetail(cavallo.cavallo.cavalloId)" [style.cursor]="'pointer'">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <ion-text class="cavallo-label">
+                        <span>{{ cavallo.orecchio }}</span>
+                      </ion-text>
+                      <img *ngIf="cavallo.cavallo.foto" [src]="cavallo.cavallo.foto" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ cavallo.cavallo.nome }}</span>
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <ion-col *ngIf="cavallo.fantino1.fantinoId; else noFantinoCol">
+                    <div style="display: flex; align-items: center; gap: 8px; padding-left: 16px;"
+                      (click)="goToFantinoDetail(cavallo.fantino1.fantinoId)" [style.cursor]="'pointer'">
+                      <img *ngIf="cavallo.fantino1.foto" [src]="cavallo.fantino1.foto" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ cavallo.fantino1.nome }}</span>
+                        <p class="custom2" *ngIf="cavallo.fantino1.nome">
+                          {{ cavallo.puntoCaduta }}
+                        </p>
+                      </ion-text>
+                    </div>
+                    <div *ngIf="cavallo.fantino2.fantinoId;"
+                      style="display: flex; align-items: center; gap: 8px; padding-left: 16px; padding-top: 10px;"
+                      (click)="goToFantinoDetail(cavallo.fantino2.fantinoId)" [style.cursor]="'pointer'">
+                      <img *ngIf="cavallo.fantino2.foto" [src]="cavallo.fantino2.foto" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ cavallo.fantino2.nome }}</span>
+                      </ion-text>
+                    </div>
+                    <div *ngIf="cavallo.fantino3.fantinoId;"
+                      style="display: flex; align-items: center; gap: 8px; padding-left: 16px; padding-top: 10px;"
+                      (click)="goToFantinoDetail(cavallo.fantino3.fantinoId)" [style.cursor]="'pointer'">
+                      <img *ngIf="cavallo.fantino3.foto" [src]="cavallo.fantino3.foto" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ cavallo.fantino3.nome }}</span>
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <!-- Als er géén fantino is -->
+                  <ng-template #noFantinoCol>
+                    <ion-col>
+                      <ion-text class="cavallo-label" style="padding-left: 16px;">
+                        <span>{{ getTranslation('nonCorse') }}</span>
+                      </ion-text>
+                    </ion-col>
+                  </ng-template>
+                </ion-row>
+              </ion-grid>
+            </ng-container>
+            <hr class="home-divider" *ngIf="i < pdn.giorno.length - 1">
+          </ng-container>
+          <ng-container *ngFor="let assente of palio?.proveDiNotteAssente">
+            <h2 class="section-header">
+              <div>{{ getTranslation('assente') }}</div>
+            </h2>
+            <ion-row *ngIf="assente.giorno && assente.giorno !== 'Onbekend'">
+              <ion-col>
+                <div style="
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                min-height: 40px;
+                padding: 0 12px;
+                background: var(--ion-color-primary);
+                color: var(--ion-color-secondary);
+                box-sizing: border-box;
+                font-weight: bold;
+              ">
+                  {{ assente.giorno}}
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-grid class="palio-grid">
+              <ion-row class="equal-height-row row-header hide-on-mobile">
+                <ion-col>
+                  <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
+                </ion-col>
+                <ion-col>
+                  <ion-text class="cavallo-label"><span>Prova</span></ion-text>
+                </ion-col>
+              </ion-row>
+
+              <!-- Mobiel: tonen bij smal scherm -->
+              <ion-row class="equal-height-row row-header show-on-mobile">
+                <ion-col>
+                  <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }} - Prova</span></ion-text>
+                </ion-col>
+              </ion-row>
+              <ng-container *ngFor="let prove of assente.prove">
+                <ion-row *ngFor="let cavallo of prove.cavalli" class="palio-mobile-stack">
+                  <ion-col (click)="goToCavalloDetail(cavallo.cavallo.cavalloId)" [style.cursor]="'pointer'">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <img *ngIf="cavallo.cavallo.foto" [src]="cavallo.cavallo.foto" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ cavallo.cavallo.nome }}</span>
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <ion-col>
+                    <ion-text class="cavallo-label">
+                      <span *ngIf="prove.proveNome && prove.proveNome !== 'Onbekend'">{{ prove.proveNome }}</span>
+                      <span *ngIf="prove.proveNome === 'Onbekend'">/</span>
+                    </ion-text>
+                  </ion-col>
+                </ion-row>
+              </ng-container>
+            </ion-grid>
+          </ng-container>
+        </div>
+      </section>
+
+      <section class="segment col-1 span-3 row-4" *ngIf="activeTab === 'tratta'">
         <div class="subsegment">
-          <ion-grid>
-            <p>tratta</p>
+          <h2 class="section-header">
+            <div>Assegnazione</div>
+          </h2>
+          <ion-buttons>
+            <ion-button class="decennio-button" (click)="sortByOrecchio()">
+              <p class="custom">Ordine di orecchio</p>
+            </ion-button>
+            <ion-button class="decennio-button" (click)="sortByOrdine()" style="margin-left: 8px;">
+              <p class="custom">Ordine di assegnazione</p>
+            </ion-button>
+          </ion-buttons>
+          <ion-grid class="palio-grid">
+            <ng-container *ngFor="let ass of palio?.assegnazione; let i = index">
+              <ion-row class="equal-height-row" style="border-bottom: none;">
+                <ion-col>
+                  <div class="cavallo-label2">
+                    <div class="cavallo-info">Orecchio:</div>
+                    <ion-text class="cavallo-label">
+                      <span>{{ ass.orecchio }}</span>
+                    </ion-text>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div class="cavallo-label2">
+                    <div class="cavallo-info">Coscia:</div>
+                    <ion-text class="cavallo-label">
+                      <span>{{ ass.cavallo.coscia }}</span>
+                    </ion-text>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div class="cavallo-label2">
+                    <div class="cavallo-info">Ordine:</div>
+                    <ion-text class="cavallo-label">
+                      <span>{{ ass.ordine }}</span>
+                    </ion-text>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row class="equal-height-row palio-mobile-stack">
+                <ion-col (click)="goToCavalloDetail(ass.cavallo.cavalloId)" [style.cursor]="'pointer'">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img [src]="ass.cavallo.foto" class="img-palio" />
+                    <ion-text class="cavallo-label">
+                      <span>{{ ass.cavallo.nome }}</span>
+                    </ion-text>
+                  </div>
+                  <div [innerHTML]="getTranslation('cavallo')" class="cavallo-info"></div>
+                </ion-col>
+
+                <ion-col (click)="goToContradaDetail(ass.contrada.nome)" [style.cursor]="'pointer'">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img *ngIf="ass.contrada.logo" [src]="ass.contrada.logo" class="img-palio" />
+                    <ion-text class="cavallo-label">
+                      <span>{{ ass.contrada.nome }} </span>
+                    </ion-text>
+                  </div>
+                  <div class="cavallo-info">Contrada</div>
+                </ion-col>
+              </ion-row>
+            </ng-container>
           </ion-grid>
         </div>
-      </section>      
+      </section>
+
+      <section class="segment col-4 span-3 row-4" *ngIf="activeTab === 'tratta'">
+        <div class="subsegment">
+          <h2 class="section-header">
+            <div>Presentazione dei cavalli</div>
+          </h2>
+          <ion-grid class="palio-grid">
+            <ng-container *ngFor="let pair of presentazioneColumns">
+              <ion-row class="equal-height-row hide-on-mobile">
+                <ion-col *ngFor="let p of pair" (click)="goToCavalloDetail(p.cavallo.id)" [style.cursor]="'pointer'">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 24px; text-align: right;">
+                      <ion-text class="cavallo-label">
+                        <span>{{ p.coscia }}</span>
+                      </ion-text>
+                    </div>
+                    <img *ngIf="p.cavallo.foto" [src]="p.cavallo.foto" class="img-palio" />
+                    <ion-text class="cavallo-label">
+                      <span>{{ p.cavallo.nome }}</span>
+                    </ion-text>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ng-container>
+            <ng-container *ngFor="let p of palio?.presentazione">
+              <ion-row class="equal-height-row show-on-mobile">
+                <ion-col (click)="goToCavalloDetail(p.cavallo.id)" [style.cursor]="'pointer'">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 24px; text-align: right;">
+                      <ion-text class="cavallo-label">
+                        <span>{{ p.coscia }}</span>
+                      </ion-text>
+                    </div>
+                    <img *ngIf="p.cavallo.foto" [src]="p.cavallo.foto" class="img-palio" />
+                    <ion-text class="cavallo-label">
+                      <span>{{ p.cavallo.nome }}</span>
+                    </ion-text>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ng-container>
+          </ion-grid>
+          <h2 *ngIf="(palio?.presentazioneAssente || []).length > 0" class="section-header">
+            <div>{{ getTranslation('assente') }}</div>
+          </h2>
+          <ion-grid class="palio-grid">
+            <ion-row *ngFor="let p of palio?.presentazioneAssente; let i = index" class="equal-height-row">
+              <ion-col (click)="goToCavalloDetail(p.cavallo.id)" [style.cursor]="'pointer'">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="p.cavallo.foto" [src]="p.cavallo.foto" class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ p.cavallo.nome }}</span>
+                  </ion-text>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </section>
+
+      <section class="segment col-1 span-6 row-5" *ngIf="activeTab === 'tratta'">
+        <div class="subsegment">
+          <h2 class="section-header">
+            <div>Batterie</div>
+          </h2>
+          <ng-container *ngFor="let bat of palio?.batterie; let i = index">
+            <ion-row>
+              <ion-col>
+                <div style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    min-height: 40px;
+                    padding: 0 12px;
+                    background: var(--ion-color-primary);
+                    color: var(--ion-color-secondary);
+                    box-sizing: border-box;
+                    font-weight: bold;
+                  ">
+                  {{ bat.batteriaNome }}
+                </div>
+              </ion-col>
+            </ion-row>
+            <ion-grid class="palio-grid">
+              <ion-row class="equal-height-row row-header hide-on-mobile">
+                <ion-col size="2">
+                  <ion-text class="cavallo-label"><span>Canape</span></ion-text>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-text class="cavallo-label"><span>Coscia</span></ion-text>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
+                </ion-col>
+                <ion-col size="4">
+                  <ion-text class="cavallo-label"><span>{{ getTranslation('fantino') }}</span></ion-text>
+                </ion-col>
+              </ion-row>
+
+              <!-- Mobiel: tonen bij smal scherm -->
+              <ion-row class="equal-height-row row-header show-on-mobile">
+                <ion-col>
+                  <ion-text class="cavallo-label"><span>Coscia - {{ getTranslation('cavallo') }} - {{
+                      getTranslation('fantino') }}</span></ion-text>
+                </ion-col>
+              </ion-row>
+              <!-- Enkel desktop / tablet -->
+              <ion-row *ngFor="let cavallo of bat.cavallo" class="equal-height-row hide-on-mobile" [ngClass]="{ 
+                  'row-vinto': cavallo.vinto === true
+                  }">
+                <ion-col size="2">
+                  <ion-text class="cavallo-label">
+                    <span>{{ cavallo.canape }}</span>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="2">
+                  <ion-text class="cavallo-label">
+                    <span>{{ cavallo.coscia }}</span>
+                  </ion-text>
+                </ion-col>
+                <ion-col (click)="goToCavalloDetail(cavallo.cavallo.cavalloId)" [style.cursor]="'pointer'">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img *ngIf="cavallo.cavallo.foto" [src]="cavallo.cavallo.foto" class="img-palio" />
+                    <ion-text class="cavallo-label">
+                      <span>{{ cavallo.cavallo.nome }}</span>
+                    </ion-text>
+                  </div>
+                </ion-col>
+                <ion-col *ngIf="cavallo.fantino?.nome; else noFantinoCol"
+                  (click)="goToFantinoDetail(cavallo?.fantino?.fantinoId)" [style.cursor]="'pointer'">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <img *ngIf="cavallo.fantino.foto" [src]="cavallo.fantino.foto" class="img-palio" />
+                    <ion-text class="cavallo-label">
+                      <span>{{ cavallo.fantino.nome }}</span>
+                      <p class="custom2" *ngIf="cavallo.fantino.nome">
+                        {{ cavallo?.puntoCaduta }}
+                      </p>
+                    </ion-text>
+                  </div>
+                </ion-col>
+                <!-- Als er géén fantino is -->
+                <ng-template #noFantinoCol>
+                  <ion-col>
+                    <ion-text class="cavallo-label">
+                      <span>{{ getTranslation('nonCorse') }}</span>
+                    </ion-text>
+                  </ion-col>
+                </ng-template>
+              </ion-row>
+              <!-- Enkel mobile-->
+              <ion-row *ngFor="let cavallo of bat.cavallo" class="equal-height-row show-on-mobile"
+                [ngClass]="{ 'row-vinto': cavallo.vinto === true }">
+                <!-- Col1 -->
+                <ion-col size="1">
+                  <ion-text class="cavallo-label">
+                    <span>{{ cavallo.canape }}</span>
+                  </ion-text>
+                </ion-col>
+
+                <!-- Col2 -->
+                <ion-col size="2">
+                  <ion-text class="cavallo-label">
+                    <span>{{ cavallo.coscia }}</span>
+                  </ion-text>
+                </ion-col>
+
+                <!-- Wrapper voor col3 + col4 -->
+                <ion-col size="9" class="right-col">
+                  <div class="stacked-cols">
+                    <div class="stacked-item">
+                      <div class="row-content" (click)="goToCavalloDetail(cavallo.cavallo.cavalloId)">
+                        <img *ngIf="cavallo.cavallo.foto" [src]="cavallo.cavallo.foto" class="img-palio" />
+                        <ion-text class="cavallo-label"><span>{{ cavallo.cavallo.nome }}</span></ion-text>
+                      </div>
+                    </div>
+
+                    <div class="stacked-item" *ngIf="cavallo.fantino?.nome; else noFantinoCol"
+                      (click)="goToFantinoDetail(cavallo?.fantino?.fantinoId)">
+                      <div class="row-content">
+                        <img *ngIf="cavallo.fantino.foto" [src]="cavallo.fantino.foto" class="img-palio" />
+                        <ion-text class="cavallo-label">
+                          <span>{{ cavallo.fantino.nome }}</span>
+                          <p class="custom2" *ngIf="cavallo.fantino.nome">{{ cavallo?.puntoCaduta }}</p>
+                        </ion-text>
+                      </div>
+                    </div>
+                     <!-- Geen fantino -->
+                    <ng-template #noFantinoCol>
+                      <div class="stacked-item">
+                        <ion-text class="cavallo-label">
+                          <span>{{ getTranslation('nonCorse') }}</span>
+                        </ion-text>
+                      </div>
+                    </ng-template>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-container>
+          <hr class="home-divider">
+        </div>
+      </section>
 
       <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'prove'">
         <div class="subsegment">
           <ion-grid>
-            <p>prove</p>
+            <ng-container *ngFor="let pro of palio?.prove; let i = index">
+              <ion-row>
+                <ion-col>
+                  <div style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    min-height: 40px;
+                    padding: 0 12px;
+                    background: var(--ion-color-primary);
+                    color: var(--ion-color-secondary);
+                    box-sizing: border-box;
+                    font-weight: bold;
+                  ">
+                    <span>{{ pro.proveNome }}</span>
+                    <div class="cavallo-info" style="font-weight: normal;">
+                      {{ pro.giorno }} {{ palio?.palioDate | slice:0:4 }} - {{ pro.ore }}
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-grid class="palio-grid">
+                <ion-row class="equal-height-row row-header hide-on-mobile">
+                  <ion-col>
+                    <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
+                  </ion-col>
+                  <ion-col>
+                    <ion-text class="cavallo-label" style="padding-left: 16px;"><span>{{ getTranslation('cavallo') }}</span></ion-text>
+                  </ion-col>
+                  <ion-col>
+                    <ion-text class="cavallo-label" style="padding-left: 16px;"><span>{{ getTranslation('fantino') }}</span></ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <!-- Mobiel: tonen bij smal scherm -->
+                <ion-row class="equal-height-row row-header show-on-mobile">
+                  <ion-col>
+                    <ion-text class="cavallo-label"><span>Contrada - {{ getTranslation('cavallo') }} - {{ getTranslation('fantino')}}</span></ion-text>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row *ngFor="let pr of pro.accoppiate" class="palio-mobile-stack">
+                  <ion-col (click)="goToContradaDetail(pr.contrada.id)" [style.cursor]="'pointer'">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <ion-text class="cavallo-label">
+                        <span>{{ pr.canape }}</span>
+                      </ion-text>
+                      <img *ngIf="pr.contrada.logo" [src]="pr.contrada.logo" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ pr.contrada.nome }}</span>
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <ion-col (click)="goToCavalloDetail(pr.cavallo.cavalloId)" [style.cursor]="'pointer'">
+                    <div style="display: flex; align-items: center; gap: 8px; padding-left: 16px;">
+                      <img *ngIf="pr.cavallo.foto" [src]="pr.cavallo.foto" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ pr.cavallo.nome }}</span>
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <ion-col *ngIf="pr.fantino.fantinoId; else noFantinoCol">
+                    <div style="display: flex; align-items: center; gap: 8px; padding-left: 16px;"
+                      (click)="goToFantinoDetail(pr.fantino.fantinoId)" [style.cursor]="'pointer'">
+                      <img *ngIf="pr.fantino.foto" [src]="pr.fantino.foto" class="img-palio" />
+                      <ion-text class="cavallo-label">
+                        <span>{{ pr.fantino.nome }}</span>
+                        <p class="custom2" *ngIf="pr.fantino.nome">
+                          {{ pr.puntoCaduta }}
+                        </p>
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <!-- Als er géén fantino is -->
+                  <ng-template #noFantinoCol>
+                    <ion-col>
+                      <ion-text class="cavallo-label" style="padding-left: 16px;">
+                        <span>{{ getTranslation('nonCorse') }}</span>
+                      </ion-text>
+                    </ion-col>
+                  </ng-template>
+                </ion-row>
+              </ion-grid>
+            </ng-container>
           </ion-grid>
         </div>
-      </section> 
-      
+      </section>
+
       <section class="segment col-1 span-6 row-4" *ngIf="activeTab === 'canape'">
         <div class="subsegment">
-          <ion-grid>
-            <p>ingresso al canape</p>
+          <ion-grid class="palio-grid">
+            <ion-row class="equal-height-row row-header hide-on-mobile">
+              <ion-col>
+                <ion-text class="cavallo-label"><span>Contrada</span></ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
+              </ion-col>
+              <ion-col>
+                <ion-text class="cavallo-label"><span>{{ getTranslation('fantino') }}</span></ion-text>
+              </ion-col>
+            </ion-row>
+
+            <!-- Mobiel: tonen bij smal scherm -->
+            <ion-row class="equal-height-row row-header show-on-mobile">
+              <ion-col>
+                <ion-text class="cavallo-label"><span>Contrada - {{ getTranslation('cavallo') }} - {{
+                    getTranslation('fantino') }}</span></ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let canape of sortedAccoppiate; let i = index" class="equal-height-row palio-mobile-stack"
+              [ngClass]="{ 
+                  'row-vinto': canape.vinto === true
+                  }">
+              <ion-col (click)="goToContradaDetail(canape.contrada.nome)" [style.cursor]="'pointer'">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <ion-text class="cavallo-label" *ngIf="canape.canape?.canape">
+                    <span>{{ canape.canape?.canape }}</span>
+                  </ion-text>
+                  <img *ngIf="canape.contrada.nome" [src]="canape.contrada.logo" class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ canape.contrada.nome }} </span>
+                  </ion-text>
+                </div>
+              </ion-col>
+              <ion-col (click)="goToCavalloDetail(canape.cavallo.nome)" [style.cursor]="'pointer'">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="canape.cavallo.foto" [src]="canape.cavallo.cavalloPalioFoto || canape.cavallo.foto"
+                    class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ canape.cavallo.nome }}</span>
+                  </ion-text>
+                </div>
+              </ion-col>
+              <ion-col *ngIf="canape.fantino as fantino; else noFantinoCol"
+                (click)="goToFantinoDetail(canape.fantino.id)" [style.cursor]="'pointer'">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="fantino.foto" [src]="fantino.fantinoPalioFoto || fantino.foto" class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ fantino.nome }}
+                      <ng-container *ngIf="fantino.soprannome">
+                        detto {{ fantino.soprannome }}
+                      </ng-container></span>
+                    <p class="custom2" *ngIf="fantino.nome">
+                      {{ canape?.puntoCaduta?.punto }}
+                    </p>
+                  </ion-text>
+                </div>
+              </ion-col>
+              <!-- Als er géén fantino is -->
+              <ng-template #noFantinoCol>
+                <ion-col>
+                  <ion-text class="cavallo-label">
+                    <span>{{ getTranslation('nonCorse') }}</span>
+                  </ion-text>
+                </ion-col>
+              </ng-template>
+            </ion-row>
           </ion-grid>
         </div>
-      </section>       
-            
+      </section>
+
+
+      <section class="segment col-1 span-1 row-6 wide-segment">
+        <ion-button class="home-button" *ngIf="palio?.precedente" (click)="gaNaarVorigePalio()">
+          {{ palio?.precedenteNome }}
+        </ion-button>
+      </section>
+
+      <section class="segment col-6 span-1 row-6 wide-segment">
+        <ion-button class="home-button" *ngIf="palio?.successivo" (click)="gaNaarVolgendePalio()">
+          {{ palio?.successivoNome }}
+        </ion-button>
+      </section>
+
     </ng-container>
 
     <ng-template #alternatiefTpl>
@@ -250,8 +858,6 @@
         </div>
       </section>
     </ng-template>
-
-
   </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="scrollToTop()" color="secondary">

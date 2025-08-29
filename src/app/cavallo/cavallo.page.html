@@ -171,7 +171,7 @@
             <!-- Mobiel: tonen bij smal scherm -->
             <ion-row class="equal-height-row row-header show-on-mobile">
               <ion-col>
-                <ion-text class="cavallo-label"><span>Palio - Contrada - Fantino</span></ion-text>
+                <ion-text class="cavallo-label"><span>Palio - Contrada - {{ getTranslation('fantino') }}</span></ion-text>
               </ion-col>
             </ion-row>
             <ion-row *ngFor="let palio of cavallo.palioCorso; let i = index" 
@@ -217,7 +217,7 @@
                   </ng-container>
                   <ng-template #noFantino>
                     <ion-text class="cavallo-label">
-                      <span>Non corse</span>
+                      <span>{{ getTranslation('nonCorse') }}</span>
                     </ion-text>
                   </ng-template>
                 </div>

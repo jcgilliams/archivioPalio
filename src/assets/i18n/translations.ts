@@ -169,9 +169,9 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     nl: 'Gereden palio\'s sinds '
   },
   cavallo: {
-    it: 'cavallo',
-    en: 'horse',
-    nl: 'paard'
+    it: 'Cavallo',
+    en: 'Horse',
+    nl: 'Paard'
   },
   sesso: {
     it: 'Sesso',
@@ -199,9 +199,9 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     nl: 'Aangeboden op de Tratta'
   },
   fantino: {
-    it: 'fantino',
-    en: 'jockey',
-    nl: 'ruiter'
+    it: 'Fantino',
+    en: 'Jockey',
+    nl: 'Ruiter'
   },
   titelCavalli: {
     it: 'Cavalli',
@@ -279,14 +279,14 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     nl: 'Paardenregister Protocollo'
   },
   ammesso: {
-    it: 'ammesso',
-    en: 'admitted',
-    nl: 'toegelaten'
+    it: 'Ammesso',
+    en: 'Admitted',
+    nl: 'Toegelaten'
   },
   assente: {
-    it: 'assente',
-    en: 'absent',
-    nl: 'afwezig'
+    it: 'Assente',
+    en: 'Absent',
+    nl: 'Afwezig'
   },
   annoPrecedente: {
     it: 'anno precedente',
@@ -407,5 +407,10 @@ pagina:{
   it: 'Pagina',
   en: 'Page',
   nl: 'Pagina'  
+},
+nonCorse: {
+  it: 'Non participato',
+  en: 'Not participated',
+  nl: 'Niet deelgenomen'  
 }
 };

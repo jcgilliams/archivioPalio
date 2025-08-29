@@ -75,9 +75,9 @@ export interface Accoppiata {
   vinto: boolean;
   contrada: ContradaAccoppiate;
   cavallo: CavalloAccoppiate;
-  fantino: FantinoAccoppiate;
+  fantino: FantinoAccoppiate | null;
   trifore: TriforeAccoppiate;
-  canape: CanapeAccoppiate;
+  canape: CanapeAccoppiate | null;
   puntoCaduta: PuntoCadutaAccoppiate;
 }
 //#endregion
@@ -115,8 +115,110 @@ export interface ProveDiNotte {
   giorno: string;
   prove: ProvaDiNotte[];
 }
-//#endregion
 
+//#endregion
+// #region PROVE DI NOTTE ASSENTE
+export interface CavalliProvaDiNotteAssente {
+  id: number;
+  palioDate: string;
+  cavallo: CavalloProveDiNotte;
+}
+
+export interface ProvaDiNotteAssente {
+  proveNome: string;
+  cavalli: CavalliProvaDiNotteAssente[];
+}
+
+export interface ProveDiNotteAssente {
+  giorno: string;
+  prove: ProvaDiNotteAssente[];
+}
+//#endregion
+// #region PREVISITE
+export interface previsiteCavallo {
+  id: string;
+  nome: string;
+  foto: string;
+}
+
+export interface Previsite {
+  id: number;
+  palioDate: string;
+  anno: string;
+  assente: boolean;
+  cavallo: previsiteCavallo;
+}
+// #endregion
+// #region TRATTA
+export interface CavalloAssegnazione {
+  cavalloId: string;
+  coscia: number;
+  foto: string;
+  nome: string;
+}
+
+export interface Assegnazione {
+  id: number;
+  palioDate: string;
+  ordine: number;
+  orecchio: number;
+  contrada: ContradaAccoppiate;
+  cavallo: CavalloAssegnazione;
+}
+
+export interface Presentazione {
+  id: number;
+  coscia: number;
+  cavallo: previsiteCavallo;
+}
+
+export interface PresentazioneAssente {
+  id: number;
+  cavallo: previsiteCavallo;
+}
+
+export interface CavalliBatterie {
+  caduto: boolean;
+  canape: number;
+  coscia: number;
+  puntoCaduta: string;
+  vinto: boolean;
+  id: number;
+  cavallo: CavalloProveDiNotte;
+  fantino: FantinoProveDiNotte;
+}
+
+export interface Batterie {
+  batteriaNome: string;
+  cavallo: CavalliBatterie[];
+}
+// #endregion
+// #region PROVE
+export interface FantinoProve {
+  fantinoId: string;
+  foto: string;
+  nome: string;
+  soprannome: string;
+}
+
+export interface ProveAccoppiata {
+  caduto: boolean;
+  canape: number;
+  id: number;
+  puntoCaduta: string;
+  vinto: boolean;
+  cavallo: CavalloProveDiNotte;
+  fantino: FantinoProve;
+  contrada: Contrada;
+}
+
+export interface Prove {
+  giorno: string;
+  ore: string;
+  proveNome: string;
+  accoppiate: ProveAccoppiata[];
+}
+//#endregion
 export interface PalioTutto {
     id: number;
     palioDate: string;
@@ -139,4 +241,11 @@ export interface PalioTutto {
     drappellone: Drappellone;
     accoppiate: Accoppiata[];
     proveDiNotte: ProveDiNotte[];
+    previsite: Previsite[];
+    proveDiNotteAssente: ProveDiNotteAssente[];
+    assegnazione: Assegnazione[];
+    presentazione: Presentazione[];
+    presentazioneAssente: PresentazioneAssente[];
+    batterie: Batterie[];
+    prove: Prove[];
 }

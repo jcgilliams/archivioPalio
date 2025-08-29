@@ -607,11 +607,11 @@
 }
 
   .hide-on-mobile {
-    display: none !important;
+    display: flex !important;  
   }
 
   .show-on-mobile {
-    display: flex !important;
+    display: none !important; 
   }
 
 /* --- MEDIA QUERY VOOR MOBIEL --- */
@@ -686,18 +686,19 @@
     width: 100% !important;
     max-width: 100% !important;
   }
-}
 
-  .palio-grid ion-row {
-    padding: 4px 4px;
-    min-height: unset;
-    border-bottom: 1px solid var(--ion-color-tertiary);
-  }
   .hide-on-mobile {
     display: none !important;
   }
 
   .show-on-mobile {
     display: flex !important;
+  }
+}
+
+  .palio-grid ion-row {
+    padding: 4px 4px;
+    min-height: unset;
+    border-bottom: 1px solid var(--ion-color-tertiary);
   }
 }

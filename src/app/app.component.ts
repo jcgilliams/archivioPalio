@@ -3,6 +3,7 @@ import { LanguageService, SupportedLanguage } from './services/language.service'
 import { MenuController } from '@ionic/angular';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,7 @@ export class AppComponent {
     }
   };
 
-  constructor(private languageService: LanguageService, private menuCtrl: MenuController,private router: Router) {
+  constructor(private languageService: LanguageService, private menuCtrl: MenuController,private router: Router,  private swUpdate: SwUpdate) {
     this.selectedLanguage = this.languageService.getLanguage();
     console.log('Actieve taal:', this.selectedLanguage); 
     this.router.events
@@ -79,6 +80,15 @@ export class AppComponent {
           ionApp.classList.add('bg-default');
         }
       });
+
+      if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates
+        .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
+        .subscribe(() => {
+          console.log('Nieuwe versie gevonden, herladen...');
+          window.location.reload();
+        });
+    }
   }
 
   changeLanguage(lang: any) {

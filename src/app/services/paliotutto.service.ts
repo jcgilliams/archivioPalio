@@ -37,7 +37,39 @@ export class PaliotuttoService {
             caduto: Number(c.caduto) === 1,
           }))
         }))
-      }))
+      })),
+      previsite: data.previsite.map((pr: any) => ({
+        ...pr,
+        assente: Number(pr.assente) === 1,
+      })),
+      proveDiNotteAssente: data.proveDiNotteAssente.map((pr: any) => ({
+        ...pr,
+      })),
+      assegnazione: data.assegnazione.map((as: any) => ({
+        ...as,
+      })),
+      presentazione: data.presentazione.map((pr: any) => ({
+        ...pr,
+      })),
+      presentazioneAssente: data.presentazioneAssente.map((pra: any) => ({
+        ...pra,
+      })),
+      batterie: data.batterie.map((bat: any) => ({
+        ...bat,
+        cavallo: bat.cavalli.map((c: any) => ({
+          ...c,
+          caduto: Number(c.caduto) === 1,
+          vinto: Number(c.vinto) === 1,
+        })),
+      })),   
+      prove: data.prove.map((pro: any) => ({
+        ...pro,
+        accoppiate: pro.accoppiate.map((a: any) => ({
+        ...a,
+        caduto: Number(a.caduto) === 1,
+        vinto: Number(a.vinto) === 1,
+        }))  
+      })),      
     } as PalioTutto;
   }
 }

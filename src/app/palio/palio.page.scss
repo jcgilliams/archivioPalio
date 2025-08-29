@@ -72,6 +72,67 @@
 ion-button.palio-button {
   --background: var(--ion-color-secondary);
   --color: var(--ion-color-primary);
-  width: 100%; /* vult de grid cell */
+  width: 100%;
   font-size: 12px;
+}
+
+ion-button.palio-button.active {
+  --background: var(--ion-color-tertiary);
+  --color: var(--ion-color-primary);
+}
+
+/* Zorg dat de kolom zelf links uitlijnt */
+.right-col {
+  display: flex;               /* sommige ion-col's zijn al flex, maar forceer het */
+  flex-direction: column;
+  align-items: flex-start;    /* links uitlijnen van children */
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* container voor stacked items */
+.stacked-cols {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;    /* VERY important */
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* elk item neemt volledige breedte zodat inhoud links start */
+.stacked-item {
+  width: 100%;
+}
+
+/* de rij-inhoud (icoon + tekst) */
+.row-content {
+  display: flex;
+  align-items: center;        /* verticaal center binnen de rij */
+  justify-content: flex-start;/* horizontaal links */
+  gap: 8px;
+  width: 100%;
+}
+
+/* forceer tekst links (ion-text kan default centeren) */
+ion-text.cavallo-label, .cavallo-label {
+  display: block;
+  text-align: left !important;
+}
+
+.center-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@media (min-width: 768px) {
+  .stacked-cols {
+    flex-direction: row;
+    gap: 16px;
+  }
+  .stacked-item {
+    flex: 1;
+  }
 }

@@ -134,7 +134,7 @@
             <!-- Mobiel: tonen bij smal scherm -->
             <ion-row class="equal-height-row row-header show-on-mobile">
               <ion-col>
-                <ion-text class="cavallo-label"><span>Palio - Contrada - Cavallo</span></ion-text>
+                <ion-text class="cavallo-label"><span>Palio - Contrada - {{ getTranslation('cavallo') }}</span></ion-text>
               </ion-col>
             </ion-row>
             <ion-row *ngFor="let palio of fantino.palioCorso; let i = index" 

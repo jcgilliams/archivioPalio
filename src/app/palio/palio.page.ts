@@ -24,6 +24,8 @@ export class PalioPage implements OnInit {
 
   safeYoutubeUrl: SafeResourceUrl = null!;
 
+  presentazioneColumns: any[][] = [];
+
   currentLanguage: SupportedLanguage = 'it';
   private langSub?: Subscription;  
 
@@ -48,6 +50,7 @@ export class PalioPage implements OnInit {
           );
           this.loading = false;
           console.log('✅ Palio data geladen:', this.palio);
+          this.chunkPresentazione();
         },
         error: (err) => {
           console.error('❌ Fout bij ophalen palio', err);
@@ -87,7 +90,8 @@ export class PalioPage implements OnInit {
     this.router.navigate(['/cavallo', id]);
   }
 
-  goToFantinoDetail(id: string) {
+  goToFantinoDetail(id: string | null | undefined) {
+    if (!id) return;
     this.router.navigate(['/fantino', id]);
   }  
 
@@ -95,4 +99,49 @@ export class PalioPage implements OnInit {
     this.router.navigate(['/contrada', contrada.toLowerCase()]);
   }  
 
+  goToProtocolloPage(anno: string) {
+    this.router.navigate(['/albo-cavalli', anno]);
+  }
+
+  get sortedAccoppiate() {
+    if (!this.palio?.accoppiate) return [];
+
+    return [...this.palio.accoppiate].sort((a, b) => {
+      // Als a.canape of b.canape null is → zet achteraan
+      if (!a.canape && b.canape) return 1;  // a achter b
+      if (!b.canape && a.canape) return -1; // b achter a
+      if (!a.canape && !b.canape) return 0; // beide null → gelijk
+
+      let idA = Number(a.canape?.id ?? 0);
+      let idB = Number(b.canape?.id ?? 0);
+
+      // Zet id 10 altijd helemaal achteraan
+      if (idA === 10) idA = Number.MAX_SAFE_INTEGER;
+      if (idB === 10) idB = Number.MAX_SAFE_INTEGER;
+
+      return idA - idB;
+    });
+  }
+
+  sortByOrdine() {
+    if (this.palio?.assegnazione) {
+      this.palio.assegnazione = [...this.palio.assegnazione].sort((a, b) => a.ordine - b.ordine);
+    }
+  }
+
+  sortByOrecchio() {
+    if (this.palio?.assegnazione) {
+      this.palio.assegnazione = [...this.palio.assegnazione].sort((a, b) => a.orecchio - b.orecchio);
+    }
+  }
+
+  chunkPresentazione() {
+    const array = this.palio?.presentazione || [];
+    const size = 2; // 2 kolommen
+    this.presentazioneColumns = [];
+
+    for (let i = 0; i < array.length; i += size) {
+      this.presentazioneColumns.push(array.slice(i, i + size));
+    }
+  }
 }
