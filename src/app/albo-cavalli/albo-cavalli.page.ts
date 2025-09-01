@@ -25,7 +25,7 @@ export class AlboCavalliPage implements OnInit {
   anno!: string;
   annoNumber!: number;
   huidigJaar = new Date().getFullYear();
-  eersteJaar = '2000'
+  eersteJaar = '2001'
 
   totaal = 0
   aantalAmmesso = 0

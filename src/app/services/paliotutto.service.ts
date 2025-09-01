@@ -41,6 +41,7 @@ export class PaliotuttoService {
       previsite: data.previsite.map((pr: any) => ({
         ...pr,
         assente: Number(pr.assente) === 1,
+        ammesso: Number(pr.ammesso) === 1,
       })),
       proveDiNotteAssente: data.proveDiNotteAssente.map((pr: any) => ({
         ...pr,

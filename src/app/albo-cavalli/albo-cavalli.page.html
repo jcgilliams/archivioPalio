@@ -38,14 +38,18 @@
         <ion-grid class="palio-grid no-mobile-stack">
           <!-- Desktop: tonen bij breed scherm -->
           <ion-row class="equal-height-row row-header hide-on-mobile">
-            <ion-col size="10" size-md="10" size-lg="10">
+            <ion-col size="10" size-md="8" size-lg="10">
               <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
             </ion-col>
-            <ion-col size="1" size-md="1" size-lg="1" class="ion-text-center">
-              <ion-text class="cavallo-label"><span>{{ getTranslation('ammesso') }}</span></ion-text>
+            <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
+              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                <ion-text class="cavallo-label"><span>{{ getTranslation('ammesso') }}</span></ion-text>
+              </div>
             </ion-col>
-            <ion-col size="1" size-md="1" size-lg="1" class="ion-text-center">
-              <ion-text class="cavallo-label"><span>{{ getTranslation('assente') }}</span></ion-text>
+            <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
+              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                <ion-text class="cavallo-label"><span>{{ getTranslation('assente') }}</span></ion-text>
+              </div>
             </ion-col>
           </ion-row>
           <!-- Mobiel: tonen bij smal scherm -->
@@ -56,8 +60,8 @@
             </ion-col>
           </ion-row>
 
-          <ion-row *ngFor="let p of alboCavalli; let i = index" class="equal-height-row palio-mobile-stack">
-            <ion-col (click)="goToCavalloDetail(p.cavalloId)" [style.cursor]="'pointer'" size="10" size-md="10"
+          <ion-row *ngFor="let p of alboCavalli; let i = index" class="equal-height-row">
+            <ion-col (click)="goToCavalloDetail(p.cavalloId)" [style.cursor]="'pointer'" size="10" size-md="8"
               size-lg="10">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <img *ngIf="p.cavalloFoto" [src]="p.cavalloFoto" class="img-palio" />
@@ -66,22 +70,18 @@
                 </ion-text>
               </div>
             </ion-col>
-            <ion-col size="1" size-md="1" size-lg="1">
+            <ion-col size="1" size-md="2" size-lg="1">
               <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <ion-text class="cavallo-label">
-                  <span [style.color]="p.ammesso ? 'green' : 'red'">
-                    {{ p.ammesso ? '✔' : '✘' }}
-                  </span>
-                </ion-text>
+                <span [style.color]="p.ammesso ? 'green' : 'red'">
+                  {{ p.ammesso ? '✔' : '✘' }}
+                </span>
               </div>
             </ion-col>
-            <ion-col size="1" size-md="1" size-lg="1">
+            <ion-col size="1" size-md="2" size-lg="1">
               <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <ion-text class="cavallo-label">
-                  <span [style.color]="p.assente ? 'green' : 'red'">
-                    {{ p.assente ? '✔' : '✘' }}
-                  </span>
-                </ion-text>
+                <span [style.color]="p.assente ? 'green' : 'red'">
+                  {{ p.assente ? '✔' : '✘' }}
+                </span>
               </div>
             </ion-col>
           </ion-row>

@@ -145,6 +145,7 @@ export interface Previsite {
   id: number;
   palioDate: string;
   anno: string;
+  ammesso: boolean;
   assente: boolean;
   cavallo: previsiteCavallo;
 }
