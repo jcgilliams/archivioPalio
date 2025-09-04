@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export type SupportedLanguage = 'en' | 'nl' | 'it';
+export type SupportedLanguage = 'en' | 'nl' | 'it' | 'de';
 
 @Injectable({
   providedIn: 'root'

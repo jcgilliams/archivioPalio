@@ -18,32 +18,38 @@ export class AppComponent {
     home: {
       it: 'Home',
       en: 'Home',
-      nl: 'Home'
+      nl: 'Home',
+      de: 'Home'
     },
     cavalli: {
       it: 'Cavalli',
       en: 'Horses',
-      nl: 'Paarden'
+      nl: 'Paarden',
+      de: 'Pferde'
     },
     fantini: {
       it: 'Fantini',
       en: 'Jockeys',
-      nl: 'Ruiters'
+      nl: 'Ruiters',
+      de: 'Jockeys'
     },
     elenco: {
       it: 'Vittorie',
       en: 'Victories',
-      nl: 'Overwinningen'
+      nl: 'Overwinningen',
+      de: 'Siege'
     },
     contrade: {
       it: 'Contrade',
       en: 'Districts',
-      nl: 'Wijken'
+      nl: 'Wijken',
+      de: 'Contrade'
     },
     statistiche: {
       it: 'Statistiche',
       en: 'Statistics',
-      nl: 'Statistieken'
+      nl: 'Statistieken',
+      de: 'Statistiken'
     }
   };
 

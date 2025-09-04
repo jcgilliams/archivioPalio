@@ -217,9 +217,10 @@ export interface Prove {
   giorno: string;
   ore: string;
   proveNome: string;
-  nl: string;
-  it: string;
-  en: string;
+  nl: string | null;
+  it: string | null;
+  en: string | null;
+  de: string | null;
   accoppiate: ProveAccoppiata[];
 }
 //#endregion
