@@ -19,93 +19,85 @@
       </ion-button>
     </section>
 
-    <ng-container *ngIf="alboCavalli && alboCavalli.length > 0; else alternatiefTpl">
+    <!-- Als er data is -->
+    <ng-container *ngIf="hasProtocollo; else alternatiefTpl">
 
-    <section class="segment col-1 span-6 row-3 wide-segment">
-      <div class="subsegment">
-        <p class="custom"
-          [innerHTML]="getTranslationParams('infoProtocollo', { totaal, anno, aantalAmmesso, nietAmmesso, aantalAssente })">
-        </p>
-      </div>
-    </section>
-
-    <section class="segment col-1 span-6 row-4 wide-segment">
-      <div class="subsegment">
-        <div class="searchbar-wrapper">
-          <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterCavalli()" debounce="300"
-            [placeholder]="getTranslation('search_placeholderCavallo')" class="custom"></ion-searchbar>
+      <section class="segment col-1 span-6 row-3 wide-segment">
+        <div class="subsegment">
+          <p class="custom"
+            [innerHTML]="getTranslationParams('infoProtocollo', { totaal, anno, aantalAmmesso, nietAmmesso, aantalAssente })">
+          </p>
         </div>
-        <ion-grid class="palio-grid no-mobile-stack">
-          <!-- Desktop: tonen bij breed scherm -->
-          <ion-row class="equal-height-row row-header hide-on-mobile">
-            <ion-col size="10" size-md="8" size-lg="10">
-              <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
-            </ion-col>
-            <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
-              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <ion-text class="cavallo-label"><span>{{ getTranslation('ammesso') }}</span></ion-text>
-              </div>
-            </ion-col>
-            <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
-              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <ion-text class="cavallo-label"><span>{{ getTranslation('assente') }}</span></ion-text>
-              </div>
-            </ion-col>
-          </ion-row>
-          <!-- Mobiel: tonen bij smal scherm -->
-          <ion-row class="equal-height-row row-header show-on-mobile">
-            <ion-col>
-              <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }} - {{ getTranslation('ammesso') }} -
-                  {{ getTranslation('assente') }}</span></ion-text>
-            </ion-col>
-          </ion-row>
+      </section>
 
-          <ion-row *ngFor="let p of alboCavalli; let i = index" class="equal-height-row">
-            <ion-col (click)="goToCavalloDetail(p.cavalloId)" [style.cursor]="'pointer'" size="10" size-md="8"
-              size-lg="10">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <img *ngIf="p.cavalloFoto" [src]="p.cavalloFoto" class="img-palio" />
-                <ion-text class="cavallo-label">
-                  <span>{{ p.cavalloNome }}</span>
-                </ion-text>
-              </div>
-            </ion-col>
-            <ion-col size="1" size-md="2" size-lg="1">
-              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+      <section class="segment col-1 span-6 row-4 wide-segment">
+        <div class="subsegment">
+          <div class="searchbar-wrapper">
+            <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterCavalli()" debounce="300"
+              [placeholder]="getTranslation('search_placeholderCavallo')" class="custom">
+            </ion-searchbar>
+          </div>
+
+          <!-- Toon resultaten als er iets is -->
+          <ion-grid *ngIf="alboCavalli.length > 0; else geenResultTpl" class="palio-grid no-mobile-stack">
+            <!-- headers -->
+            <ion-row class="equal-height-row row-header hide-on-mobile">
+              <ion-col size="10" size-md="8" size-lg="10">
+                <ion-text class="cavallo-label"><span>{{ getTranslation('cavallo') }}</span></ion-text>
+              </ion-col>
+              <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
+                <ion-text class="cavallo-label"><span>{{ getTranslation('ammesso') }}</span></ion-text>
+              </ion-col>
+              <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
+                <ion-text class="cavallo-label"><span>{{ getTranslation('assente') }}</span></ion-text>
+              </ion-col>
+            </ion-row>
+
+            <!-- rijen -->
+            <ion-row *ngFor="let p of alboCavalli; let i = index" class="equal-height-row">
+              <ion-col (click)="goToCavalloDetail(p.cavalloId)" [style.cursor]="'pointer'" size="10" size-md="8" size-lg="10">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <img *ngIf="p.cavalloFoto" [src]="p.cavalloFoto" class="img-palio" />
+                  <ion-text class="cavallo-label">
+                    <span>{{ p.cavalloNome }}</span>
+                  </ion-text>
+                </div>
+              </ion-col>
+              <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
                 <span [style.color]="p.ammesso ? 'green' : 'red'">
                   {{ p.ammesso ? '✔' : '✘' }}
                 </span>
-              </div>
-            </ion-col>
-            <ion-col size="1" size-md="2" size-lg="1">
-              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+              </ion-col>
+              <ion-col size="1" size-md="2" size-lg="1" class="ion-text-center">
                 <span [style.color]="p.assente ? 'green' : 'red'">
                   {{ p.assente ? '✔' : '✘' }}
                 </span>
-              </div>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <div *ngIf="alboCavalli.length === 0 && !loading" class="no-results">
-          <ion-text class="cavallo-label" style="margin-left: 10px;">
-            <span>
-              {{ getTranslation('noResult') }}
-            </span>
-          </ion-text>
-        </div>
-      </div>
-    </section>
-  </ng-container>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
 
-  <ng-template #alternatiefTpl>
-    <section class="segment col-1 span-6 row-3 wide-segment">
-      <div class="subsegment">
-        <p class="custom"
-          [innerHTML]="getTranslationParams('geenProtocollo', { anno })">
-        </p>
-      </div>
-    </section>
-  </ng-template>
+          <!-- Geen resultaten -->
+          <ng-template #geenResultTpl>
+            <div *ngIf="!loading" class="no-results">
+              <ion-text class="cavallo-label" style="margin-left: 10px;">
+                <span>{{ getTranslation('noResult') }}</span>
+              </ion-text>
+            </div>
+          </ng-template>
+        </div>
+      </section>
+    </ng-container>
+
+    <!-- Geen protocollo -->
+    <ng-template #alternatiefTpl>
+      <section class="segment col-1 span-6 row-3 wide-segment">
+        <div class="subsegment">
+          <p class="custom"
+            [innerHTML]="getTranslationParams('geenProtocollo', { anno })">
+          </p>
+        </div>
+      </section>
+    </ng-template>
 
   </div>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">

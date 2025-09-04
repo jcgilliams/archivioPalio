@@ -46,10 +46,11 @@
         <ion-button routerLink="/statistiche" fill="clear" color="secondary">{{ getTranslation('statistiche') }}</ion-button>        
       </div>
       <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="changeLanguage($event.detail.value)" class="lang-switch">
+        <ion-segment-button value="de">DE</ion-segment-button>
         <ion-segment-button value="en">EN</ion-segment-button>
+        <ion-segment-button value="fr">FR</ion-segment-button>        
         <ion-segment-button value="it">IT</ion-segment-button>
         <ion-segment-button value="nl">NL</ion-segment-button>
-        <ion-segment-button value="de">DE</ion-segment-button>
       </ion-segment>
     </div>
   </div>

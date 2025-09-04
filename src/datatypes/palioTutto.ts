@@ -221,6 +221,7 @@ export interface Prove {
   it: string | null;
   en: string | null;
   de: string | null;
+  fr: string | null;
   accoppiate: ProveAccoppiata[];
 }
 //#endregion

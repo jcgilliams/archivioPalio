@@ -418,7 +418,7 @@
       <section class="segment col-1 span-3 row-4" *ngIf="activeTab === 'tratta'">
         <div class="subsegment">
           <h2 class="section-header">
-            <div>Assegnazione</div>
+            <div>{{ getTranslation('assegnazione') }}</div>
           </h2>
           <ion-buttons>
             <ion-button class="decennio-button" (click)="sortByOrecchio()">
@@ -485,7 +485,7 @@
       <section class="segment col-4 span-3 row-4" *ngIf="activeTab === 'tratta'">
         <div class="subsegment" *ngIf="(palio?.presentazione || []).length > 0">
           <h2 class="section-header">
-            <div>Presentazione dei cavalli</div>
+            <div>{{ getTranslation('presentazione') }}</div>
           </h2>
           <ion-grid class="palio-grid">
             <ng-container *ngFor="let pair of presentazioneColumns">

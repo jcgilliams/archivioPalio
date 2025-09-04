@@ -19,6 +19,7 @@ export class AlboCavalliPage implements OnInit {
   alboCavalli: alboCavalli[] = [];
   filteredAlboCavalli: alboCavalli[] = [];
   loading = true;
+  hasProtocollo = false;
 
   searchTerm: string = '';
 
@@ -47,29 +48,38 @@ export class AlboCavalliPage implements OnInit {
   async ngOnInit() {
     this.anno = this.route.snapshot.paramMap.get('anno')!;
     this.annoNumber = parseInt(this.anno, 10);
-    
+
     try {      
-      this.alboCavalli = await this.cavalloService.loadAlboCavalliByYear(this.anno);
+      const data = await this.cavalloService.loadAlboCavalliByYear(this.anno);
 
-      this.filteredAlboCavalli = await this.cavalloService.loadAlboCavalliByYear(this.anno);
-      this.alboCavalli = [...this.filteredAlboCavalli];
+      if (data && data.length > 0) {
+        this.hasProtocollo = true;
+        this.alboCavalli = [...data];
+        this.filteredAlboCavalli = [...data];
 
-      this.totaal = this.alboCavalli.length;
-
-      this.aantalAmmesso = this.alboCavalli.filter(c => c.ammesso).length;
-      this.nietAmmesso = this.totaal - this.aantalAmmesso;
-      this.aantalAssente = this.alboCavalli.filter(c => c.assente).length;
-      this.nietAssente = this.totaal - this.aantalAssente;
+        this.totaal = this.alboCavalli.length;
+        this.aantalAmmesso = this.alboCavalli.filter(c => c.ammesso).length;
+        this.nietAmmesso = this.totaal - this.aantalAmmesso;
+        this.aantalAssente = this.alboCavalli.filter(c => c.assente).length;
+        this.nietAssente = this.totaal - this.aantalAssente;
+      } else {
+        this.hasProtocollo = false;
+        this.alboCavalli = [];
+        this.filteredAlboCavalli = [];
+      }
 
     } catch (error) {
       console.error('❌ Fout bij ophalen van cavalli-data:', error);
+      this.hasProtocollo = false;
     } finally {
       this.loading = false;
     }
+
     this.langSub = this.languageService.language$.subscribe(lang => {
       this.currentLanguage = lang;
     });
   }
+
 
   ngOnDestroy() {
     this.langSub?.unsubscribe();
