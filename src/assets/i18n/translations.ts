@@ -67,11 +67,11 @@ export const TRANSLATIONS: { [key: string]: { [lang: string]: string } } = {
     fr: 'Les 10 derniers Palios'
   },
   fantini10: {
-    it: 'Fantini con almeno 10 vittorie dal 1900',
-    en: 'Jockeys with at least 10 wins since 1900',
-    nl: 'Ruiters met minstens 10 overwinningen sinds 1900',
-    de: 'Jockeys mit mindestens 10 Siegen seit 1900',
-    fr: 'Jockeys avec au moins 10 victoires depuis 1900'
+    it: 'Fantini con almeno 9 vittorie dal 1900',
+    en: 'Jockeys with at least 9 wins since 1900',
+    nl: 'Ruiters met minstens 9 overwinningen sinds 1900',
+    de: 'Jockeys mit mindestens 9 Siegen seit 1900',
+    fr: 'Jockeys avec au moins 9 victoires depuis 1900'
   },
   cavalli5: {
     it: 'Cavalli con almeno 5 vittorie dal 1900',
