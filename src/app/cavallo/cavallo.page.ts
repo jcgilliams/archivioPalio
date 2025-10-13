@@ -24,6 +24,8 @@ export class CavalloPage implements OnInit,OnDestroy {
   showInfo = true;
   showExperience = true;
   showPalio = true;
+  showBatterie = true;
+  showProveDiNotte = true;
 
   openAccordionValues: string[] = [];
   isMobile = false;

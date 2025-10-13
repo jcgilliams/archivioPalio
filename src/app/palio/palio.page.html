@@ -321,7 +321,7 @@
                       <ion-text class="cavallo-label">
                         <span>{{ cavallo.fantino1.nome }}</span>
                         <p class="custom2" *ngIf="cavallo.fantino1.nome">
-                          {{ cavallo.puntoCaduta }}
+                          {{ cavallo.fantino1.puntoCaduta }}
                         </p>
                       </ion-text>
                     </div>
@@ -331,6 +331,9 @@
                       <img *ngIf="cavallo.fantino2.foto" [src]="cavallo.fantino2.foto" class="img-palio" />
                       <ion-text class="cavallo-label">
                         <span>{{ cavallo.fantino2.nome }}</span>
+                        <p class="custom2" *ngIf="cavallo.fantino2.nome">
+                          {{ cavallo.fantino2.puntoCaduta }}
+                        </p>                       
                       </ion-text>
                     </div>
                     <div *ngIf="cavallo.fantino3.fantinoId;"
@@ -340,6 +343,9 @@
                       <ion-text class="cavallo-label">
                         <span>{{ cavallo.fantino3.nome }}</span>
                       </ion-text>
+                      <p class="custom2" *ngIf="cavallo.fantino3.nome">
+                          {{ cavallo.fantino3.puntoCaduta }}
+                      </p>
                     </div>
                   </ion-col>
                   <!-- Als er géén fantino is -->

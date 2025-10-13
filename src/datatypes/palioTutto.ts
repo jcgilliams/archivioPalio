@@ -92,6 +92,7 @@ export interface FantinoProveDiNotte {
   fantinoId: string | null;
   nome: string | null;
   foto: string | null;
+  puntoCaduta: string | null;
 }
 
 export interface CavalliProvaDiNotte {
@@ -99,7 +100,6 @@ export interface CavalliProvaDiNotte {
   palioDate: string;
   orecchio: string;
   caduto: boolean; 
-  puntoCaduta: string;
   cavallo: CavalloProveDiNotte;
   fantino1: FantinoProveDiNotte;
   fantino2: FantinoProveDiNotte;

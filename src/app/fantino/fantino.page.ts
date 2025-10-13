@@ -24,6 +24,8 @@ export class FantinoPage implements OnInit {
   showInfo = true;
   showExperience = true;
   showPalio = true;
+  showBatterie = true;
+  showProveDiNotte = true;
 
   openAccordionValues: string[] = [];
 

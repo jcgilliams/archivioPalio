@@ -19,6 +19,8 @@ export interface VintoGroupFantini {
 
 export interface FantinoDetail extends fantini {
   palioCorso: PalioCorso[];
+  palioBatterie: PalioBatterie[];
+  palioProveDiNotte: PalioProveDiNotte[];
 }
 
 export interface PalioCorso {
@@ -64,6 +66,42 @@ export interface PalioCorso {
     id: string;
     punto: string;
   } | null;
+}
+
+export interface PalioBatterie {
+  id: string;
+  palioDate: string;
+  palioNome: string;
+  drappellonePalioFoto: string;
+  batteriaNome: string;
+  vinto: boolean;
+  caduto: boolean;
+
+  cavallo: {
+    id: string;
+    nome: string;
+    foto: string;
+  };
+
+  puntoCaduta: string;
+}
+
+export interface PalioProveDiNotte {
+  id: string;
+  palioDate: string;
+  palioNome: string;
+  drappellonePalioFoto: string;
+  proveNome: string;
+  proveGiorno: string;
+  caduto: boolean; 
+
+  cavallo: {
+    id: string;
+    nome: string;
+    foto: string;
+  };
+
+  puntoCaduta: string;
 }
 
 export interface fantiniDecennium {

@@ -97,7 +97,16 @@ export class CavalloService {
       ...p,
       vinto: Number(p.vinto) === 1,
       caduto: Number(p.caduto) === 1
-    }))
+    })),
+    palioBatterie: (c.palioBatterie ?? []).map((p: any) => ({
+      ...p,
+      vinto: Number(p.vinto) === 1,
+      caduto: Number(p.caduto) === 1
+    })),
+    palioProveDiNotte: (c.palioProveDiNotte ?? []).map((p: any) => ({
+      ...p,
+      caduto: Number(p.caduto) === 1
+    })),
   };
 }
 }

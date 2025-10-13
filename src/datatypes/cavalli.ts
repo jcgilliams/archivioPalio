@@ -28,6 +28,8 @@ export interface VintoGroupCavalli {
 
 export interface CavalloDetail extends cavalli {
   palioCorso: PalioCorso[];
+  palioBatterie: PalioBatterie[];
+  palioProveDiNotte: PalioProveDiNotte[]; 
 }
 
 export interface PalioCorso {
@@ -74,6 +76,54 @@ export interface PalioCorso {
     punto: string;
   } | null;
 }
+
+export interface PalioBatterie {
+  id: string;
+  palioDate: string;
+  palioNome: string;
+  drappellonePalioFoto: string;
+  batteriaNome: string;
+  vinto: boolean;
+  caduto: boolean;
+
+  fantino: {
+    id: string;
+    nome: string;
+    foto: string;
+  };
+
+  puntoCaduta: string;
+}
+
+export interface PalioProveDiNotte {
+  id: string;
+  palioDate: string;
+  palioNome: string;
+  drappellonePalioFoto: string;
+  proveNome: string;
+  proveGiorno: string;
+  caduto: boolean; 
+
+  fantino1: {
+    id: string;
+    nome: string;
+    foto: string;
+    puntoCaduta: string;
+  };
+  fantino2: {
+    id: string;
+    nome: string;
+    foto: string;
+    puntoCaduta: string;
+  };
+   fantino3: {
+    id: string;
+    nome: string;
+    foto: string;
+    puntoCaduta: string;
+  }; 
+}
+
 
 export interface alboCavalli {
   id: number;
