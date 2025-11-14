@@ -144,6 +144,19 @@
                   </div>
                 </div>
               </ion-row>
+              <ng-container *ngIf="palio?.note?.[currentLanguage]!.length > 0">
+                <hr class="home-divider">
+                <ion-row>
+                  <div>
+                  <p class="notes-title" [innerHTML]="getTranslation(palio?.note?.[currentLanguage]?.length === 1 ? 'note' : 'notes')"></p>
+                  <ul>
+                    <li *ngFor="let note of palio?.note?.[currentLanguage]" class="notes">
+                      {{ note }}
+                    </li>
+                  </ul>
+                  </div>
+                </ion-row>
+              </ng-container>
             </ion-grid>
           </div>
         </div>

@@ -547,14 +547,14 @@ mossiere: {
   en: 'starter',
   nl: 'starter',
   de: 'Anlasser',
-  fr: 'Démarreur'
+  fr: 'démarreur'
 },
 artista: {
   it: 'artista',
   en: 'artist',
   nl: 'kunstenaar',
   de: 'Künstler',
-  fr: 'Artiste'
+  fr: 'artiste'
 },
 tempo: {
   it: 'tempo',
@@ -575,7 +575,7 @@ pagina:{
   en: 'Page',
   nl: 'Pagina',
   de: 'Seite',
-  fr: 'page'
+  fr: 'Page'
 },
 nonCorse: {
   it: 'Non participato',
@@ -597,5 +597,19 @@ presentazione: {
   nl: 'Presentatie van de paarden',
   de: 'Präsentation der Pferde',
   fr: 'Présentation des chevaux'
+},
+note: {
+  it: 'Commento:',
+  en: 'Remark:',
+  nl: 'Opmerking:',
+  de: 'Bemerkung:',
+  fr: 'Remarque:'
+},
+notes: {
+    it: 'Commenti:',
+    en: 'Remarks:',
+    nl: 'Opmerkingen:',
+    de: 'Bemerkungen:',
+    fr: 'Remarques:'
 }
 };

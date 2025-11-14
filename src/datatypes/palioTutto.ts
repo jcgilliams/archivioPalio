@@ -225,6 +225,7 @@ export interface Prove {
   accoppiate: ProveAccoppiata[];
 }
 //#endregion
+
 export interface PalioTutto {
     id: number;
     palioDate: string;
@@ -254,4 +255,11 @@ export interface PalioTutto {
     presentazioneAssente: PresentazioneAssente[];
     batterie: Batterie[];
     prove: Prove[];
+    note?: {
+      nl?: string[];
+      it?: string[];
+      en?: string[];
+      fr?: string[];
+      de?: string[];
+    };
 }
